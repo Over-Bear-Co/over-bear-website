@@ -108,7 +108,7 @@ function ProductCard({ p }: { p: Product }) {
             {p.badge}
           </span>
         )}
-        {/* แทนที่ .ph ด้วย <img src={`/${p.id}.jpg`} alt={p.name} /> (วางรูปใน public/) */}
+        {/* แทนที่ .ph ด้วย next/image: <Image src={`/${p.id}.jpg`} alt={`${p.name} — ${p.color}`} fill /> (วางรูปใน public/) */}
         <div className="ph" role="img" aria-label={`${p.name} — ${p.color}`}>
           <Bear />
           <span className="ph__note">▲ ใส่รูปสินค้า</span>

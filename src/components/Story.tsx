@@ -69,6 +69,7 @@ export default function Story() {
 
     const N = units.length;
     const last = new Float32Array(N).fill(0.18);
+    const denom = N > 1 ? N - 1 : 1;
     const ink = {
       active: false,
       step() {
@@ -76,7 +77,8 @@ export default function Story() {
         const p = Math.max(0, Math.min(1, (0.8 * vh - r.top) / (0.6 * vh + r.height)));
         let moving = false;
         for (let i = 0; i < N; i++) {
-          const cp = i / N;
+          // บีบช่วง checkpoint ไว้ที่ ~0.9 เพื่อให้ยูนิตสุดท้าย (cp+0.05) ถึง opacity 1 ก่อน p แตะ 1
+          const cp = (i / denom) * 0.9;
           const o = 0.18 + 0.82 * Math.max(0, Math.min(1, (p - (cp - 0.1)) / 0.15));
           if (Math.abs(o - last[i]) > 0.02) {
             units[i].style.opacity = String(o);
@@ -106,7 +108,7 @@ export default function Story() {
   return (
     <section className="story section" id="story" ref={storyRef}>
       <div className="wrap story__grid">
-        {/* แทนที่ .ph ด้วยรูปนายแบบจริง */}
+        {/* แทนที่ .ph ด้วยรูปนายแบบจริงผ่าน next/image (fill) */}
         <div className="story__media ph reveal" role="img" aria-label="นายแบบหุ่นหมีใส่เสื้อ oversize">
           <Bear />
           <span className="ph__note">▲ แทนที่ด้วยรูปนายแบบจริง</span>

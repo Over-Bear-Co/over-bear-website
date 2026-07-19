@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { Engine, isFinePointer, prefersReducedMotion } from "@/lib/motion";
+import { Engine, isFinePointer, prefersReducedMotion, type EngineItem } from "@/lib/motion";
 
 export default function Hero() {
   const heroRef = useRef<HTMLElement>(null);
@@ -83,7 +83,7 @@ export default function Hero() {
     });
     media.append(flash);
 
-    let tx = 50, ty = 50, sx = 50, sy = 50, on = false;
+    let tx = 50, ty = 50, sx = 50, sy = 50;
     let lx = "", ly = "";
     let offT: ReturnType<typeof setTimeout> | undefined;
     const torch = {
@@ -99,19 +99,19 @@ export default function Hero() {
         return sx !== tx || sy !== ty;
       },
     };
-    Engine.add(torch);
-
-    const enter = () => { clearTimeout(offT); on = true; torch.active = true; flash.classList.add("on"); Engine.wake(); };
+    const enter = () => { clearTimeout(offT); torch.active = true; flash.classList.add("on"); Engine.wake(); };
     const move = (e: PointerEvent) => {
       const r = media.getBoundingClientRect();
       tx = ((e.clientX - r.left) / r.width) * 100;
       ty = ((e.clientY - r.top) / r.height) * 100;
       Engine.wake();
     };
-    const leave = () => { on = false; flash.classList.remove("on"); offT = setTimeout(() => (torch.active = false), 450); };
+    const leave = () => { flash.classList.remove("on"); offT = setTimeout(() => (torch.active = false), 450); };
 
     let io: IntersectionObserver | undefined;
+    let sweep: EngineItem | undefined;
     if (isFinePointer()) {
+      Engine.add(torch); // torch ขับด้วย pointer เท่านั้น — เพิ่มเข้า engine เฉพาะ fine pointer
       media.addEventListener("pointerenter", enter);
       media.addEventListener("pointermove", move, { passive: true });
       media.addEventListener("pointerleave", leave);
@@ -122,7 +122,7 @@ export default function Hero() {
         obs.disconnect();
         flash.classList.add("on");
         const t0 = performance.now(), D = 2200;
-        const sweep = {
+        sweep = {
           active: true,
           step() {
             const p = Math.min(1, (performance.now() - t0) / D);
@@ -142,7 +142,9 @@ export default function Hero() {
       media.removeEventListener("pointermove", move);
       media.removeEventListener("pointerleave", leave);
       io?.disconnect();
+      clearTimeout(offT);
       Engine.remove(torch);
+      if (sweep) Engine.remove(sweep);
       flash.remove();
     };
   }, []);
@@ -177,7 +179,7 @@ export default function Hero() {
             </a>
           </div>
         </div>
-        {/* แทนที่เนื้อหา .ph ด้วย <img src="/model.jpg" alt="นายแบบหุ่นหมีใส่เสื้อ oversize สีดำ"> (วางรูปใน public/) */}
+        {/* แทนที่เนื้อหา .ph ด้วย next/image (LCP ของหน้า): <Image src="/model.jpg" alt="..." fill priority /> วางรูปใน public/ */}
         <div className="hero__media ph" role="img" aria-label="ภาพนายแบบหุ่นหมีใส่เสื้อ oversize สีดำ" ref={mediaRef}>
           <span className="tag tag--acid">
             <span className="tag__dot"></span>240 GSM

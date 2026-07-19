@@ -13,11 +13,12 @@
   --acid-dim:#9fbf3a;
   --tan:#c98a4b;        /* kraft / tobacco — the "bear" world */
   --tan-deep:#8a5a2c;
-  --ash:#7d766a;        /* captions / meta */
+  --ash:#989182;        /* captions / meta — lifted to clear WCAG AA (>=4.5:1) on all ink surfaces */
   --line:rgba(236,229,214,.14);
   --line-2:rgba(236,229,214,.28);
   --shadow:0 24px 60px -20px rgba(0,0,0,.75);
   --wrap:min(1280px,92vw);
+  --wrap-pad:4vw;       /* side gutter matching .wrap / .nav__inner (92vw => 4vw each side) */
   --display:var(--font-anton),var(--font-kanit),Impact,'Arial Narrow',sans-serif;
   --easing:cubic-bezier(.16,1,.3,1);
 }
@@ -117,8 +118,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .nav--glass::after{opacity:1}
 .nav__inner{width:var(--wrap);margin-inline:auto;display:flex;align-items:center;justify-content:space-between;height:74px;gap:1.5rem}
 .brand{display:flex;align-items:center;gap:.6rem;font-family:var(--display);font-size:1.5rem;letter-spacing:.04em;text-transform:uppercase}
-.brand svg{width:30px;height:30px;flex:none}
-.brand .paw{fill:var(--acid)}
+.brand svg{height:26px;width:auto;flex:none}
+.brand .ob-mark{fill:var(--acid)}
 .nav__links{display:flex;gap:2rem;font-family:var(--font-mono),monospace;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase}
 .nav__links a{position:relative;padding:.3em 0;color:var(--bone-dim);transition:color .2s}
 .nav__links a::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:2px;background:var(--acid);transition:width .3s var(--easing)}
@@ -190,6 +191,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .sec-head h2{font-family:var(--display);text-transform:uppercase;font-size:clamp(2.6rem,8vw,6rem);line-height:1;font-weight:800}
 .sec-head .eyebrow{margin-bottom:1rem}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem}
+/* keep a tidy 2-up down to small phones — auto-fill would otherwise drop to 1 column across 521–677px */
+@media(max-width:677px){.grid{grid-template-columns:repeat(2,1fr)}}
 .card{background:var(--ink-3);border:1px solid var(--line);border-radius:8px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .3s,transform .3s var(--easing)}
 .card:hover{border-color:var(--line-2);transform:translateY(-4px)}
 .card__media{aspect-ratio:1/1.05;position:relative;overflow:hidden}
@@ -262,6 +265,8 @@ tbody td:first-child{color:var(--bone);font-weight:700}
 .den input{flex:1;min-width:200px;background:var(--ink);color:var(--bone);border:1px solid var(--ink);border-radius:3px;padding:1.05em 1.2em;font-family:var(--font-mono),monospace;font-size:.9rem}
 .den input::placeholder{color:var(--ash)}
 .den input:focus-visible{outline-color:var(--ink)}
+/* submit button sits on the acid panel — default acid outline would be invisible (acid-on-acid) */
+.den .btn:focus-visible{outline-color:var(--ink)}
 .den .btn{--bg:var(--ink);--fg:var(--acid)}
 .den .btn:hover{box-shadow:0 12px 30px -8px rgba(0,0,0,.4)}
 .den__msg{margin-top:1.2rem;font-family:var(--font-mono),monospace;font-size:.85rem;font-weight:700;min-height:1.2em}
@@ -284,7 +289,7 @@ tbody td:first-child{color:var(--bone);font-weight:700}
 /* ============================================================
    CART DRAWER
    ============================================================ */
-.overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.6);opacity:0;visibility:hidden;transition:.35s;backdrop-filter:blur(2px)}
+.overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.6);opacity:0;visibility:hidden;transition:.35s;-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
 .overlay.open{opacity:1;visibility:visible}
 .drawer{position:fixed;top:0;right:0;bottom:0;z-index:201;width:min(420px,100vw);background:var(--ink-2);border-left:1px solid var(--line-2);transform:translateX(100%);visibility:hidden;transition:transform .45s var(--easing),visibility 0s .45s;display:flex;flex-direction:column;box-shadow:var(--shadow)}
 .drawer.open{transform:translateX(0);visibility:visible;transition:transform .45s var(--easing)}
@@ -466,7 +471,7 @@ tbody td:first-child{color:var(--bone);font-weight:700}
 @media(prefers-reduced-motion:reduce){
   *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
   html{scroll-behavior:auto}
-  .reveal{opacity:1;transform:none}
+  .reveal{opacity:1 !important;transform:none !important} /* must beat `.js .reveal` (higher specificity) so content shows without the IO */
   .marquee__track{animation:none}
   /* motion system: everything static and fully visible */
   .topbar,.nav,.hero__type .line,.hero__lede .eyebrow,.hero__lede p,.hero__cta,.hero__media,.hero__side,.hero__type .dot{

@@ -2,7 +2,7 @@
 
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
 import { FREE_SHIP_THRESHOLD, PRODUCTS, type Size } from "@/lib/products";
-import { isFinePointer, prefersReducedMotion } from "@/lib/motion";
+import { Engine, isFinePointer, prefersReducedMotion } from "@/lib/motion";
 
 export type CartItem = { id: string; name: string; price: number; size: Size; qty: number };
 
@@ -12,12 +12,15 @@ type CartCtx = {
   total: number;
   isFree: boolean;
   drawerOpen: boolean;
+  menuOpen: boolean;
   toast: string;
   addToCart: (id: string, size: Size, sourceEl?: HTMLElement | null) => void;
   changeQty: (id: string, size: Size, d: number) => void;
   removeItem: (id: string, size: Size) => void;
   openCart: () => void;
   closeCart: () => void;
+  toggleMenu: () => void;
+  closeMenu: () => void;
   checkout: () => void;
   showToast: (msg: string) => void;
   setNavCountEl: (el: HTMLElement | null) => void;
@@ -30,16 +33,10 @@ export const useCart = () => {
   return v;
 };
 
-/* พื้นหลังออกจาก tab order เมื่อมีเลเยอร์ modal ทับอยู่ */
-function setBgInert(on: boolean) {
-  document.querySelectorAll<HTMLElement>("main, footer, .nav, .topbar").forEach((el) => {
-    el.inert = on;
-  });
-}
-
 export default function CartProvider({ children }: { children: React.ReactNode }) {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [toast, setToast] = useState("");
   const toastT = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const navCountRef = useRef<HTMLElement | null>(null);
@@ -57,10 +54,23 @@ export default function CartProvider({ children }: { children: React.ReactNode }
 
   const openCart = useCallback(() => setDrawerOpen(true), []);
   const closeCart = useCallback(() => setDrawerOpen(false), []);
+  const toggleMenu = useCallback(() => setMenuOpen((o) => !o), []);
+  const closeMenu = useCallback(() => setMenuOpen(false), []);
 
-  /* focus + inert ตามสถานะ drawer (พอร์ตจาก openCart/closeCart เดิม) */
+  /* single source of truth for background inert — ทั้ง drawer และ mobile menu เขียน attribute
+     เดียวกันบน main/footer จึงต้องคำนวณจากทั้งสองสถานะที่เดียว กันการ clobber กัน
+     .nav/.topbar/.mobile-menu inert เฉพาะตอน drawer เปิด (menu ต้องเข้าถึง burger ใน .nav เพื่อปิดได้) */
   useEffect(() => {
-    setBgInert(drawerOpen);
+    document.querySelectorAll<HTMLElement>("main, footer").forEach((el) => {
+      el.inert = drawerOpen || menuOpen;
+    });
+    document.querySelectorAll<HTMLElement>(".nav, .topbar, .mobile-menu").forEach((el) => {
+      el.inert = drawerOpen;
+    });
+  }, [drawerOpen, menuOpen]);
+
+  /* focus ตามสถานะ drawer + ปลุก rAF engine ตอนปิด (marquee หลับหลัง drawer ต้องถูกปลุก) */
+  useEffect(() => {
     if (drawerOpen) {
       document.getElementById("closeCart")?.focus();
     } else {
@@ -68,13 +78,41 @@ export default function CartProvider({ children }: { children: React.ReactNode }
       if (drawer && document.activeElement && drawer.contains(document.activeElement)) {
         document.getElementById("openCart")?.focus();
       }
+      Engine.wake();
     }
   }, [drawerOpen]);
 
-  /* Escape ปิด drawer */
+  /* focus trap: Tab วนอยู่ใน drawer เท่านั้นตอนเปิด (คู่กับ inert พื้นหลัง = modal ปิดสนิท) */
+  useEffect(() => {
+    if (!drawerOpen) return;
+    const drawer = document.getElementById("drawer");
+    if (!drawer) return;
+    const h = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+      const f = drawer.querySelectorAll<HTMLElement>(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      if (!f.length) return;
+      const first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener("keydown", h);
+    return () => document.removeEventListener("keydown", h);
+  }, [drawerOpen]);
+
+  /* Escape ปิดทั้ง drawer และ mobile menu (รวมศูนย์จาก Nav เดิม) */
   useEffect(() => {
     const h = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setDrawerOpen(false);
+      if (e.key === "Escape") {
+        setDrawerOpen(false);
+        setMenuOpen(false);
+      }
     };
     document.addEventListener("keydown", h);
     return () => document.removeEventListener("keydown", h);
@@ -177,8 +215,8 @@ export default function CartProvider({ children }: { children: React.ReactNode }
   return (
     <Ctx.Provider
       value={{
-        cart, count, total, isFree, drawerOpen, toast,
-        addToCart, changeQty, removeItem, openCart, closeCart, checkout, showToast, setNavCountEl,
+        cart, count, total, isFree, drawerOpen, menuOpen, toast,
+        addToCart, changeQty, removeItem, openCart, closeCart, toggleMenu, closeMenu, checkout, showToast, setNavCountEl,
       }}
     >
       {children}

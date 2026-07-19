@@ -1,14 +1,4 @@
-const Paw = () => (
-  <svg viewBox="0 0 48 48" aria-hidden="true">
-    <g className="paw">
-      <ellipse cx="24" cy="30" rx="12" ry="10" />
-      <circle cx="10" cy="16" r="5" />
-      <circle cx="38" cy="16" r="5" />
-      <circle cx="17" cy="9" r="4.5" />
-      <circle cx="31" cy="9" r="4.5" />
-    </g>
-  </svg>
-);
+import BrandMark from "./BrandMark";
 
 export default function Footer() {
   return (
@@ -17,7 +7,7 @@ export default function Footer() {
         <div className="footer__grid">
           <div className="footer__brand">
             <a className="brand" href="#top">
-              <Paw />
+              <BrandMark className="ob-mark" />
               OVERBEAR
             </a>
             <p>เสื้อ oversize สีเข้มสำหรับหุ่นหมี ตัดจริง ใส่จริง ดูเท่จริง · Bangkok, TH</p>

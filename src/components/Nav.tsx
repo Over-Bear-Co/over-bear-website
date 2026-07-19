@@ -1,19 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useCart } from "./CartProvider";
-
-const Paw = () => (
-  <svg viewBox="0 0 48 48" aria-hidden="true">
-    <g className="paw">
-      <ellipse cx="24" cy="30" rx="12" ry="10" />
-      <circle cx="10" cy="16" r="5" />
-      <circle cx="38" cy="16" r="5" />
-      <circle cx="17" cy="9" r="4.5" />
-      <circle cx="31" cy="9" r="4.5" />
-    </g>
-  </svg>
-);
+import BrandMark from "./BrandMark";
 
 const LINKS = [
   { href: "#drop", label: "Shop" },
@@ -23,9 +12,8 @@ const LINKS = [
 ];
 
 export default function Nav() {
-  const { count, openCart, setNavCountEl } = useCart();
+  const { count, openCart, setNavCountEl, menuOpen, toggleMenu, closeMenu } = useCart();
   const [glass, setGlass] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
   const countRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => setNavCountEl(countRef.current), [setNavCountEl]);
@@ -62,29 +50,12 @@ export default function Nav() {
     };
   }, []);
 
-  /* เมนูมือถือ: เนื้อหาหลังเมนูออกจาก tab order (burger อยู่ใน .nav จึงยังกดปิดได้) */
-  useEffect(() => {
-    document.querySelectorAll<HTMLElement>("main, footer").forEach((el) => {
-      el.inert = menuOpen;
-    });
-  }, [menuOpen]);
-
-  useEffect(() => {
-    const h = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setMenuOpen(false);
-    };
-    document.addEventListener("keydown", h);
-    return () => document.removeEventListener("keydown", h);
-  }, []);
-
-  const closeMenu = useCallback(() => setMenuOpen(false), []);
-
   return (
     <>
       <header className={"nav" + (glass ? " nav--glass" : "")}>
         <div className="nav__inner">
           <a className="brand" href="#top" aria-label="OVERBEAR หน้าแรก">
-            <Paw />
+            <BrandMark className="ob-mark" />
             OVERBEAR
           </a>
           <nav className="nav__links" aria-label="เมนูหลัก">
@@ -108,9 +79,9 @@ export default function Nav() {
             </button>
             <button
               className="burger"
-              aria-label="เปิดเมนู"
+              aria-label={menuOpen ? "ปิดเมนู" : "เปิดเมนู"}
               aria-expanded={menuOpen}
-              onClick={() => setMenuOpen((o) => !o)}
+              onClick={toggleMenu}
             >
               <span></span>
               <span></span>

@@ -70,7 +70,14 @@ export default function CartDrawer() {
   return (
     <>
       <div className={"overlay" + (drawerOpen ? " open" : "")} id="overlay" onClick={closeCart} />
-      <aside className={"drawer" + (drawerOpen ? " open" : "")} id="drawer" aria-label="ตะกร้าสินค้า" aria-hidden={!drawerOpen}>
+      <aside
+        className={"drawer" + (drawerOpen ? " open" : "")}
+        id="drawer"
+        role="dialog"
+        aria-modal="true"
+        aria-label="ตะกร้าสินค้า"
+        inert={!drawerOpen}
+      >
         <div className="drawer__head">
           <h3>ตะกร้า</h3>
           <button className="drawer__close" id="closeCart" aria-label="ปิดตะกร้า" onClick={closeCart}>

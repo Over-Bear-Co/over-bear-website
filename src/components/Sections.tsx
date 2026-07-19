@@ -77,7 +77,7 @@ export function Lookbook() {
       <div className="look__scroll reveal">
         {LOOKS.map((s, i) => (
           <div className="look__item" key={i}>
-            {/* แทนที่ .ph ด้วยรูปลุคจริง */}
+            {/* แทนที่ .ph ด้วยรูปลุคจริงผ่าน next/image (fill) */}
             <div className="ph" role="img" aria-label={`ลุคที่ ${i + 1} ไซซ์ ${s}`}>
               <Bear />
               <span className="ph__note">▲ ใส่รูปลุค</span>
