@@ -1,0 +1,1515 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+document.documentElement.classList.add('js');
+// load choreography starts when fonts are ready (raced with 350ms so it never hangs);
+// skip the intro entirely when the browser restored a mid-page scroll position
+Promise.race([document.fonts.ready, new Promise(r=>setTimeout(r,350))])
+  .then(()=>{
+    if(scrollY > 100) document.documentElement.classList.add('no-intro');
+    document.documentElement.classList.add('fonts-in');
+  });
+</script>
+<title>BEARWORKS — เสื้อ Oversize สายหมี | ไซซ์หมี สไตล์เท่</title>
+<meta name="description" content="เสื้อยืด oversize สีเข้ม ตัดเผื่อทรงหุ่นหมีโดยเฉพาะ ผ้าหนา 240 GSM ทรง drop-shoulder ไซซ์ M–5XL ใส่สบาย ดูเท่ทุกวัน">
+<meta property="og:title" content="BEARWORKS — OVERSIZED. UNAPOLOGETIC.">
+<meta property="og:description" content="เสื้อ oversize สีเข้ม ตัดเผื่อทรงหุ่นหมี ผ้าหนา ไซซ์ M–5XL">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<!-- GSAP 3.13+: core + plugins ฟรีทั้งหมด · ถ้า CDN ล่ม เว็บยังทำงานครบ (มี fallback) -->
+<script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" integrity="sha384-HOvlOYPIs/zjoIkWUGXkVmXsjr8GuZLV+Q+rcPwmJOVZVpvTSXQChiN4t9Euv9Vc" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" integrity="sha384-P8VzCVnT9NBUkMrpcIZrJbA7EBjJvh/fJS6PmP+4nLIM284DtsImIv8D0fFjIkeh" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Draggable.min.js" integrity="sha384-IJ0us7IOIdtwqJI237hVYv2U3Qt2IL5AkFeroJOnvSYXbNLBxkQ9xQ2sdidcbzTr" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/InertiaPlugin.min.js" integrity="sha384-hyQEhO+HeN2EhyXzCsnqdqptUcD/Mw8xhmmTdECpYOUUNLvSfImrkF05wdz+ncnh" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800;900&family=Kanit:wght@600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   BEARWORKS — streetwear storefront
+   Design tokens · warm-black + bone + acid + kraft-tan
+   Fonts: Anton (display) / Archivo (body) / Space Mono (tags)
+   ============================================================ */
+:root{
+  --ink:#0c0b0a;        /* warm near-black = heavyweight black cotton */
+  --ink-2:#151109;      /* lifted panel */
+  --ink-3:#1f1811;      /* tan-tinted card */
+  --bone:#ece5d6;       /* off-white type */
+  --bone-dim:#b6ad9d;   /* muted body text */
+  --acid:#cbf24e;       /* acid lime — used sparingly */
+  --acid-dim:#9fbf3a;
+  --tan:#c98a4b;        /* kraft / tobacco — the "bear" world */
+  --tan-deep:#8a5a2c;
+  --ash:#7d766a;        /* captions / meta */
+  --line:rgba(236,229,214,.14);
+  --line-2:rgba(236,229,214,.28);
+  --shadow:0 24px 60px -20px rgba(0,0,0,.75);
+  --wrap:min(1280px,92vw);
+  --display:'Anton','Kanit',Impact,'Arial Narrow',sans-serif;
+  --easing:cubic-bezier(.16,1,.3,1);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  background:var(--ink);
+  color:var(--bone);
+  font-family:'Archivo',system-ui,-apple-system,'Segoe UI',sans-serif;
+  font-size:clamp(1rem,.96rem + .2vw,1.075rem);
+  line-height:1.6;
+  overflow-x:clip;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+/* film-grain overlay */
+body::before{
+  content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode:overlay;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+:focus-visible{outline:2.5px solid var(--acid);outline-offset:3px;border-radius:2px}
+::selection{background:var(--acid);color:var(--ink)}
+
+.wrap{width:var(--wrap);margin-inline:auto}
+.section{padding:clamp(4.5rem,10vw,8.5rem) 0;position:relative}
+
+/* ---------- type ---------- */
+.display{font-family:var(--display);font-weight:400;text-transform:uppercase;line-height:.84;letter-spacing:.005em}
+.brand,.hero__type .line,.sec-head h2,.card__name,.story__body h2,.spec dd,.den h2,.drawer__head h3,.drawer__total .amt,.mobile-menu a,.display{font-synthesis:weight none}
+.eyebrow,.tag,.mono{font-family:'Space Mono',ui-monospace,monospace}
+.eyebrow{
+  font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--tan);
+  display:inline-flex;align-items:center;gap:.6em;
+}
+.eyebrow::before{content:"";width:1.6em;height:1px;background:var(--tan);display:inline-block}
+
+/* care-label tag — the recurring structural device */
+.tag{
+  font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;
+  display:inline-flex;align-items:center;gap:.5em;
+  padding:.42em .7em;border:1px solid var(--line-2);border-radius:2px;
+  color:var(--bone-dim);background:rgba(0,0,0,.25);white-space:nowrap;
+}
+.tag--acid{color:var(--ink);background:var(--acid);border-color:var(--acid);font-weight:700}
+.tag--tan{color:var(--ink);background:var(--tan);border-color:var(--tan);font-weight:700}
+.tag__dot{width:.5em;height:.5em;border-radius:50%;background:currentColor;flex:none}
+
+/* buttons */
+.btn{
+  --bg:var(--acid);--fg:var(--ink);
+  font-family:'Space Mono',monospace;font-weight:700;font-size:.82rem;
+  letter-spacing:.1em;text-transform:uppercase;
+  display:inline-flex;align-items:center;gap:.7em;
+  padding:1.05em 1.7em;background:var(--bg);color:var(--fg);
+  border:1px solid var(--bg);border-radius:3px;
+  transition:transform .3s var(--easing),box-shadow .3s var(--easing),background .2s;
+}
+.btn:hover{transform:translateY(-3px);box-shadow:0 12px 30px -8px rgba(203,242,78,.4)}
+.btn:active{transform:translateY(-1px)}
+.btn--ghost{--bg:transparent;--fg:var(--bone);border-color:var(--line-2)}
+.btn--ghost:hover{border-color:var(--bone);box-shadow:none}
+.btn .arw{transition:transform .3s var(--easing)}
+.btn:hover .arw{transform:translateX(4px)}
+
+/* ============================================================
+   ANNOUNCEMENT BAR
+   ============================================================ */
+.topbar{
+  background:var(--acid);color:var(--ink);
+  font-family:'Space Mono',monospace;font-size:.72rem;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;text-align:center;
+  padding:.6em 1rem;
+}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(12,11,10,.72);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+/* glass materializes only after the hero scrolls away (JS toggles .nav--glass via sentinel) */
+.js .nav{background:transparent;border-bottom-color:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;
+  transition:background .4s,box-shadow .4s,border-color .4s}
+.js .nav--glass{background:rgba(12,11,10,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  box-shadow:inset 0 1px 1px rgba(236,229,214,.08)}
+.nav::after{content:"";position:absolute;inset:0;padding:1px;pointer-events:none;opacity:0;transition:opacity .4s;
+  background:linear-gradient(90deg,transparent,rgba(236,229,214,.35) 15%,rgba(203,242,78,.25) 50%,rgba(236,229,214,.35) 85%,transparent);
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;
+  mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude}
+.nav--glass::after{opacity:1}
+.nav__inner{width:var(--wrap);margin-inline:auto;display:flex;align-items:center;justify-content:space-between;height:74px;gap:1.5rem}
+.brand{display:flex;align-items:center;gap:.6rem;font-family:var(--display);font-size:1.5rem;letter-spacing:.04em;text-transform:uppercase}
+.brand svg{width:30px;height:30px;flex:none}
+.brand .paw{fill:var(--acid)}
+.nav__links{display:flex;gap:2rem;font-family:'Space Mono',monospace;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase}
+.nav__links a{position:relative;padding:.3em 0;color:var(--bone-dim);transition:color .2s}
+.nav__links a::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:2px;background:var(--acid);transition:width .3s var(--easing)}
+.nav__links a:hover{color:var(--bone)}
+.nav__links a:hover::after{width:100%}
+.nav__right{display:flex;align-items:center;gap:1rem}
+.cart-btn{
+  font-family:'Space Mono',monospace;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  display:flex;align-items:center;gap:.55em;padding:.6em 1em;border:1px solid var(--line-2);border-radius:3px;transition:border-color .2s,background .2s
+}
+.cart-btn:hover{border-color:var(--bone)}
+.cart-btn .count{background:var(--acid);color:var(--ink);border-radius:20px;min-width:1.5em;height:1.5em;display:grid;place-items:center;font-size:.72rem;padding:0 .3em}
+.burger{display:none;flex-direction:column;gap:5px;padding:.5em}
+.burger span{width:24px;height:2px;background:var(--bone);transition:.3s var(--easing);transform-origin:center}
+.burger[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* mobile menu */
+.mobile-menu{position:fixed;inset:0;z-index:99;background:var(--ink);transform:translateY(-100%);transition:transform .5s var(--easing);display:flex;flex-direction:column;justify-content:center;padding:2rem var(--wrap-pad,6vw);visibility:hidden}
+.mobile-menu.open{transform:translateY(0);visibility:visible}
+.mobile-menu a{font-family:var(--display);font-size:clamp(2.2rem,11vw,4rem);text-transform:uppercase;line-height:1.1;color:var(--bone);border-bottom:1px solid var(--line);padding:.35em 0}
+.mobile-menu a:last-child{border:none}
+
+/* ============================================================
+   HERO — oversized type that bleeds off the frame (signature)
+   ============================================================ */
+.hero{position:relative;overflow:clip;padding-top:clamp(1rem,3vw,2.5rem);padding-bottom:clamp(2.5rem,5vw,4rem)}
+.hero__type{
+  position:relative;z-index:2;pointer-events:none;
+  margin-left:-1.5vw;
+}
+.hero__type .line{display:block;font-family:var(--display);text-transform:uppercase;
+  font-size:clamp(3.6rem,15vw,13.5rem);line-height:.8;letter-spacing:-.02em;white-space:nowrap}
+.hero__type .line--2{margin-left:.08em;color:transparent;-webkit-text-stroke:2px var(--bone);text-stroke:2px var(--bone)}
+.hero__type .dot{color:var(--acid)}
+.hero__grid{display:grid;grid-template-columns:1.1fr .9fr;gap:2.5rem;align-items:end;margin-top:clamp(1.5rem,3vw,2.5rem)}
+.hero__lede{max-width:44ch;position:relative;z-index:3}
+.hero__lede .eyebrow{margin-bottom:1.2rem}
+.hero__lede p{color:var(--bone-dim);font-size:1.15rem;margin:1.1rem 0 1.9rem;max-width:40ch}
+.hero__cta{display:flex;flex-wrap:wrap;gap:.9rem}
+.hero__side{position:absolute;top:0;right:0;writing-mode:vertical-rl;font-family:'Space Mono',monospace;font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--ash);z-index:3}
+
+/* image placeholder (drop real photos in) */
+.ph{position:relative;overflow:hidden;border-radius:6px;background:
+     radial-gradient(120% 90% at 70% 10%,rgba(201,138,75,.22),transparent 55%),
+     linear-gradient(160deg,#211a12,#0b0a08 70%);
+   border:1px solid var(--line);display:grid;place-items:center;isolation:isolate}
+.ph::after{content:"";position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");mix-blend-mode:overlay;opacity:.4;z-index:-1}
+.ph .bear{width:52%;max-width:220px;opacity:.5;filter:drop-shadow(0 10px 30px rgba(0,0,0,.5));fill:var(--tan)}
+.ph__note{position:absolute;bottom:.8rem;left:.8rem;font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ash);background:rgba(0,0,0,.5);border:1px dashed var(--line-2);padding:.35em .6em;border-radius:2px}
+.hero__media{aspect-ratio:4/5;position:relative;z-index:1}
+.hero__media .tag{position:absolute;top:1rem;right:1rem;z-index:2}
+
+/* ============================================================
+   MARQUEE — care-label tape
+   ============================================================ */
+.marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--ink-2);overflow:hidden;padding:1.05rem 0}
+.marquee__track{display:flex;gap:2.5rem;width:max-content;animation:scroll 34s linear infinite}
+.marquee:hover .marquee__track{animation-play-state:paused}
+.marquee span{font-family:'Space Mono',monospace;font-size:.86rem;letter-spacing:.16em;text-transform:uppercase;color:var(--bone-dim);display:inline-flex;align-items:center;gap:2.5rem}
+.marquee span::after{content:"✳";color:var(--acid)}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* ============================================================
+   PRODUCTS — THE DROP
+   ============================================================ */
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-bottom:clamp(2rem,4vw,3.5rem)}
+.sec-head h2{font-family:var(--display);text-transform:uppercase;font-size:clamp(2.6rem,8vw,6rem);line-height:1;font-weight:800}
+.sec-head .eyebrow{margin-bottom:1rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem}
+.card{background:var(--ink-3);border:1px solid var(--line);border-radius:8px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .3s,transform .3s var(--easing)}
+.card:hover{border-color:var(--line-2);transform:translateY(-4px)}
+.card__media{aspect-ratio:1/1.05;position:relative;overflow:hidden}
+.card__media .ph{position:absolute;inset:0;border:none;border-radius:0}
+/* hover zoom removed — JS tilt engine owns .card__media transforms (pointer:fine only) */
+.card__badge{position:absolute;top:.85rem;left:.85rem;z-index:2}
+.card__quick{position:absolute;left:.85rem;right:.85rem;bottom:.85rem;z-index:2;transform:translateY(130%);opacity:0;transition:.35s var(--easing)}
+.card:hover .card__quick,.card:focus-within .card__quick{transform:translateY(0);opacity:1}
+.card__quick .btn{width:100%;justify-content:center}
+.card__body{padding:1.15rem 1.25rem 1.4rem;display:flex;flex-direction:column;gap:.7rem;flex:1}
+.card__name{font-family:var(--display);font-size:1.35rem;text-transform:uppercase;letter-spacing:.02em;line-height:1}
+.card__meta{font-family:'Space Mono',monospace;font-size:.72rem;letter-spacing:.08em;color:var(--ash);text-transform:uppercase}
+.card__row{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:.4rem}
+.card__price{font-family:'Space Mono',monospace;font-weight:700;font-size:1.1rem;color:var(--bone)}
+.sizes{display:flex;flex-wrap:wrap;gap:.35rem}
+.size{font-family:'Space Mono',monospace;font-size:.66rem;letter-spacing:.06em;padding:.35em .55em;border:1px solid var(--line);border-radius:2px;color:var(--bone-dim);background:transparent;transition:.18s}
+.size:hover{border-color:var(--bone-dim)}
+.size[aria-pressed="true"]{background:var(--bone);color:var(--ink);border-color:var(--bone);font-weight:700}
+
+/* ============================================================
+   MADE FOR SIZE — brand story (the bear world / tan accent)
+   ============================================================ */
+.story{background:var(--ink-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.story__grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:clamp(2rem,5vw,4.5rem);align-items:center}
+.story__media{aspect-ratio:5/6}
+.story__body .eyebrow{color:var(--acid)}
+.story__body .eyebrow::before{background:var(--acid)}
+.story__body h2{font-family:var(--display);text-transform:uppercase;font-size:clamp(2.4rem,6vw,4.5rem);line-height:1.02;font-weight:800;margin:1.1rem 0 1.3rem}
+.story__body h2 em{font-style:normal;color:var(--tan)}
+.story__body p{color:var(--bone-dim);max-width:48ch;margin-bottom:1rem}
+.specs{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden;margin-top:2rem}
+.spec{background:var(--ink-2);padding:1.2rem 1.3rem}
+.spec dt{font-family:'Space Mono',monospace;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ash);margin-bottom:.4rem}
+.spec dd{font-family:var(--display);font-size:1.7rem;text-transform:uppercase;color:var(--bone);line-height:1}
+.spec dd .u{font-family:'Space Mono',monospace;font-size:.8rem;color:var(--tan);margin-left:.3em}
+
+/* ============================================================
+   SIZE TABLE — ไซซ์หุ่นหมี
+   ============================================================ */
+.size-sec .sec-head{margin-bottom:2rem}
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px}
+table{width:100%;border-collapse:collapse;min-width:560px;font-family:'Space Mono',monospace;font-size:.86rem}
+thead th{background:var(--ink-3);text-align:left;padding:1.05rem 1.2rem;letter-spacing:.1em;text-transform:uppercase;font-size:.74rem;color:var(--tan);border-bottom:1px solid var(--line-2)}
+tbody td{padding:1rem 1.2rem;border-bottom:1px solid var(--line);color:var(--bone-dim)}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:rgba(203,242,78,.04);color:var(--bone)}
+tbody td:first-child{color:var(--bone);font-weight:700}
+.size-note{font-family:'Space Mono',monospace;font-size:.74rem;color:var(--ash);margin-top:1rem;letter-spacing:.04em}
+
+/* ============================================================
+   LOOKBOOK — horizontal scroll strip
+   ============================================================ */
+.look{overflow:hidden}
+.look__scroll{display:flex;gap:1.2rem;overflow-x:auto;padding-bottom:1.2rem;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.look__scroll::-webkit-scrollbar{height:6px}
+.look__scroll::-webkit-scrollbar-thumb{background:var(--line-2);border-radius:20px}
+.look__item{flex:0 0 clamp(240px,32vw,360px);scroll-snap-align:start}
+.look__item .ph{aspect-ratio:3/4}
+.look__cap{font-family:'Space Mono',monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ash);margin-top:.8rem;display:flex;justify-content:space-between}
+
+/* ============================================================
+   NEWSLETTER — JOIN THE DEN
+   ============================================================ */
+.den{background:var(--acid);color:var(--ink);border-radius:12px;padding:clamp(2.5rem,6vw,5rem);text-align:center;position:relative;overflow:hidden}
+.den .eyebrow{color:rgba(12,11,10,.72);justify-content:center}
+.den .eyebrow::before{background:rgba(12,11,10,.72)}
+.den h2{font-family:var(--display);text-transform:uppercase;font-size:clamp(2.6rem,8vw,5.5rem);line-height:1.02;font-weight:800;margin:1.4rem 0 .8rem}
+.den p{color:rgba(12,11,10,.7);max-width:44ch;margin:0 auto 2rem;font-weight:500}
+.den form{display:flex;gap:.6rem;max-width:460px;margin:0 auto;flex-wrap:wrap}
+.den input{flex:1;min-width:200px;background:var(--ink);color:var(--bone);border:1px solid var(--ink);border-radius:3px;padding:1.05em 1.2em;font-family:'Space Mono',monospace;font-size:.9rem}
+.den input::placeholder{color:var(--ash)}
+.den input:focus-visible{outline-color:var(--ink)}
+.den .btn{--bg:var(--ink);--fg:var(--acid)}
+.den .btn:hover{box-shadow:0 12px 30px -8px rgba(0,0,0,.4)}
+.den__msg{margin-top:1.2rem;font-family:'Space Mono',monospace;font-size:.85rem;font-weight:700;min-height:1.2em}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer{border-top:1px solid var(--line);padding:clamp(3rem,6vw,5rem) 0 2rem}
+.footer__grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:2.5rem}
+.footer__brand .brand{margin-bottom:1rem}
+.footer__brand p{color:var(--ash);font-size:.92rem;max-width:34ch}
+.footer h4{font-family:'Space Mono',monospace;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--tan);margin-bottom:1.2rem}
+.footer ul{list-style:none;display:flex;flex-direction:column;gap:.7rem}
+.footer ul a{color:var(--bone-dim);font-size:.92rem;transition:color .2s}
+.footer ul a:hover{color:var(--acid)}
+.footer__bottom{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin-top:clamp(2.5rem,5vw,4rem);padding-top:1.5rem;border-top:1px solid var(--line);font-family:'Space Mono',monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ash)}
+.pay{display:flex;gap:.5rem}
+.pay span{border:1px solid var(--line-2);border-radius:3px;padding:.3em .6em;font-size:.66rem}
+
+/* ============================================================
+   CART DRAWER
+   ============================================================ */
+.overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.6);opacity:0;visibility:hidden;transition:.35s;backdrop-filter:blur(2px)}
+.overlay.open{opacity:1;visibility:visible}
+.drawer{position:fixed;top:0;right:0;bottom:0;z-index:201;width:min(420px,100vw);background:var(--ink-2);border-left:1px solid var(--line-2);transform:translateX(100%);visibility:hidden;transition:transform .45s var(--easing),visibility 0s .45s;display:flex;flex-direction:column;box-shadow:var(--shadow)}
+.drawer.open{transform:translateX(0);visibility:visible;transition:transform .45s var(--easing)}
+.drawer__head{display:flex;justify-content:space-between;align-items:center;padding:1.4rem 1.5rem;border-bottom:1px solid var(--line)}
+.drawer__head h3{font-family:var(--display);font-size:1.5rem;text-transform:uppercase;letter-spacing:.03em}
+.drawer__close{font-size:1.5rem;line-height:1;padding:.2em .4em;color:var(--bone-dim);transition:color .2s}
+.drawer__close:hover{color:var(--bone)}
+/* free-ship progress */
+.ship{padding:1.1rem 1.5rem;border-bottom:1px solid var(--line);font-family:'Space Mono',monospace;font-size:.74rem;letter-spacing:.05em;color:var(--bone-dim)}
+.ship__bar{height:6px;background:var(--ink);border-radius:20px;margin-top:.7rem;overflow:hidden}
+.ship__fill{height:100%;width:0;background:var(--acid);border-radius:20px;transition:width .5s var(--easing)}
+.ship b{color:var(--acid)}
+.drawer__items{flex:1;overflow-y:auto;padding:1rem 1.5rem;display:flex;flex-direction:column;gap:1rem}
+.drawer__empty{text-align:center;color:var(--ash);font-family:'Space Mono',monospace;font-size:.85rem;margin-top:3rem;line-height:1.8}
+.line-item{display:grid;grid-template-columns:64px 1fr auto;gap:1rem;align-items:center}
+.line-item__img{width:64px;height:72px;border-radius:4px;overflow:hidden;position:relative}
+.line-item__img .ph{position:absolute;inset:0;border:none;border-radius:0}
+.line-item__img .bear{width:60%}
+.line-item__name{font-family:'Archivo',sans-serif;font-weight:700;font-size:.9rem;text-transform:uppercase;letter-spacing:.02em;line-height:1.2}
+.line-item__meta{font-family:'Space Mono',monospace;font-size:.7rem;color:var(--ash);margin-top:.25rem}
+.qty{display:inline-flex;align-items:center;gap:.6rem;margin-top:.5rem;font-family:'Space Mono',monospace;font-size:.8rem}
+.qty button{width:22px;height:22px;border:1px solid var(--line-2);border-radius:3px;display:grid;place-items:center;line-height:1;transition:.18s}
+.qty button:hover{border-color:var(--bone);background:rgba(255,255,255,.05)}
+.line-item__price{font-family:'Space Mono',monospace;font-weight:700;font-size:.9rem}
+.line-item__rm{display:block;font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ash);margin-top:.5rem;text-align:right}
+.line-item__rm:hover{color:var(--tan)}
+.drawer__foot{padding:1.4rem 1.5rem;border-top:1px solid var(--line-2);background:var(--ink-3)}
+.drawer__total{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1.1rem;font-family:'Space Mono',monospace}
+.drawer__total .lbl{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bone-dim)}
+.drawer__total .amt{font-family:var(--display);font-size:2rem;color:var(--bone)}
+.drawer__foot .btn{width:100%;justify-content:center}
+
+/* toast */
+.toast{position:fixed;bottom:1.5rem;left:50%;transform:translate(-50%,120%);z-index:300;background:var(--bone);color:var(--ink);font-family:'Space Mono',monospace;font-weight:700;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;padding:.9em 1.4em;border-radius:4px;box-shadow:var(--shadow);transition:transform .4s var(--easing);max-width:90vw;text-align:center}
+.toast.show{transform:translate(-50%,0)}
+
+/* ---------- reveal-on-scroll ---------- */
+.reveal{transition:opacity .8s var(--easing),transform .8s var(--easing)}
+.js .reveal{opacity:0;transform:translateY(28px)}
+.reveal.in{opacity:1;transform:none}
+
+/* ============================================================
+   MOTION SYSTEM — load choreography, scroll & cursor effects
+   (adapted from studied motionsites.ai prompt specs)
+   ============================================================ */
+:root{--stag:1}
+
+/* -- 1. slab-rise hero load choreography --
+   convention: .line = load rise only · .line-mask = scroll-shear plane only */
+/* top window opens .45em so giant glyphs (line-height .8 overshoot) are never sliced;
+   the rise only needs the BOTTOM clip edge */
+.line-mask{display:block;overflow:clip;padding:.45em 0 .1em;margin:-.45em 0 -.1em}
+.js .topbar,.js .nav{opacity:0}
+.js .hero__type .line{transform:translateY(112%)}
+.js .hero__lede .eyebrow,.js .hero__lede p,.js .hero__cta,.js .hero__media,.js .hero__side{opacity:0}
+.js .hero__type .dot{display:inline-block;transform:scale(0)}
+.fonts-in .topbar,.fonts-in .nav{animation:mFadeDown .6s var(--easing) both}
+.fonts-in .hero__type .line{animation:mRise .9s var(--easing) both;animation-delay:calc(.12s*var(--stag))}
+.fonts-in .hero__type .line--2{animation-delay:calc(.26s*var(--stag))}
+.fonts-in .hero__lede .eyebrow,.fonts-in .hero__lede p{animation:mFadeUp .7s var(--easing) both;animation-delay:calc(.45s*var(--stag))}
+.fonts-in .hero__cta{animation:mFadeUp .7s var(--easing) both;animation-delay:calc(.58s*var(--stag))}
+.fonts-in .hero__media{animation:mFadeUp30 .8s var(--easing) both;animation-delay:calc(.7s*var(--stag))}
+.fonts-in .hero__side{animation:mFadeIn .8s ease both;animation-delay:calc(.85s*var(--stag))}
+.fonts-in .hero__type .dot{animation:mPop .32s cubic-bezier(.34,1.56,.64,1) both;animation-delay:calc(1s*var(--stag))}
+/* once the media's entrance ends, hand its transform over to the scroll engine */
+.js .hero__media.anim-done{animation:none;opacity:1}
+/* restored mid-page scroll → jump the whole intro to its end state */
+.no-intro .topbar,.no-intro .nav,.no-intro .hero__type .line,.no-intro .hero__lede .eyebrow,
+.no-intro .hero__lede p,.no-intro .hero__cta,.no-intro .hero__media,.no-intro .hero__side,
+.no-intro .hero__type .dot{animation-duration:0s !important;animation-delay:0s !important}
+@keyframes mRise{from{transform:translateY(112%)}to{transform:translateY(0)}}
+@keyframes mFadeDown{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:none}}
+@keyframes mFadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes mFadeUp30{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+@keyframes mFadeIn{to{opacity:1}}
+@keyframes mPop{from{transform:scale(0)}to{transform:scale(1)}}
+
+/* -- 2. masked pull-up for section display headings -- */
+.pu{display:inline-block;overflow:clip;padding:.18em 0 .14em;margin:-.18em 0 -.14em;vertical-align:bottom}
+.pu__in{display:inline-block;transform:translateY(118%);transition:transform .7s var(--easing);transition-delay:calc(var(--i,0)*80ms)}
+.js .reveal--pu{transform:none}
+.reveal.in .pu__in{transform:none}
+
+/* -- 3. size-table spec-sheet cascade -- */
+.js .size-sec .table-wrap:not(.in) tbody tr{opacity:0}
+.size-sec .table-wrap.in tbody tr{animation:mRowIn .5s var(--easing) both}
+.size-sec .table-wrap.in tbody td:first-child{animation:mTick .9s var(--easing) both}
+.size-sec .table-wrap.in tbody tr:nth-child(2),.size-sec .table-wrap.in tbody tr:nth-child(2) td:first-child{animation-delay:70ms}
+.size-sec .table-wrap.in tbody tr:nth-child(3),.size-sec .table-wrap.in tbody tr:nth-child(3) td:first-child{animation-delay:140ms}
+.size-sec .table-wrap.in tbody tr:nth-child(4),.size-sec .table-wrap.in tbody tr:nth-child(4) td:first-child{animation-delay:210ms}
+.size-sec .table-wrap.in tbody tr:nth-child(5),.size-sec .table-wrap.in tbody tr:nth-child(5) td:first-child{animation-delay:280ms}
+.size-sec .table-wrap.in tbody tr:nth-child(6),.size-sec .table-wrap.in tbody tr:nth-child(6) td:first-child{animation-delay:350ms}
+.size-sec .table-wrap.in tbody tr:nth-child(7),.size-sec .table-wrap.in tbody tr:nth-child(7) td:first-child{animation-delay:420ms}
+@keyframes mRowIn{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}
+@keyframes mTick{0%,55%{color:var(--acid)}100%{color:var(--bone)}}
+
+/* -- 4. size-chip stamp + live size echo -- */
+.size:hover{transform:translateY(-1px)}
+.size.stamp{animation:mStamp .2s var(--easing)}
+@keyframes mStamp{45%{transform:scale(.86) rotate(-2deg)}}
+.add__size-w{display:inline-flex;overflow:hidden;vertical-align:bottom}
+.add__size{display:inline-block}
+
+/* -- 5. card tilt + glare + price flip -- */
+.card__media .glare{position:absolute;left:0;top:0;width:150%;aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(circle,rgba(236,229,214,.09),transparent 62%);
+  opacity:0;transition:opacity .3s;pointer-events:none;z-index:1}
+.card.tilting .glare{opacity:1}
+.price-flip{display:block;overflow:hidden;height:1.3em}
+.price-flip__stack{display:flex;flex-direction:column;transition:transform .35s var(--easing)}
+.card__price--add{color:var(--acid)}
+@media(hover:hover){.card:hover .price-flip__stack{transform:translateY(-50%)}}
+
+/* -- 6. SIGNATURE: UV-torch spotlight on hero media -- */
+.flash{position:absolute;inset:0;z-index:3;pointer-events:none;opacity:0;transition:opacity .4s;contain:paint;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden; /* filter ทำให้เป็นเลเยอร์แยก ต้องซ่อน backface เอง */
+  filter:brightness(1.45) saturate(1.05);--mx:50%;--my:50%;
+  -webkit-mask-image:radial-gradient(circle 200px at var(--mx) var(--my),#000 0,#000 40%,rgba(0,0,0,.75) 60%,rgba(0,0,0,.4) 75%,rgba(0,0,0,.12) 88%,transparent 100%);
+  mask-image:radial-gradient(circle 200px at var(--mx) var(--my),#000 0,#000 40%,rgba(0,0,0,.75) 60%,rgba(0,0,0,.4) 75%,rgba(0,0,0,.12) 88%,transparent 100%)}
+.flash.on{opacity:1}
+.flash img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.flash__note{position:absolute;font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--acid);border-left:1px dashed var(--acid);padding-left:.6em;line-height:1.4;white-space:nowrap}
+
+/* -- 8. counter-scroll dual care-label tape -- */
+.js .marquee__track{animation:none}
+@media(prefers-reduced-motion:no-preference){.js .marquee__track{will-change:transform}}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.marquee__track--rev{margin-top:.9rem;animation-direction:reverse}
+.marquee__track--rev span::after{color:var(--tan)}
+
+/* -- 9. Thai grapheme scroll-ink reveal -- */
+.story__body p .w{display:inline-block}
+.story__body p .ch{opacity:.18}
+
+/* -- 10. fly-to-cart -- */
+.fly{position:fixed;z-index:400;width:56px;height:64px;border-radius:6px;background:var(--ink-3);
+  border:1px solid var(--line-2);overflow:hidden;pointer-events:none;display:grid;place-items:center}
+.fly svg{width:60%;fill:var(--tan);opacity:.6}
+.fly img{width:100%;height:100%;object-fit:cover}
+.count.bump{animation:mBump .32s var(--easing)}
+@keyframes mBump{40%{transform:scale(1.45)}}
+
+/* -- GSAP 3D layer (hero spec-card + turntable) --------------------
+   .gsap-only markup is hidden until initGSAP() adds html.gsap */
+.gsap-only{display:none}
+.gsap .gsap-only{display:block}
+.hero__media{perspective:1100px}
+.card3d{position:absolute;inset:0;transform-style:preserve-3d;border-radius:6px;cursor:grab}
+.gsap .card3d:active{cursor:grabbing}
+.card3d__in{position:absolute;inset:0;transform-style:preserve-3d}
+.card3d__face{position:absolute;inset:0;border-radius:6px;overflow:hidden;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.card3d__back{transform:rotateY(180deg);background:
+  radial-gradient(120% 90% at 30% 10%,rgba(201,138,75,.12),transparent 55%),var(--ink-3);
+  border:1px solid var(--line-2);display:grid;place-items:center;padding:1.5rem}
+.label{display:flex;flex-direction:column;gap:.7rem;width:min(320px,88%);
+  border:1px dashed var(--line-2);border-radius:4px;padding:1.6rem 1.4rem;background:rgba(0,0,0,.25)}
+.label__brand{font-family:var(--display);font-size:1.6rem;letter-spacing:.06em;color:var(--bone);
+  display:flex;align-items:center;gap:.4em;margin-bottom:.3rem}
+.label__paw{font-size:1rem}
+.label__row{font-family:'Space Mono',monospace;font-size:.68rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--bone-dim);display:flex;gap:1em}
+.label__row b{color:var(--tan);flex:0 0 4.5em;font-weight:700}
+.label__barcode{height:34px;margin-top:.6rem;border-radius:2px;
+  background:repeating-linear-gradient(90deg,var(--bone) 0 2px,transparent 2px 5px,var(--bone) 5px 6px,transparent 6px 11px)}
+.label__sku{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.14em;color:var(--ash);text-align:center}
+.card3d__hint{position:absolute;left:50%;bottom:-2.2rem;transform:translateX(-50%);white-space:nowrap;
+  font-family:'Space Mono',monospace;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ash)}
+.gsap .card3d__hint{display:block}
+
+/* turntable */
+.spin__h2{font-family:var(--display);text-transform:uppercase;font-size:clamp(2.6rem,8vw,6rem);line-height:1;font-weight:800}
+.spin{overflow:clip} /* การ์ดวงแหวน 3D ยื่นข้างได้โดยไม่ดันหน้ากว้าง */
+.spin__stage{height:520px;perspective:1400px;display:grid;place-items:center;touch-action:pan-y;position:relative}
+.spin__ring{position:relative;width:280px;height:400px;transform-style:preserve-3d}
+.spin__card{position:absolute;inset:0;background:var(--ink-3);border:1px solid var(--line);border-radius:10px;
+  overflow:hidden;display:flex;flex-direction:column;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;transition:border-color .3s}
+.spin__card.is-front{border-color:var(--acid)}
+.spin__card .ph{flex:1;border:none;border-radius:0}
+.spin__card .ph .bear{width:45%}
+.spin__body{padding:.9rem 1rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:.6rem;border-top:1px solid var(--line)}
+.spin__name{font-family:var(--display);text-transform:uppercase;font-size:1rem;line-height:1.05}
+.spin__price{font-family:'Space Mono',monospace;font-size:.8rem;color:var(--bone-dim);display:block;margin-top:.25rem}
+.spin__add{flex:none;width:40px;height:40px;border-radius:4px;background:var(--acid);color:var(--ink);
+  font-family:'Space Mono',monospace;font-weight:700;font-size:1.2rem;display:grid;place-items:center;transition:transform .2s var(--easing)}
+.spin__add:hover{transform:scale(1.1)}
+
+/* -- 11. free-shipping celebration -- */
+.ship{position:relative}
+.ship__burst{position:absolute;right:1.6rem;top:1.4rem;width:0;height:0;overflow:visible;pointer-events:none}
+.ship__burst span{position:absolute;font-family:'Space Mono',monospace;font-size:10px;will-change:transform,opacity}
+.ship__fill.hit{animation:mShipHit .35s var(--easing),mShipGlow .9s ease-out}
+@keyframes mShipHit{35%{transform:scaleY(1.9)}}
+@keyframes mShipGlow{0%{box-shadow:0 0 16px rgba(203,242,78,.7)}100%{box-shadow:0 0 0 rgba(203,242,78,0)}}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media(max-width:900px){
+  .nav__links{display:none}
+  .burger{display:flex}
+  .hero__grid{grid-template-columns:1fr;gap:2rem}
+  .hero__side{display:none}
+  .hero__media{max-width:420px}
+  .story__grid{grid-template-columns:1fr}
+  .story__media{aspect-ratio:5/4;max-height:440px}
+  .footer__grid{grid-template-columns:1fr 1fr}
+  .footer__brand{grid-column:1/-1}
+}
+@media(max-width:520px){
+  :root{--stag:.7} /* load choreography ~30% faster on mobile */
+  .grid{grid-template-columns:1fr 1fr;gap:.9rem}
+  .card__body{padding:.9rem 1rem 1.1rem}
+  .card__name{font-size:1.1rem}
+  .card__quick{transform:none;opacity:1}
+  .size{padding:.5em .7em} /* bigger tap target */
+  .specs{grid-template-columns:1fr}
+  .footer__grid{grid-template-columns:1fr}
+  .footer__bottom{flex-direction:column;align-items:flex-start}
+  .nav__inner{height:64px}
+}
+
+/* ---------- reduced motion ---------- */
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none}
+  .marquee__track{animation:none}
+  /* motion system: everything static and fully visible */
+  .topbar,.nav,.hero__type .line,.hero__lede .eyebrow,.hero__lede p,.hero__cta,.hero__media,.hero__side,.hero__type .dot{
+    opacity:1 !important;transform:none !important;animation:none !important}
+  .size-sec tbody tr,.size-sec tbody td:first-child{opacity:1 !important;transform:none !important;animation:none !important}
+  .pu__in{transform:none !important;transition:none !important}
+  .flash{display:none !important}
+  .story__body p .ch{opacity:1 !important}
+  .marquee__track--rev{transform:translateX(-25%)} /* static rows still show different copy */
+}
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT -->
+<div class="topbar">ส่งฟรีเมื่อซื้อครบ ฿1,500 · ดรอปใหม่ทุกเดือน · ไซซ์ M–5XL ครบทุกตัว</div>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="nav__inner">
+    <a class="brand" href="#top" aria-label="BEARWORKS หน้าแรก">
+      <svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><g class="paw"><ellipse cx="24" cy="30" rx="12" ry="10"/><circle cx="10" cy="16" r="5"/><circle cx="38" cy="16" r="5"/><circle cx="17" cy="9" r="4.5"/><circle cx="31" cy="9" r="4.5"/></g></svg>
+      BEARWORKS
+    </a>
+    <nav class="nav__links" aria-label="เมนูหลัก">
+      <a href="#drop">Shop</a>
+      <a href="#story">The Fits</a>
+      <a href="#size">Size</a>
+      <a href="#den">Contact</a>
+    </nav>
+    <div class="nav__right">
+      <button class="cart-btn" id="openCart" aria-label="เปิดตะกร้าสินค้า">
+        Cart <span class="count" id="navCount">0</span>
+      </button>
+      <button class="burger" id="burger" aria-label="เปิดเมนู" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- MOBILE MENU -->
+<nav class="mobile-menu" id="mobileMenu" aria-label="เมนูมือถือ">
+  <a href="#drop">Shop</a>
+  <a href="#story">The Fits</a>
+  <a href="#size">Size</a>
+  <a href="#den">Contact</a>
+</nav>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero wrap">
+    <span class="hero__side">EST. 2026 — BANGKOK / DROP 01</span>
+    <div class="hero__type" aria-hidden="true">
+      <span class="line-mask"><span class="line">OVERSIZED<span class="dot">.</span></span></span>
+      <span class="line-mask"><span class="line line--2">UNAPOLOGETIC</span></span>
+    </div>
+    <div class="hero__grid">
+      <div class="hero__lede">
+        <span class="eyebrow">Drop 01 — Dark Basics</span>
+        <h1 class="visually-hidden" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">BEARWORKS — เสื้อ oversize สีเข้มสำหรับหุ่นหมี</h1>
+        <p>เสื้อยืด oversize สีเข้ม ตัดเผื่อทรงหุ่นหมีโดยเฉพาะ ผ้าหนา 240 GSM ทรง drop-shoulder ใส่สบาย ดูเท่ทุกวัน — ไซซ์ M ถึง 5XL</p>
+        <div class="hero__cta">
+          <a class="btn" href="#drop">ช้อปดรอปล่าสุด <span class="arw">→</span></a>
+          <a class="btn btn--ghost" href="#size">ดูตารางไซซ์</a>
+        </div>
+      </div>
+      <!-- การ์ด 3D: ใส่รูปจริงใน .card3d__front (แทน svg+note ด้วย <img src="model.jpg" alt="นายแบบหุ่นหมีใส่เสื้อ oversize สีดำ">) -->
+      <div class="hero__media" id="heroStage">
+        <div class="card3d" id="heroCard">
+          <div class="card3d__in">
+            <div class="card3d__face card3d__front ph" role="img" aria-label="ภาพนายแบบหุ่นหมีใส่เสื้อ oversize สีดำ">
+              <span class="tag tag--acid"><span class="tag__dot"></span>240 GSM</span>
+              <svg class="bear" viewBox="0 0 200 200" aria-hidden="true"><circle cx="55" cy="55" r="30"/><circle cx="145" cy="55" r="30"/><ellipse cx="100" cy="120" rx="70" ry="62"/><circle cx="55" cy="55" r="13" fill="#0c0b0a"/><circle cx="145" cy="55" r="13" fill="#0c0b0a"/></svg>
+              <span class="ph__note">▲ แทนที่ด้วยรูปนายแบบจริง</span>
+            </div>
+            <div class="card3d__face card3d__back" aria-hidden="true">
+              <div class="label">
+                <span class="label__brand">BEARWORKS<span class="label__paw">🐾</span></span>
+                <span class="label__row"><b>FABRIC</b>100% Heavy Cotton</span>
+                <span class="label__row"><b>WEIGHT</b>240 GSM</span>
+                <span class="label__row"><b>FIT</b>Oversized · Drop-Shoulder</span>
+                <span class="label__row"><b>SIZE</b>M – 5XL</span>
+                <span class="label__row"><b>CARE</b>ซักเย็น · ห้ามฟอกขาว · ตากในร่ม</span>
+                <span class="label__row"><b>ORIGIN</b>Made in Bangkok</span>
+                <div class="label__barcode" aria-hidden="true"></div>
+                <span class="label__sku">BW-DROP01 · ไซซ์หมี สไตล์เท่</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <span class="card3d__hint gsap-only" aria-hidden="true">↻ ลากเพื่อหมุน · ดับเบิลคลิกพลิกดูป้าย</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE / care-label tape -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <span>100% Heavy Cotton</span><span>240 GSM</span><span>Oversized Fit</span><span>ไซซ์หมี สไตล์เท่</span><span>Machine Wash Cold</span><span>Made in Bangkok</span>
+      <span>100% Heavy Cotton</span><span>240 GSM</span><span>Oversized Fit</span><span>ไซซ์หมี สไตล์เท่</span><span>Machine Wash Cold</span><span>Made in Bangkok</span>
+    </div>
+    <div class="marquee__track marquee__track--rev">
+      <span>Drop-Shoulder</span><span>Boxy Cut</span><span>M–5XL</span><span>ตัดเผื่อหุ่นหมี</span><span>Heavy Drape</span><span>ทรงไม่เพี้ยน</span>
+      <span>Drop-Shoulder</span><span>Boxy Cut</span><span>M–5XL</span><span>ตัดเผื่อหุ่นหมี</span><span>Heavy Drape</span><span>ทรงไม่เพี้ยน</span>
+    </div>
+  </div>
+
+  <!-- 3D TURNTABLE (ต้องมี GSAP · ซ่อนอัตโนมัติถ้าโหลดไม่สำเร็จ/ผู้ใช้ปิดแอนิเมชัน) -->
+  <section class="section spin gsap-only" id="spin">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div>
+          <span class="eyebrow">Drag to spin · 360°</span>
+          <h2 class="spin__h2">Spin<br>The Drop</h2>
+        </div>
+        <p class="mono" style="color:var(--ash);max-width:30ch;font-size:.82rem;letter-spacing:.04em">ลากซ้าย–ขวาเพื่อหมุนวงแหวน · กด + เพื่อหยิบใส่ตะกร้า</p>
+      </div>
+      <div class="spin__stage" id="spinStage" aria-label="วงแหวนสินค้า 3 มิติ ลากเพื่อหมุน">
+        <div class="spin__ring" id="spinRing"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="section wrap" id="drop">
+    <div class="sec-head reveal">
+      <div>
+        <span class="eyebrow">6 Styles · จำนวนจำกัด</span>
+        <h2>The<br>Drop</h2>
+      </div>
+      <p class="mono" style="color:var(--ash);max-width:30ch;font-size:.82rem;letter-spacing:.04em">เบสิกสีเข้มที่ใส่ได้ทุกวัน ตัดทรง oversize จริง ไม่ใช่ไซซ์ปกติที่ใหญ่ขึ้น</p>
+    </div>
+    <div class="grid" id="productGrid"></div>
+  </section>
+
+  <!-- STORY -->
+  <section class="story section" id="story">
+    <div class="wrap story__grid">
+      <!-- แทนที่ .ph ด้วยรูปนายแบบจริง -->
+      <div class="story__media ph reveal" role="img" aria-label="นายแบบหุ่นหมีใส่เสื้อ oversize">
+        <svg class="bear" viewBox="0 0 200 200" aria-hidden="true"><circle cx="55" cy="55" r="30"/><circle cx="145" cy="55" r="30"/><ellipse cx="100" cy="120" rx="70" ry="62"/><circle cx="55" cy="55" r="13" fill="#151109"/><circle cx="145" cy="55" r="13" fill="#151109"/></svg>
+        <span class="ph__note">▲ แทนที่ด้วยรูปนายแบบจริง</span>
+      </div>
+      <div class="story__body reveal">
+        <span class="eyebrow">Made for size</span>
+        <h2>ตัดมาเพื่อ<br><em>หุ่นหมี</em> โดยเฉพาะ</h2>
+        <p>เราเบื่อกับเสื้อ "ไซซ์ใหญ่" ที่จริงๆ แค่ยืดไซซ์ปกติออก แล้วทรงเพี้ยน BEARWORKS ตัดแพตเทิร์นใหม่บนหุ่นคนตัวใหญ่จริง บ่าตก อกกว้าง ตัวยาวกำลังดี</p>
+        <p>ผ้าคอตตอนหนา 240 GSM ทิ้งตัวสวย ไม่บางโปร่ง ซักแล้วไม่หด สีเข้มไม่ตก — ใส่ออกไปแล้วมั่นใจ ดูเท่ ไม่ต้องพยายาม</p>
+        <dl class="specs">
+          <div class="spec"><dt>น้ำหนักผ้า</dt><dd>240<span class="u">GSM</span></dd></div>
+          <div class="spec"><dt>ทรง</dt><dd>Drop<span class="u">shoulder</span></dd></div>
+          <div class="spec"><dt>ช่วงไซซ์</dt><dd>M–5XL</dd></div>
+          <div class="spec"><dt>ผ้า</dt><dd>Pre<span class="u">shrunk</span></dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIZE TABLE -->
+  <section class="section wrap size-sec" id="size">
+    <div class="sec-head reveal">
+      <div>
+        <span class="eyebrow">Size guide</span>
+        <h2>ไซซ์หุ่นหมี</h2>
+      </div>
+    </div>
+    <div class="table-wrap reveal">
+      <table>
+        <thead><tr><th>ไซซ์</th><th>รอบอก (นิ้ว)</th><th>ความยาว (นิ้ว)</th><th>บ่า (นิ้ว)</th><th>เหมาะกับน้ำหนัก</th></tr></thead>
+        <tbody>
+          <tr><td>M</td><td>42</td><td>28</td><td>20</td><td>60–70 kg</td></tr>
+          <tr><td>L</td><td>44</td><td>29</td><td>21</td><td>70–80 kg</td></tr>
+          <tr><td>XL</td><td>46</td><td>30</td><td>22</td><td>80–92 kg</td></tr>
+          <tr><td>2XL</td><td>48</td><td>31</td><td>23</td><td>92–105 kg</td></tr>
+          <tr><td>3XL</td><td>50</td><td>32</td><td>24</td><td>105–118 kg</td></tr>
+          <tr><td>4XL</td><td>52</td><td>33</td><td>25</td><td>118–130 kg</td></tr>
+          <tr><td>5XL</td><td>54</td><td>34</td><td>26</td><td>130 kg ขึ้นไป</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="size-note">* วัดจากตัวเสื้อจริงแบบราบ อาจคลาดเคลื่อน ±1 นิ้ว · ชอบทรงหลวมพิเศษ เลือกเผื่อขึ้นอีก 1 ไซซ์</p>
+  </section>
+
+  <!-- LOOKBOOK -->
+  <section class="section wrap look">
+    <div class="sec-head reveal">
+      <div><span class="eyebrow">Lookbook</span><h2>On the streets</h2></div>
+    </div>
+    <div class="look__scroll reveal" id="lookScroll"></div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="section wrap" id="den">
+    <div class="den reveal">
+      <span class="eyebrow">Join the den</span>
+      <h2>เข้าถ้ำ<br>ก่อนใคร</h2>
+      <p>สมัครรับข่าวดรอปใหม่ ส่วนลดเฉพาะสมาชิก และของลิมิเต็ด ก่อนเปิดขายจริง</p>
+      <form id="denForm" novalidate>
+        <input type="email" id="denEmail" placeholder="อีเมลของคุณ" aria-label="อีเมล" required>
+        <button class="btn" type="submit">สมัคร <span class="arw">→</span></button>
+      </form>
+      <p class="den__msg" id="denMsg" role="status" aria-live="polite"></p>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a class="brand" href="#top"><svg viewBox="0 0 48 48" aria-hidden="true"><g class="paw"><ellipse cx="24" cy="30" rx="12" ry="10"/><circle cx="10" cy="16" r="5"/><circle cx="38" cy="16" r="5"/><circle cx="17" cy="9" r="4.5"/><circle cx="31" cy="9" r="4.5"/></g></svg>BEARWORKS</a>
+        <p>เสื้อ oversize สีเข้มสำหรับหุ่นหมี ตัดจริง ใส่จริง ดูเท่จริง · Bangkok, TH</p>
+      </div>
+      <div><h4>Shop</h4><ul><li><a href="#drop">The Drop</a></li><li><a href="#drop">เสื้อยืด</a></li><li><a href="#size">ตารางไซซ์</a></li><li><a href="#den">ของลิมิเต็ด</a></li></ul></div>
+      <div><h4>ช่วยเหลือ</h4><ul><li><a href="#size">วิธีเลือกไซซ์</a></li><li><a href="#top">การจัดส่ง</a></li><li><a href="#top">คืน/เปลี่ยนสินค้า</a></li><li><a href="#den">ติดต่อเรา</a></li></ul></div>
+      <div><h4>ติดตาม</h4><ul><li><a href="#top">Instagram</a></li><li><a href="#top">TikTok</a></li><li><a href="#top">LINE OA</a></li><li><a href="#top">Facebook</a></li></ul></div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 BEARWORKS — All rights reserved</span>
+      <div class="pay"><span>VISA</span><span>MASTER</span><span>PROMPTPAY</span><span>COD</span></div>
+    </div>
+  </div>
+</footer>
+
+<!-- CART DRAWER -->
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer" aria-label="ตะกร้าสินค้า" aria-hidden="true">
+  <div class="drawer__head">
+    <h3>ตะกร้า</h3>
+    <button class="drawer__close" id="closeCart" aria-label="ปิดตะกร้า">✕</button>
+  </div>
+  <div class="ship" id="ship">
+    <div class="ship__text"></div>
+    <div class="ship__bar"><div class="ship__fill"></div></div>
+    <div class="ship__burst" aria-hidden="true"></div>
+  </div>
+  <div class="drawer__items" id="cartItems"></div>
+  <div class="drawer__foot">
+    <div class="drawer__total"><span class="lbl">รวมทั้งหมด</span><span class="amt" id="cartTotal">฿0</span></div>
+    <button class="btn" id="checkout">สั่งซื้อเลย <span class="arw">→</span></button>
+  </div>
+</aside>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ============================================================
+   BEARWORKS — store logic (vanilla JS, no dependencies)
+   ============================================================ */
+
+/* ---- 1) PRODUCTS — แก้สินค้า/ราคาได้ที่นี่ที่เดียว ---- */
+const PRODUCTS = [
+  {id:'midnight',  name:'Midnight Heavy Tee',   price:890, color:'ดำสนิท',    badge:'BESTSELLER'},
+  {id:'shadow',    name:'Shadow Drop-Shoulder', price:990, color:'ดำวอช',     badge:''},
+  {id:'charcoal',  name:'Charcoal Boxy Tee',    price:890, color:'เทาถ่าน',   badge:''},
+  {id:'obsidian',  name:'Obsidian Long Tee',    price:990, color:'ดำยาว',     badge:'NEW'},
+  {id:'onyx',      name:'Onyx Pocket Tee',      price:950, color:'ดำมีกระเป๋า',badge:''},
+  {id:'graphite',  name:'Graphite Oversized',   price:920, color:'เทากราไฟต์', badge:''},
+];
+const SIZES = ['M','L','XL','2XL','3XL','4XL','5XL'];
+
+/* ---- 2) BUSINESS RULE — เกณฑ์ส่งฟรี (แก้ตัวเลขได้บรรทัดเดียว) ---- */
+const FREE_SHIP_THRESHOLD = 1500; // ฿ ซื้อครบเท่านี้ส่งฟรี
+
+const money = n => '฿' + n.toLocaleString('th-TH');
+const bearSVG = fill => `<svg class="bear" viewBox="0 0 200 200" aria-hidden="true"><circle cx="55" cy="55" r="30"/><circle cx="145" cy="55" r="30"/><ellipse cx="100" cy="120" rx="70" ry="62"/></svg>`;
+
+/* ---------- render product cards ---------- */
+const grid = document.getElementById('productGrid');
+grid.innerHTML = PRODUCTS.map(p => `
+  <article class="card" data-id="${p.id}">
+    <div class="card__media">
+      ${p.badge ? `<span class="card__badge tag ${p.badge==='NEW'?'tag--tan':'tag--acid'}"><span class="tag__dot"></span>${p.badge}</span>` : ''}
+      <!-- แทนที่ .ph ด้วย <img src="${p.id}.jpg" alt="${p.name}"> -->
+      <div class="ph" role="img" aria-label="${p.name} — ${p.color}">${bearSVG()}<span class="ph__note">▲ ใส่รูปสินค้า</span></div>
+      <span class="glare" aria-hidden="true"></span>
+      <div class="card__quick"><button class="btn add" type="button" data-id="${p.id}">เพิ่มลงตะกร้า · <span class="add__size-w"><span class="add__size">M</span></span> +</button></div>
+    </div>
+    <div class="card__body">
+      <div class="card__name">${p.name}</div>
+      <div class="card__meta">สี ${p.color} · 240 GSM · Oversized</div>
+      <div class="sizes" role="group" aria-label="เลือกไซซ์ ${p.name}">
+        ${SIZES.map((s,i)=>`<button class="size" type="button" data-size="${s}" aria-pressed="${i===0}">${s}</button>`).join('')}
+      </div>
+      <div class="card__row">
+        <span class="price-flip"><span class="price-flip__stack"><span class="card__price">${money(p.price)}</span><span class="card__price card__price--add">${money(p.price)} · ADD</span></span></span>
+      </div>
+    </div>
+  </article>`).join('');
+
+/* ---------- render lookbook ---------- */
+document.getElementById('lookScroll').innerHTML = ['3XL','2XL','4XL','XL','5XL']
+  .map((s,i)=>`<div class="look__item"><div class="ph" role="img" aria-label="ลุคที่ ${i+1} ไซซ์ ${s}">${bearSVG()}<span class="ph__note">▲ ใส่รูปลุค</span></div><div class="look__cap"><span>Fit 0${i+1}</span><span>${s}</span></div></div>`)
+  .join('');
+
+/* ---------- size chip selection ---------- */
+const RM = matchMedia('(prefers-reduced-motion: reduce)');
+const FINE = matchMedia('(pointer: fine)');
+// motion gates are wired at load; re-init cleanly if the OS preference flips mid-session
+RM.addEventListener?.('change', () => location.reload());
+grid.addEventListener('click', e => {
+  const chip = e.target.closest('.size');
+  if(!chip) return;
+  chip.closest('.sizes').querySelectorAll('.size').forEach(s => s.setAttribute('aria-pressed','false'));
+  chip.setAttribute('aria-pressed','true');
+  // stamp press
+  if(!RM.matches){
+    chip.classList.add('stamp');
+    chip.addEventListener('animationend', () => chip.classList.remove('stamp'), {once:true});
+  }
+  // echo the chosen size inside the add-to-cart button
+  const echo = chip.closest('.card').querySelector('.add__size');
+  if(echo && echo.textContent !== chip.dataset.size){
+    echo.textContent = chip.dataset.size;
+    if(!RM.matches) echo.animate(
+      [{transform:'translateY(100%)'},{transform:'translateY(0)'}],
+      {duration:160, easing:'cubic-bezier(.22,1,.36,1)'});
+  }
+});
+
+/* ---------- cart state ---------- */
+let cart = []; // {id,name,price,size,qty}
+let wasFree = false; // free-shipping celebration fires only on the false→true crossing
+let celebT;          // pending celebration timer — cancelled if the cart drops below threshold
+
+/* glyph burst + bar kick when the free-shipping threshold is reached */
+function celebrateShip(textEl, fill){
+  if(RM.matches) return;
+  // wait until the drawer is actually visible (from-grid adds open it after the fly lands)
+  const wait = els.drawer.classList.contains('open') ? 500 : 1150;
+  clearTimeout(celebT);
+  celebT = setTimeout(() => {
+    if(!wasFree) return; // cart changed its mind while we waited
+    textEl.animate([{transform:'translateY(8px)', opacity:0},{transform:'none', opacity:1}],
+      {duration:300, easing:'ease-out'});
+    fill.classList.add('hit');
+    fill.addEventListener('animationend', function h(e){
+      if(e.animationName !== 'mShipGlow') return; // wait for the longer glow, not the 350ms kick
+      fill.classList.remove('hit');
+      fill.removeEventListener('animationend', h);
+    });
+    const burst = els.ship.querySelector('.ship__burst');
+    const cols = ['var(--acid)','var(--tan)','var(--bone)'];
+    for(let i=0;i<14;i++){
+      const s = document.createElement('span');
+      s.textContent = '✳'; s.style.color = cols[i%3];
+      burst.append(s);
+      s.animate(
+        [{transform:'translate3d(0,0,0) rotate(0deg)', opacity:1},
+         {transform:`translate3d(${Math.random()*96-48}px,${-(10+Math.random()*44)}px,0) rotate(${(Math.random()<.5?-1:1)*200}deg)`, opacity:0}],
+        {duration:550+Math.random()*200, easing:'cubic-bezier(.22,1,.36,1)'}
+      ).onfinish = () => s.remove();
+    }
+  }, wait);
+}
+const els = {
+  overlay:document.getElementById('overlay'),
+  drawer:document.getElementById('drawer'),
+  items:document.getElementById('cartItems'),
+  total:document.getElementById('cartTotal'),
+  navCount:document.getElementById('navCount'),
+  ship:document.getElementById('ship'),
+};
+
+function addToCart(id){
+  const p = PRODUCTS.find(x=>x.id===id);
+  const card = grid.querySelector(`.card[data-id="${id}"]`);
+  const size = card.querySelector('.size[aria-pressed="true"]').dataset.size;
+  const found = cart.find(i=>i.id===id && i.size===size);
+  if(found) found.qty++;
+  else cart.push({id,name:p.name,price:p.price,size,qty:1});
+  renderCart();
+  toast(`เพิ่ม "${p.name}" (${size}) แล้ว`);
+  const flew = flyToCart(card);
+  setTimeout(openCart, flew ? 580 : 0); // let the flight land before the drawer covers the cart button
+}
+
+/* fly-to-cart: a small product chip arcs from the card into the nav cart count */
+function flyToCart(card){
+  if(RM.matches) return false;
+  const mediaEl = card.querySelector('.card__media');
+  if(!mediaEl || !els.navCount.isConnected) return false;
+  const src = mediaEl.getBoundingClientRect();
+  const dst = els.navCount.getBoundingClientRect();
+  if(!src.width || !dst.width) return false; // e.g. nav hidden
+  const fly = document.createElement('div');
+  fly.className = 'fly'; fly.setAttribute('aria-hidden','true');
+  const pic = mediaEl.querySelector('img') || mediaEl.querySelector('svg');
+  if(pic) fly.append(pic.cloneNode(true));
+  fly.style.left = (src.left + src.width/2 - 28) + 'px';
+  fly.style.top  = (src.top + src.height/2 - 32) + 'px';
+  document.body.append(fly);
+  const dx = (dst.left + dst.width/2) - (src.left + src.width/2);
+  const dy = (dst.top + dst.height/2) - (src.top + src.height/2);
+  const coarse = !FINE.matches;
+  const frames = coarse
+    ? [{transform:'translate3d(0,0,0) scale(1)', opacity:1},
+       {transform:`translate3d(${dx}px,${dy}px,0) scale(.14)`, opacity:.35}]
+    : [{transform:'translate3d(0,0,0) scale(1)', opacity:1},
+       {transform:`translate3d(${dx*.5}px,${dy*.5-70}px,0) scale(.55)`, opacity:.9, offset:.5},
+       {transform:`translate3d(${dx}px,${dy}px,0) scale(.14)`, opacity:.35}];
+  fly.animate(frames, {duration: coarse?420:550, easing:'cubic-bezier(.16,1,.3,1)'}).onfinish = () => {
+    fly.remove();
+    els.navCount.classList.add('bump');
+    els.navCount.addEventListener('animationend', () => els.navCount.classList.remove('bump'), {once:true});
+    els.navCount.animate(
+      [{boxShadow:'0 0 0 4px rgba(203,242,78,.35)'},{boxShadow:'0 0 0 12px rgba(203,242,78,0)'}],
+      {duration:450, easing:'ease-out'});
+  };
+  return true;
+}
+function changeQty(id,size,d){
+  const it = cart.find(i=>i.id===id && i.size===size);
+  if(!it) return;
+  it.qty += d;
+  if(it.qty<=0) cart = cart.filter(i=>!(i.id===id && i.size===size));
+  renderCart();
+}
+function removeItem(id,size){ cart = cart.filter(i=>!(i.id===id && i.size===size)); renderCart(); }
+
+function renderCart(){
+  const count = cart.reduce((a,i)=>a+i.qty,0);
+  const total = cart.reduce((a,i)=>a+i.price*i.qty,0);
+  els.navCount.textContent = count;
+  els.total.textContent = money(total);
+  document.getElementById('openCart').setAttribute('aria-label', `เปิดตะกร้าสินค้า มีสินค้า ${count} ชิ้น`);
+
+  // free-ship progress (text/fill are static children so the burst layer survives re-renders)
+  const shipText = els.ship.querySelector('.ship__text');
+  const shipFill = els.ship.querySelector('.ship__fill');
+  const isFree = total >= FREE_SHIP_THRESHOLD;
+  if(isFree){
+    shipText.innerHTML = `<b>✓ คุณได้ส่งฟรีแล้ว!</b>`;
+    shipFill.style.width = '100%';
+  }else{
+    const left = FREE_SHIP_THRESHOLD - total;
+    const pct = Math.min(100, (total/FREE_SHIP_THRESHOLD)*100);
+    shipText.innerHTML = `ซื้ออีก <b>${money(left)}</b> ส่งฟรี`;
+    shipFill.style.width = pct + '%';
+    clearTimeout(celebT); // dropped below threshold → cancel any pending celebration
+  }
+  if(isFree && !wasFree) celebrateShip(shipText, shipFill);
+  wasFree = isFree;
+
+  if(!cart.length){
+    els.items.innerHTML = `<div class="drawer__empty">ตะกร้ายังว่างอยู่<br>เลือกเสื้อสักตัวสิ 🐻</div>`;
+    return;
+  }
+  els.items.innerHTML = cart.map(i=>`
+    <div class="line-item">
+      <div class="line-item__img"><div class="ph">${bearSVG()}</div></div>
+      <div>
+        <div class="line-item__name">${i.name}</div>
+        <div class="line-item__meta">ไซซ์ ${i.size}</div>
+        <div class="qty">
+          <button type="button" data-act="dec" data-id="${i.id}" data-size="${i.size}" aria-label="ลดจำนวน">−</button>
+          <span>${i.qty}</span>
+          <button type="button" data-act="inc" data-id="${i.id}" data-size="${i.size}" aria-label="เพิ่มจำนวน">+</button>
+        </div>
+      </div>
+      <div style="text-align:right">
+        <div class="line-item__price">${money(i.price*i.qty)}</div>
+        <button class="line-item__rm" type="button" data-act="rm" data-id="${i.id}" data-size="${i.size}">ลบ</button>
+      </div>
+    </div>`).join('');
+}
+
+/* ---------- cart events ---------- */
+grid.addEventListener('click', e => {
+  const add = e.target.closest('.add');
+  if(add) addToCart(add.dataset.id);
+});
+els.items.addEventListener('click', e => {
+  const b = e.target.closest('[data-act]');
+  if(!b) return;
+  const {act,id,size} = b.dataset;
+  if(act==='inc') changeQty(id,size,1);
+  else if(act==='dec') changeQty(id,size,-1);
+  else if(act==='rm') removeItem(id,size);
+});
+
+/* ---------- drawer open/close ---------- */
+function setBgInert(on){ // keep background out of the tab order behind modal layers
+  document.querySelectorAll('main, footer, .nav, .topbar').forEach(el => el.inert = on);
+}
+function openCart(){
+  els.overlay.classList.add('open');
+  els.drawer.classList.add('open');
+  els.drawer.setAttribute('aria-hidden','false');
+  setBgInert(true);
+  document.getElementById('closeCart').focus();
+}
+function closeCart(){
+  els.overlay.classList.remove('open');
+  els.drawer.classList.remove('open');
+  els.drawer.setAttribute('aria-hidden','true');
+  setBgInert(false);
+  if(els.drawer.contains(document.activeElement)) document.getElementById('openCart').focus();
+  if(typeof Engine !== 'undefined') Engine.wake(); // resume paused tape etc.
+}
+document.getElementById('openCart').addEventListener('click',openCart);
+document.getElementById('closeCart').addEventListener('click',closeCart);
+els.overlay.addEventListener('click',closeCart);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeCart();closeMenu();}});
+document.getElementById('checkout').addEventListener('click',()=>{
+  if(!cart.length){toast('ตะกร้ายังว่างอยู่');return;}
+  toast('เดโม: ต่อระบบชำระเงินจริงได้ที่ขั้นถัดไป');
+});
+
+/* ---------- mobile menu ---------- */
+const burger=document.getElementById('burger'), menu=document.getElementById('mobileMenu');
+function setMenuInert(on){ // burger stays reachable (it lives in .nav), page content does not
+  document.querySelectorAll('main, footer').forEach(el => el.inert = on);
+}
+function closeMenu(){menu.classList.remove('open');burger.setAttribute('aria-expanded','false');setMenuInert(false)}
+burger.addEventListener('click',()=>{
+  const open=menu.classList.toggle('open');
+  burger.setAttribute('aria-expanded',open);
+  setMenuInert(open);
+});
+menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));
+
+/* ---------- newsletter ---------- */
+document.getElementById('denForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const email=document.getElementById('denEmail');
+  const msg=document.getElementById('denMsg');
+  if(!email.value || !email.checkValidity()){msg.textContent='ใส่อีเมลให้ถูกต้องก่อนนะ';return;}
+  msg.textContent='เข้าถ้ำเรียบร้อย! 🐻 เช็กอีเมลรอดรอปแรกได้เลย';
+  email.value='';
+});
+
+/* ---------- toast ---------- */
+let toastT;
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2600);
+}
+
+/* ---------- reveal on scroll ---------- */
+if('IntersectionObserver' in window){
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});
+  },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+}else{
+  document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
+}
+
+renderCart();
+
+/* ============================================================
+   MOTION SYSTEM — shared rAF engine + scroll/cursor effects
+   (techniques adapted from motionsites.ai prompt specs)
+   ============================================================ */
+
+/* one rAF loop for every continuous effect; items sleep when settled,
+   IO gates flip `active` so offscreen sections cost nothing */
+const Engine = (() => {
+  const items = new Set();
+  let running = false;
+  function loop(){
+    let keep = false;
+    items.forEach(it => { if(it.active && it.step() !== false) keep = true; });
+    if(keep) requestAnimationFrame(loop); else running = false;
+  }
+  return {
+    add(it){ items.add(it); this.wake(); },
+    wake(){ if(!running){ running = true; requestAnimationFrame(loop); } }
+  };
+})();
+addEventListener('scroll', () => Engine.wake(), {passive:true});
+
+/* hand the hero media's transform from the load animation to the scroll engine */
+const heroMedia = document.querySelector('.hero__media');
+heroMedia.addEventListener('animationend', () => heroMedia.classList.add('anim-done'), {once:true});
+
+/* -- hero off-frame type shear + media drift (scroll-driven) --
+   fallback เมื่อไม่มี GSAP เท่านั้น — ถ้า GSAP โหลดสำเร็จ ScrollTrigger จะคุม hero แบบ 3D แทน */
+addEventListener('DOMContentLoaded', () => {
+if(!RM.matches && !window.gsap){
+  const hero = document.querySelector('.hero');
+  const m1 = document.querySelector('.hero__type .line-mask:nth-child(1)');
+  const m2 = document.querySelector('.hero__type .line-mask:nth-child(2)');
+  const coarse = !FINE.matches;
+  const f1 = coarse ? .11 : .22, f2 = coarse ? .07 : .14, fm = coarse ? .03 : .06;
+  const sh = { active:false, s1:0, s2:0, sm:0,
+    step(){
+      const max = innerWidth * .22, y = scrollY;
+      const t1 = Math.max(-max, -y*f1);            // line 1 shears left
+      const t2 = Math.min(max, y*f2);              // stroked line shears right
+      // media target stays 0 until its entrance ends, so the handoff glides instead of popping
+      const tm = heroMedia.classList.contains('anim-done') ? y * fm : 0;
+      this.s1 += (t1-this.s1)*.1; this.s2 += (t2-this.s2)*.1; this.sm += (tm-this.sm)*.1;
+      m1.style.transform = `translate3d(${this.s1}px,0,0)`;
+      m2.style.transform = `translate3d(${this.s2}px,0,0)`;
+      if(heroMedia.classList.contains('anim-done'))
+        heroMedia.style.transform = `translate3d(0,${this.sm}px,0)`;
+      return Math.abs(t1-this.s1)>.05 || Math.abs(t2-this.s2)>.05 || Math.abs(tm-this.sm)>.05;
+    }};
+  Engine.add(sh);
+  new IntersectionObserver(es => { sh.active = es[0].isIntersecting; Engine.wake(); }).observe(hero);
+}
+});
+
+/* -- masked pull-up for section display headings -- */
+if(!RM.matches){
+  const TH = new RegExp('[\\u0E00-\\u0E7F]'); // Thai Unicode block
+  document.querySelectorAll('#drop .sec-head h2, .story__body h2, #size .sec-head h2, .look .sec-head h2, .den h2')
+  .forEach(h => {
+    const rev = h.closest('.reveal'); if(!rev) return;
+    rev.classList.add('reveal--pu');
+    let i = 0;
+    const wrapUnit = node => {
+      const pu = document.createElement('span'); pu.className = 'pu';
+      const inn = document.createElement('span'); inn.className = 'pu__in';
+      inn.style.setProperty('--i', i++);
+      inn.append(node); pu.append(inn); return pu;
+    };
+    const frag = document.createDocumentFragment();
+    [...h.childNodes].forEach(n => {
+      if(n.nodeType === 3){
+        const txt = n.textContent;
+        if(!txt.trim()){ frag.append(n); return; }
+        if(TH.test(txt)){ // Thai display lines stay whole — never word-split Thai type
+          const lead = txt.match(/^\s*/)[0], core = txt.trim(), tail = txt.match(/\s*$/)[0];
+          if(lead) frag.append(document.createTextNode(lead));
+          frag.append(wrapUnit(document.createTextNode(core)));
+          if(tail) frag.append(document.createTextNode(tail));
+        }else{
+          txt.split(/(\s+)/).forEach(part => {
+            if(!part) return;
+            frag.append(/^\s+$/.test(part) ? document.createTextNode(part) : wrapUnit(document.createTextNode(part)));
+          });
+        }
+      }
+      else if(n.nodeName === 'BR') frag.append(n);
+      else frag.append(wrapUnit(n)); // <em> ฯลฯ กลายเป็นยูนิตเดียว
+    });
+    h.textContent = '';
+    h.append(frag);
+  });
+}
+
+/* -- heavyweight card tilt + glare (pointer:fine only) -- */
+if(FINE.matches && !RM.matches){
+  grid.querySelectorAll('.card').forEach(card => {
+    const media = card.querySelector('.card__media');
+    const glare = card.querySelector('.glare');
+    if(!media) return;
+    const st = { active:false, hov:false,
+      cur:{rx:0, ry:0, s:1, gx:0, gy:0}, tgt:{rx:0, ry:0, s:1, gx:0, gy:0},
+      step(){
+        const c = this.cur, t = this.tgt;
+        for(const k in c) c[k] += (t[k]-c[k]) * .12;
+        media.style.transform = `perspective(750px) rotateX(${c.rx}deg) rotateY(${c.ry}deg) scale(${c.s})`;
+        if(glare) glare.style.transform = `translate3d(${c.gx}px,${c.gy}px,0)`;
+        const settled = !this.hov && Math.abs(t.rx-c.rx)<.02 && Math.abs(t.ry-c.ry)<.02 && Math.abs(t.s-c.s)<.001;
+        if(settled){ media.style.transform = ''; media.style.willChange = ''; this.active = false; }
+        return !settled;
+      }};
+    Engine.add(st);
+    card.addEventListener('pointerenter', () => {
+      st.hov = true; st.active = true;
+      card.classList.add('tilting'); media.style.willChange = 'transform';
+      Engine.wake();
+    });
+    card.addEventListener('pointermove', e => {
+      const r = media.getBoundingClientRect();
+      const nx = Math.max(-.5, Math.min(.5, (e.clientX-r.left)/r.width - .5));
+      const ny = Math.max(-.5, Math.min(.5, (e.clientY-r.top)/r.height - .5));
+      st.tgt.ry = nx*5; st.tgt.rx = -ny*4; st.tgt.s = 1.03;   // max 5° — mass, not bounce
+      const gw = r.width * 1.5;
+      st.tgt.gx = (nx+.5)*r.width - gw/2; st.tgt.gy = (ny+.5)*r.height - gw/2;
+      Engine.wake();
+    }, {passive:true});
+    card.addEventListener('pointerleave', () => {
+      st.hov = false;
+      st.tgt.rx = 0; st.tgt.ry = 0; st.tgt.s = 1;
+      card.classList.remove('tilting');
+      Engine.wake();
+    });
+  });
+}
+
+/* -- SIGNATURE: UV-torch spotlight on the hero media --
+   clones whatever is inside .hero__media (placeholder now, real photo later)
+   into a brightened layer revealed through a cursor-following radial mask */
+if(!RM.matches && heroMedia){
+  // อยู่ในหน้า front ของการ์ด 3D (ถ้ามี) เพื่อให้หมุนตามการ์ด
+  const torchHost = heroMedia.querySelector('.card3d__front') || heroMedia;
+  const flash = document.createElement('div');
+  flash.className = 'flash' + (torchHost.classList.contains('ph') ? ' ph' : '');
+  flash.setAttribute('aria-hidden','true');
+  flash.innerHTML = torchHost.innerHTML;
+  flash.querySelector('.ph__note')?.remove();
+  [['240 GSM','24%','12%'], ['FLATLOCK SEAM','48%','56%'], ['DROP +6CM','74%','16%']]
+    .forEach(([t, top, left]) => {
+      const s = document.createElement('span');
+      s.className = 'flash__note'; s.textContent = t;
+      s.style.top = top; s.style.left = left;
+      flash.append(s);
+    });
+  heroMedia.append(flash);
+  let tx=50, ty=50, sx=50, sy=50, on=false, offT, lx='', ly='';
+  const torch = { active:false,
+    step(){
+      sx += (tx-sx)*.1; sy += (ty-sy)*.1;
+      if(Math.abs(tx-sx)<.05) sx = tx;   // snap so a resting pointer lets the loop sleep
+      if(Math.abs(ty-sy)<.05) sy = ty;
+      const vx = sx.toFixed(2)+'%', vy = sy.toFixed(2)+'%';
+      if(vx!==lx){ flash.style.setProperty('--mx', vx); lx = vx; }
+      if(vy!==ly){ flash.style.setProperty('--my', vy); ly = vy; }
+      return sx!==tx || sy!==ty;         // pointermove calls Engine.wake to resume
+    }};
+  Engine.add(torch);
+  if(FINE.matches){
+    heroMedia.addEventListener('pointerenter', () => {
+      clearTimeout(offT); on = true; torch.active = true;
+      flash.classList.add('on'); Engine.wake();
+    });
+    heroMedia.addEventListener('pointermove', e => {
+      const r = heroMedia.getBoundingClientRect();
+      tx = (e.clientX-r.left)/r.width*100; ty = (e.clientY-r.top)/r.height*100;
+      Engine.wake();
+    }, {passive:true});
+    heroMedia.addEventListener('pointerleave', () => {
+      on = false; flash.classList.remove('on');
+      offT = setTimeout(() => torch.active = false, 450);
+    });
+  }else{
+    // touch: one scripted sweep when the media first enters view
+    new IntersectionObserver((es, io) => {
+      if(!es[0].isIntersecting) return;
+      io.disconnect();
+      flash.classList.add('on');
+      sx = tx = 8; sy = ty = 10;
+      const t0 = performance.now(), D = 2200;
+      const sweep = { active:true,
+        step(){
+          const p = Math.min(1, (performance.now()-t0)/D);
+          const e = 1 - Math.pow(1-p, 3);
+          flash.style.setProperty('--mx', (8+e*80)+'%');
+          flash.style.setProperty('--my', (10+e*70)+'%');
+          if(p >= 1){
+            flash.classList.remove('on');
+            this.active = false;
+            return false;
+          }
+          return true;
+        }};
+      Engine.add(sweep);
+    }, {threshold:.5}).observe(heroMedia);
+  }
+}
+
+/* -- counter-scroll dual care-label tape -- */
+if(!RM.matches){
+  const mq = document.querySelector('.marquee');
+  const rows = [...document.querySelectorAll('.marquee__track')].map((el, i) => ({
+    el, rev: el.classList.contains('marquee__track--rev'),
+    drift: 0, half: 0, rate: i ? .5 : .35,
+  }));
+  if(mq && rows.length){
+    const coarse = !FINE.matches, cf = coarse ? .15 : .3;
+    let smooth = 0, paused = false, rz;
+    const measure = () => rows.forEach(r => r.half = r.el.scrollWidth / 2);
+    measure();
+    document.fonts.ready.then(measure); // Thai glyph widths land late — must re-measure
+    addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(measure, 150); }, {passive:true});
+    const tape = { active:false,
+      step(){
+        if(els.drawer.classList.contains('open')) return false; // sleep behind the cart drawer
+        if(!paused) rows.forEach(r => r.drift += r.rate);
+        smooth += (scrollY*cf - smooth) * .08;
+        rows.forEach(r => {
+          if(!r.half) return;
+          const m = (((r.drift + smooth) % r.half) + r.half) % r.half;
+          r.el.style.transform = `translate3d(${r.rev ? m - r.half : -m}px,0,0)`;
+        });
+        return true; // continuous while visible
+      }};
+    Engine.add(tape);
+    new IntersectionObserver(es => { tape.active = es[0].isIntersecting; Engine.wake(); }).observe(mq);
+    mq.addEventListener('pointerenter', () => paused = true);
+    mq.addEventListener('pointerleave', () => paused = false);
+  }
+}
+
+/* -- Thai grapheme scroll-ink reveal on the brand story --
+   IMPORTANT: never "simplify" this to split('') — it detaches Thai combining
+   marks (สระ/วรรณยุกต์) from their base consonants. Intl.Segmenter only. */
+if(!RM.matches && 'Segmenter' in Intl){
+  const story = document.getElementById('story');
+  const paras = story ? [...story.querySelectorAll('.story__body p')] : [];
+  if(paras.length){
+    const wordSeg = new Intl.Segmenter('th', {granularity:'word'});
+    const charSeg = new Intl.Segmenter('th', {granularity:'grapheme'});
+    const coarse = !FINE.matches; // mobile animates ~60 words, desktop ~300 graphemes
+    const units = [];
+    paras.forEach(p => {
+      const text = p.textContent;
+      // screen readers get the intact original; the grapheme spans are visual-only
+      const sr = document.createElement('span'); sr.className = 'sr-only'; sr.textContent = text;
+      const vis = document.createElement('span'); vis.setAttribute('aria-hidden','true');
+      for(const w of wordSeg.segment(text)){
+        if(!w.segment.trim()){ vis.append(document.createTextNode(w.segment)); continue; }
+        const wEl = document.createElement('span'); wEl.className = 'w';
+        if(coarse){ wEl.classList.add('ch'); wEl.textContent = w.segment; units.push(wEl); }
+        else for(const g of charSeg.segment(w.segment)){
+          const c = document.createElement('span'); c.className = 'ch'; c.textContent = g.segment;
+          wEl.append(c); units.push(c);
+        }
+        vis.append(wEl);
+      }
+      p.textContent = '';
+      p.append(sr, vis);
+    });
+    const N = units.length, last = new Float32Array(N).fill(.18);
+    const ink = { active:false,
+      step(){
+        const r = story.getBoundingClientRect(), vh = innerHeight;
+        const p = Math.max(0, Math.min(1, (.8*vh - r.top) / (.6*vh + r.height)));
+        let moving = false;
+        for(let i=0;i<N;i++){
+          const cp = i/N;
+          const o = .18 + .82 * Math.max(0, Math.min(1, (p-(cp-.1))/.15));
+          if(Math.abs(o-last[i]) > .02){ units[i].style.opacity = o; last[i] = o; moving = true; }
+        }
+        return moving;
+      }};
+    Engine.add(ink);
+    new IntersectionObserver(es => { ink.active = es[0].isIntersecting; Engine.wake(); },
+      {rootMargin:'20% 0px'}).observe(story);
+  }
+}
+
+/* ============================================================
+   GSAP 3D LAYER — hero camera scrub · draggable spec-card · turntable
+   (โหลดจาก CDN แบบ defer; ถ้าโหลดไม่สำเร็จหรือผู้ใช้ปิดแอนิเมชัน
+    ทุกอย่างข้างบนยังทำงานเหมือนเดิม + shear fallback รับช่วงต่อ)
+   ============================================================ */
+addEventListener('DOMContentLoaded', () => {
+  if(RM.matches || !window.gsap || !window.ScrollTrigger || !window.Draggable || !window.InertiaPlugin) return;
+  gsap.registerPlugin(ScrollTrigger, Draggable, InertiaPlugin);
+  document.documentElement.classList.add('gsap');
+
+  /* 1) เลื่อน = กล้อง 3D: ตัวอักษรยักษ์เอียงถอยเข้า perspective */
+  const masks = document.querySelectorAll('.hero__type .line-mask');
+  if(masks.length === 2){
+    gsap.set(masks, {transformPerspective:900}); // คงที่ตั้งแต่แรก — ไม่ให้ tween จาก 0 แล้วภาพบิด
+    gsap.timeline({scrollTrigger:{trigger:'.hero', start:'top top', end:'bottom top', scrub:.6, invalidateOnRefresh:true}})
+      .to(masks[0], {x:() => -innerWidth*.18, rotationY:16, z:-70, ease:'none'}, 0)
+      .to(masks[1], {x:() =>  innerWidth*.14, rotationY:-16, z:-70, ease:'none'}, 0)
+      .to('.hero__grid', {y:60, ease:'none'}, 0);
+  }
+
+  /* 2) ลาก+หมุน: การ์ดสเปค 3D ใน hero (มีแรงเหวี่ยง, ดับเบิลคลิกพลิก) */
+  const card = document.getElementById('heroCard');
+  const inner = card?.querySelector('.card3d__in');
+  if(card && inner){
+    const st = {rx:-4, ry:14};
+    const apply = () => gsap.set(card, {rotationX:st.rx, rotationY:st.ry, transformPerspective:1100});
+    apply();
+    const wobble = gsap.to(inner, {rotationY:7, rotationX:-4, duration:3.2, ease:'sine.inOut',
+      yoyo:true, repeat:-1, transformPerspective:1100});
+    let idleT;
+    const rest = () => { clearTimeout(idleT); idleT = setTimeout(() => wobble.play(), 2600); };
+    InertiaPlugin.track(st, 'rx,ry');
+    let sx=0, sy=0, brx=0, bry=0;
+    Draggable.create(document.createElement('div'), {
+      trigger: card,
+      type: 'x,y',
+      allowNativeTouchScrolling: !FINE.matches, // มือถือ: ลากแนวตั้งยังเลื่อนหน้าได้
+      onPress(){ wobble.pause(); gsap.killTweensOf(st); clearTimeout(idleT);
+        sx = this.pointerX; sy = this.pointerY; brx = st.rx; bry = st.ry; },
+      onDrag(){
+        st.ry = bry + (this.pointerX - sx) * .5;
+        st.rx = gsap.utils.clamp(-46, 46, brx - (this.pointerY - sy) * .35);
+        apply();
+      },
+      onRelease(){
+        gsap.to(st, {inertia:{
+          ry:{velocity:'auto'},
+          rx:{velocity:'auto', end: v => gsap.utils.clamp(-30, 30, v)}
+        }, onUpdate:apply, onComplete:rest});
+      }
+    });
+    card.addEventListener('dblclick', () => {
+      wobble.pause(); gsap.killTweensOf(st); clearTimeout(idleT);
+      gsap.to(st, {ry: Math.round(st.ry/180)*180 + 180, rx:-4,
+        duration:.85, ease:'power3.inOut', onUpdate:apply, onComplete:rest});
+    });
+  }
+
+  /* 3) หมุน 360°: วงแหวนสินค้า ลากปัดพร้อม momentum + snap */
+  const ring = document.getElementById('spinRing');
+  const stage = document.getElementById('spinStage');
+  if(ring && stage){
+    const N = PRODUCTS.length, STEP = 360/N;
+    const R = matchMedia('(max-width:520px)').matches ? 230 : 310;
+    ring.innerHTML = PRODUCTS.map((p, i) => `
+      <article class="spin__card" style="transform:rotateY(${i*STEP}deg) translateZ(${R}px)">
+        <div class="ph">${bearSVG()}</div>
+        <div class="spin__body">
+          <div><div class="spin__name">${p.name}</div><span class="spin__price">${money(p.price)}</span></div>
+          <button class="spin__add" type="button" data-id="${p.id}" aria-label="เพิ่ม ${p.name} ลงตะกร้า">+</button>
+        </div>
+      </article>`).join('');
+    const cards = [...ring.children];
+    const rs = {rot:0};
+    const applyRing = () => {
+      gsap.set(ring, {rotationY: rs.rot});
+      cards.forEach((c, i) => {
+        let a = ((i*STEP + rs.rot) % 360 + 360) % 360; if(a > 180) a -= 360;
+        c.classList.toggle('is-front', Math.abs(a) < STEP/2);
+        c.style.opacity = Math.abs(a) > 100 ? .35 : 1;
+      });
+    };
+    applyRing();
+    const auto = gsap.to(rs, {rot:'-=360', duration:70, ease:'none', repeat:-1,
+      repeatRefresh:true, paused:true, onUpdate:applyRing});
+    const resumeAuto = () => auto.invalidate().restart();
+    let idleT2;
+    const rest2 = () => { clearTimeout(idleT2); idleT2 = setTimeout(resumeAuto, 3500); };
+    InertiaPlugin.track(rs, 'rot');
+    let bx=0, brot=0;
+    Draggable.create(document.createElement('div'), {
+      trigger: stage,
+      type: 'x',
+      allowNativeTouchScrolling: true,
+      onPress(){ auto.pause(); gsap.killTweensOf(rs); clearTimeout(idleT2);
+        bx = this.pointerX; brot = rs.rot; },
+      onDrag(){ rs.rot = brot + (this.pointerX - bx) * .35; applyRing(); },
+      onRelease(){
+        gsap.to(rs, {inertia:{rot:{velocity:'auto', end: v => Math.round(v/STEP)*STEP, resistance:220},
+          duration:{max:2}}, onUpdate:applyRing, onComplete:rest2});
+      }
+    });
+    ring.addEventListener('click', e => {
+      const b = e.target.closest('.spin__add');
+      if(b) addToCart(b.dataset.id);
+    });
+    new IntersectionObserver(es => {
+      if(es[0].isIntersecting){ if(!gsap.isTweening(rs)) resumeAuto(); }
+      else auto.pause();
+    }, {threshold:.2}).observe(stage);
+  }
+});
+
+/* -- nav glass materialization when the hero scrolls away --
+   scroll-position based (an IO sentinel proved flaky here) */
+{
+  const hero = document.querySelector('.hero');
+  const nav = document.querySelector('.nav');
+  let limit = 0, rz2;
+  const measure = () => { const r = hero.getBoundingClientRect(); limit = r.top + scrollY + r.height - 80; };
+  const apply = () => nav.classList.toggle('nav--glass', scrollY >= limit);
+  measure(); apply();
+  document.fonts.ready.then(() => { measure(); apply(); });
+  addEventListener('resize', () => { clearTimeout(rz2); rz2 = setTimeout(() => { measure(); apply(); }, 150); }, {passive:true});
+  addEventListener('scroll', apply, {passive:true});
+}
+</script>
+</body>
+</html>
