@@ -103,7 +103,7 @@ function ProductCard({ p }: { p: Product }) {
     <article className="card" ref={cardRef}>
       <div className="card__media" ref={mediaRef}>
         {p.badge && (
-          <span className={`card__badge tag ${p.badge === "NEW" ? "tag--tan" : "tag--acid"}`}>
+          <span className={`card__badge tag ${p.badge === "NEW" ? "tag--tan" : "tag--sand"}`}>
             <span className="tag__dot"></span>
             {p.badge}
           </span>

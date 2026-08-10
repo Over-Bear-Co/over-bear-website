@@ -181,15 +181,15 @@ export default function Hero() {
         </div>
         {/* แทนที่เนื้อหา .ph ด้วย next/image (LCP ของหน้า): <Image src="/model.jpg" alt="..." fill priority /> วางรูปใน public/ */}
         <div className="hero__media ph" role="img" aria-label="ภาพนายแบบหุ่นหมีใส่เสื้อ oversize สีดำ" ref={mediaRef}>
-          <span className="tag tag--acid">
+          <span className="tag tag--sand">
             <span className="tag__dot"></span>240 GSM
           </span>
           <svg className="bear" viewBox="0 0 200 200" aria-hidden="true">
             <circle cx="55" cy="55" r="30" />
             <circle cx="145" cy="55" r="30" />
             <ellipse cx="100" cy="120" rx="70" ry="62" />
-            <circle cx="55" cy="55" r="13" fill="#0c0b0a" />
-            <circle cx="145" cy="55" r="13" fill="#0c0b0a" />
+            <circle className="eye" cx="55" cy="55" r="13" />
+            <circle className="eye" cx="145" cy="55" r="13" />
           </svg>
           <span className="ph__note">▲ แทนที่ด้วยรูปนายแบบจริง</span>
         </div>

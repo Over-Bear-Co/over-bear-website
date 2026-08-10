@@ -163,7 +163,7 @@ export default function CartProvider({ children }: { children: React.ReactNode }
       navCount.classList.add("bump");
       navCount.addEventListener("animationend", () => navCount.classList.remove("bump"), { once: true });
       navCount.animate(
-        [{ boxShadow: "0 0 0 4px rgba(203,242,78,.35)" }, { boxShadow: "0 0 0 12px rgba(203,242,78,0)" }],
+        [{ boxShadow: "0 0 0 4px rgba(232,221,206,.45)" }, { boxShadow: "0 0 0 12px rgba(232,221,206,0)" }],
         { duration: 450, easing: "ease-out" }
       );
     };

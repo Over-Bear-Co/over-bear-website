@@ -9,8 +9,8 @@ const Bear = () => (
     <circle cx="55" cy="55" r="30" />
     <circle cx="145" cy="55" r="30" />
     <ellipse cx="100" cy="120" rx="70" ry="62" />
-    <circle cx="55" cy="55" r="13" fill="#151109" />
-    <circle cx="145" cy="55" r="13" fill="#151109" />
+    <circle className="eye" cx="55" cy="55" r="13" />
+    <circle className="eye" cx="145" cy="55" r="13" />
   </svg>
 );
 

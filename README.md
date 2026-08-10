@@ -29,7 +29,7 @@ src/
   lib/
     motion.ts        Shared rAF Engine singleton + prefersReducedMotion / isFinePointer helpers
     products.ts      Product data, sizes, free-ship threshold, currency formatter
-public/brand/        Brand SVGs (overbear-icon-v2 / overbear-logo-v2)
+public/brand/        Brand SVGs (overbear-icon-v2 tight / -margin safe-area variant / overbear-logo-v2 lockup)
 legacy/              Pre-React standalone HTML origin of the design (reference only; not built)
 ```
 
@@ -42,4 +42,4 @@ legacy/              Pre-React standalone HTML origin of the design (reference o
 
 ## Design tokens
 
-Warm near-black (`--ink`) + bone type (`--bone`) + acid-lime accent (`--acid`) + kraft tan (`--tan`). Fonts: Anton (display) / Archivo (body) / Kanit (Thai display fallback) / Space Mono (tags & numerics).
+CI palette: deep navy (`--ink`) + off-white type (`--bone`) + warm-sand accent (`--sand`) + bear-brown (`--tan`) + olive-moss meta (`--ash`). Raw brand values live in the `--ci-*` block at the top of `globals.css`; every semantic token derives from them. Fonts: Anton (display) / Archivo (body) / Kanit (Thai display fallback) / Space Mono (tags & numerics).
