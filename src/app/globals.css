@@ -14,7 +14,7 @@
 
   /* ---- surfaces · navy ladder ---- */
   --ink:var(--ci-navy);   /* page ground */
-  --ink-2:#26313a;        /* lifted panel (marquee / story / drawer) */
+  --ink-2:#26313a;        /* lifted panel (marquee / story) */
   --ink-3:#2e3a44;        /* card */
   --char:var(--ci-charcoal); /* neutral deep — placeholder & inset tracks */
 
@@ -33,7 +33,6 @@
 
   --line:rgba(246,242,234,.14);
   --line-2:rgba(246,242,234,.28);
-  --shadow:0 24px 60px -20px rgba(9,12,15,.78);
   --wrap:min(1280px,92vw);
   --wrap-pad:4vw;       /* side gutter matching .wrap / .nav__inner (92vw => 4vw each side) */
   --display:var(--font-anton),var(--font-kanit),Impact,'Arial Narrow',sans-serif;
@@ -69,7 +68,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 
 /* ---------- type ---------- */
 .display{font-family:var(--display);font-weight:400;text-transform:uppercase;line-height:.84;letter-spacing:.005em}
-.brand,.hero__type .line,.sec-head h2,.card__name,.story__body h2,.spec dd,.den h2,.drawer__head h3,.drawer__total .amt,.mobile-menu a,.display{font-synthesis:weight none}
+.brand,.hero__type .line,.sec-head h2,.card__name,.story__body h2,.spec dd,.den h2,.mobile-menu a,.display{font-synthesis:weight none}
 .eyebrow,.tag,.mono{font-family:var(--font-mono),ui-monospace,monospace}
 .eyebrow{
   font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--tan);
@@ -142,13 +141,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .nav__links a::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:2px;background:var(--sand);transition:width .3s var(--easing)}
 .nav__links a:hover{color:var(--bone)}
 .nav__links a:hover::after{width:100%}
-.nav__right{display:flex;align-items:center;gap:1rem}
-.cart-btn{
-  font-family:var(--font-mono),monospace;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  display:flex;align-items:center;gap:.55em;padding:.6em 1em;border:1px solid var(--line-2);border-radius:3px;transition:border-color .2s,background .2s
-}
-.cart-btn:hover{border-color:var(--bone)}
-.cart-btn .count{background:var(--sand);color:var(--ink);border-radius:20px;min-width:1.5em;height:1.5em;display:grid;place-items:center;font-size:.72rem;padding:0 .3em}
 .burger{display:none;flex-direction:column;gap:5px;padding:.5em}
 .burger span{width:24px;height:2px;background:var(--bone);transition:.3s var(--easing);transform-origin:center}
 .burger[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
@@ -218,9 +210,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .card__media .ph{position:absolute;inset:0;border:none;border-radius:0}
 /* hover zoom removed — JS tilt engine owns .card__media transforms (pointer:fine only) */
 .card__badge{position:absolute;top:.85rem;left:.85rem;z-index:2}
-.card__quick{position:absolute;left:.85rem;right:.85rem;bottom:.85rem;z-index:2;transform:translateY(130%);opacity:0;transition:.35s var(--easing)}
-.card:hover .card__quick,.card:focus-within .card__quick{transform:translateY(0);opacity:1}
-.card__quick .btn{width:100%;justify-content:center}
 .card__body{padding:1.15rem 1.25rem 1.4rem;display:flex;flex-direction:column;gap:.7rem;flex:1}
 .card__name{font-family:var(--display);font-size:1.35rem;text-transform:uppercase;letter-spacing:.02em;line-height:1}
 .card__meta{font-family:var(--font-mono),monospace;font-size:.72rem;letter-spacing:.08em;color:var(--ash);text-transform:uppercase}
@@ -305,46 +294,6 @@ tbody td:first-child{color:var(--bone);font-weight:700}
 .pay{display:flex;gap:.5rem}
 .pay span{border:1px solid var(--line-2);border-radius:3px;padding:.3em .6em;font-size:.66rem}
 
-/* ============================================================
-   CART DRAWER
-   ============================================================ */
-.overlay{position:fixed;inset:0;z-index:200;background:rgba(16,21,26,.66);opacity:0;visibility:hidden;transition:.35s;-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
-.overlay.open{opacity:1;visibility:visible}
-.drawer{position:fixed;top:0;right:0;bottom:0;z-index:201;width:min(420px,100vw);background:var(--ink-2);border-left:1px solid var(--line-2);transform:translateX(100%);visibility:hidden;transition:transform .45s var(--easing),visibility 0s .45s;display:flex;flex-direction:column;box-shadow:var(--shadow)}
-.drawer.open{transform:translateX(0);visibility:visible;transition:transform .45s var(--easing)}
-.drawer__head{display:flex;justify-content:space-between;align-items:center;padding:1.4rem 1.5rem;border-bottom:1px solid var(--line)}
-.drawer__head h3{font-family:var(--display);font-size:1.5rem;text-transform:uppercase;letter-spacing:.03em}
-.drawer__close{font-size:1.5rem;line-height:1;padding:.2em .4em;color:var(--bone-dim);transition:color .2s}
-.drawer__close:hover{color:var(--bone)}
-/* free-ship progress */
-.ship{padding:1.1rem 1.5rem;border-bottom:1px solid var(--line);font-family:var(--font-mono),monospace;font-size:.74rem;letter-spacing:.05em;color:var(--bone-dim)}
-.ship__bar{height:6px;background:var(--char);border-radius:20px;margin-top:.7rem;overflow:hidden}
-.ship__fill{height:100%;width:0;background:var(--sand);border-radius:20px;transition:width .5s var(--easing)}
-.ship b{color:var(--sand)}
-.drawer__items{flex:1;overflow-y:auto;padding:1rem 1.5rem;display:flex;flex-direction:column;gap:1rem}
-.drawer__empty{text-align:center;color:var(--ash);font-family:var(--font-mono),monospace;font-size:.85rem;margin-top:3rem;line-height:1.8}
-.line-item{display:grid;grid-template-columns:64px 1fr auto;gap:1rem;align-items:center}
-.line-item__img{width:64px;height:72px;border-radius:4px;overflow:hidden;position:relative}
-.line-item__img .ph{position:absolute;inset:0;border:none;border-radius:0}
-.line-item__img .bear{width:60%}
-.line-item__name{font-family:var(--font-archivo),sans-serif;font-weight:700;font-size:.9rem;text-transform:uppercase;letter-spacing:.02em;line-height:1.2}
-.line-item__meta{font-family:var(--font-mono),monospace;font-size:.7rem;color:var(--ash);margin-top:.25rem}
-.qty{display:inline-flex;align-items:center;gap:.6rem;margin-top:.5rem;font-family:var(--font-mono),monospace;font-size:.8rem}
-.qty button{width:22px;height:22px;border:1px solid var(--line-2);border-radius:3px;display:grid;place-items:center;line-height:1;transition:.18s}
-.qty button:hover{border-color:var(--bone);background:rgba(246,242,234,.06)}
-.line-item__price{font-family:var(--font-mono),monospace;font-weight:700;font-size:.9rem}
-.line-item__rm{display:block;font-family:var(--font-mono),monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ash);margin-top:.5rem;text-align:right}
-.line-item__rm:hover{color:var(--tan)}
-.drawer__foot{padding:1.4rem 1.5rem;border-top:1px solid var(--line-2);background:var(--ink-3)}
-.drawer__total{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1.1rem;font-family:var(--font-mono),monospace}
-.drawer__total .lbl{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bone-dim)}
-.drawer__total .amt{font-family:var(--display);font-size:2rem;color:var(--bone)}
-.drawer__foot .btn{width:100%;justify-content:center}
-
-/* toast */
-.toast{position:fixed;bottom:1.5rem;left:50%;transform:translate(-50%,120%);z-index:300;background:var(--bone);color:var(--ink);font-family:var(--font-mono),monospace;font-weight:700;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;padding:.9em 1.4em;border-radius:4px;box-shadow:var(--shadow);transition:transform .4s var(--easing);max-width:90vw;text-align:center}
-.toast.show{transform:translate(-50%,0)}
-
 /* ---------- reveal-on-scroll ---------- */
 .reveal{transition:opacity .8s var(--easing),transform .8s var(--easing)}
 .js .reveal{opacity:0;transform:translateY(28px)}
@@ -405,22 +354,15 @@ tbody td:first-child{color:var(--bone);font-weight:700}
 @keyframes mRowIn{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}
 @keyframes mTick{0%,55%{color:var(--tan)}100%{color:var(--bone)}}
 
-/* -- 4. size-chip stamp + live size echo -- */
+/* -- 4. size-chip stamp -- */
 .size:hover{transform:translateY(-1px)}
 .size.stamp{animation:mStamp .2s var(--easing)}
 @keyframes mStamp{45%{transform:scale(.86) rotate(-2deg)}}
-.add__size-w{display:inline-flex;overflow:hidden;vertical-align:bottom}
-.add__size{display:inline-block}
-
-/* -- 5. card tilt + glare + price flip -- */
+/* -- 5. card tilt + glare -- */
 .card__media .glare{position:absolute;left:0;top:0;width:150%;aspect-ratio:1;border-radius:50%;
   background:radial-gradient(circle,rgba(246,242,234,.10),transparent 62%);
   opacity:0;transition:opacity .3s;pointer-events:none;z-index:1}
 .card.tilting .glare{opacity:1}
-.price-flip{display:block;overflow:hidden;height:1.3em}
-.price-flip__stack{display:flex;flex-direction:column;transition:transform .35s var(--easing)}
-.card__price--add{color:var(--tan)}
-@media(hover:hover){.card:hover .price-flip__stack{transform:translateY(-50%)}}
 
 /* -- 6. SIGNATURE: UV-torch spotlight on hero media -- */
 .flash{position:absolute;inset:0;z-index:3;pointer-events:none;opacity:0;transition:opacity .4s;contain:paint;
@@ -443,22 +385,6 @@ tbody td:first-child{color:var(--bone);font-weight:700}
 .story__body p .w{display:inline-block}
 .story__body p .ch{opacity:.18}
 
-/* -- 10. fly-to-cart -- */
-.fly{position:fixed;z-index:400;width:56px;height:64px;border-radius:6px;background:var(--ink-3);
-  border:1px solid var(--line-2);overflow:hidden;pointer-events:none;display:grid;place-items:center}
-.fly svg{width:60%;fill:var(--tan);opacity:.6}
-.fly img{width:100%;height:100%;object-fit:cover}
-.count.bump{animation:mBump .32s var(--easing)}
-@keyframes mBump{40%{transform:scale(1.45)}}
-
-/* -- 11. free-shipping celebration -- */
-.ship{position:relative}
-.ship__burst{position:absolute;right:1.6rem;top:1.4rem;width:0;height:0;overflow:visible;pointer-events:none}
-.ship__burst span{position:absolute;font-family:var(--font-mono),monospace;font-size:10px;will-change:transform,opacity}
-.ship__fill.hit{animation:mShipHit .35s var(--easing),mShipGlow .9s ease-out}
-@keyframes mShipHit{35%{transform:scaleY(1.9)}}
-@keyframes mShipGlow{0%{box-shadow:0 0 16px rgba(232,221,206,.55)}100%{box-shadow:0 0 0 rgba(232,221,206,0)}}
-
 /* ============================================================
    RESPONSIVE
    ============================================================ */
@@ -478,7 +404,6 @@ tbody td:first-child{color:var(--bone);font-weight:700}
   .grid{grid-template-columns:1fr 1fr;gap:.9rem}
   .card__body{padding:.9rem 1rem 1.1rem}
   .card__name{font-size:1.1rem}
-  .card__quick{transform:none;opacity:1}
   .size{padding:.5em .7em} /* bigger tap target */
   .specs{grid-template-columns:1fr}
   .footer__grid{grid-template-columns:1fr}

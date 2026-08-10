@@ -39,7 +39,7 @@ export default function Marquee() {
     const tape = {
       active: false,
       step() {
-        if (document.getElementById("drawer")?.classList.contains("open")) return false; // หลับหลัง drawer
+        if (document.querySelector(".mobile-menu.open")) return false; // หลับหลัง overlay ที่บังเต็มจอ
         if (!paused) rows.forEach((r) => (r.drift += r.rate));
         smooth += (scrollY * cf - smooth) * 0.08;
         rows.forEach((r) => {

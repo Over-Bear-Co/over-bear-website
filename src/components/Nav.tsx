@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { useCart } from "./CartProvider";
+import { useEffect, useState } from "react";
+import { useUI } from "./UIProvider";
 import BrandMark from "./BrandMark";
 
 const LINKS = [
@@ -12,11 +12,8 @@ const LINKS = [
 ];
 
 export default function Nav() {
-  const { count, openCart, setNavCountEl, menuOpen, toggleMenu, closeMenu } = useCart();
+  const { menuOpen, toggleMenu, closeMenu } = useUI();
   const [glass, setGlass] = useState(false);
-  const countRef = useRef<HTMLSpanElement>(null);
-
-  useEffect(() => setNavCountEl(countRef.current), [setNavCountEl]);
 
   /* nav กลายเป็นกระจกเมื่อ hero พ้นจอ — คำนวณจาก scroll ตรงๆ (IO sentinel เคย flaky) */
   useEffect(() => {
@@ -65,29 +62,16 @@ export default function Nav() {
               </a>
             ))}
           </nav>
-          <div className="nav__right">
-            <button
-              className="cart-btn"
-              id="openCart"
-              aria-label={`เปิดตะกร้าสินค้า มีสินค้า ${count} ชิ้น`}
-              onClick={openCart}
-            >
-              Cart{" "}
-              <span className="count" ref={countRef}>
-                {count}
-              </span>
-            </button>
-            <button
-              className="burger"
-              aria-label={menuOpen ? "ปิดเมนู" : "เปิดเมนู"}
-              aria-expanded={menuOpen}
-              onClick={toggleMenu}
-            >
-              <span></span>
-              <span></span>
-              <span></span>
-            </button>
-          </div>
+          <button
+            className="burger"
+            aria-label={menuOpen ? "ปิดเมนู" : "เปิดเมนู"}
+            aria-expanded={menuOpen}
+            onClick={toggleMenu}
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
         </div>
       </header>
       <nav className={"mobile-menu" + (menuOpen ? " open" : "")} aria-label="เมนูมือถือ">

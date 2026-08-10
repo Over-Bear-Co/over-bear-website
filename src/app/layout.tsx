@@ -6,8 +6,8 @@ import "./globals.css";
 const anton = Anton({ weight: "400", subsets: ["latin"], variable: "--font-anton", display: "swap" });
 const archivo = Archivo({ subsets: ["latin"], variable: "--font-archivo", display: "swap" });
 // Kanit is the Thai fallback for the Anton display face (Anton has no Thai glyphs; it covers Latin),
-// so only the Thai subset and the weights actually rendered (700 drawer title, 800 section headings) are loaded.
-const kanit = Kanit({ weight: ["700", "800"], subsets: ["thai"], variable: "--font-kanit", display: "swap" });
+// so only the Thai subset and the one weight actually rendered (800 section headings) is loaded.
+const kanit = Kanit({ weight: ["800"], subsets: ["thai"], variable: "--font-kanit", display: "swap" });
 const spaceMono = Space_Mono({ weight: ["400", "700"], subsets: ["latin"], variable: "--font-mono", display: "swap" });
 
 export const metadata: Metadata = {

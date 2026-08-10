@@ -1,9 +1,9 @@
 # OVERBEAR
 
-Storefront landing page for **OVERBEAR** — an oversized streetwear brand cut for larger builds ("ไซซ์หมี"). A motion-heavy, single-page marketing site with an in-browser demo cart.
+Storefront landing page for **OVERBEAR** — an oversized streetwear brand cut for larger builds ("ไซซ์หมี"). A motion-heavy, single-page marketing site used for presentation — there is no cart or checkout.
 
 - **Stack:** Next.js 16 (App Router) · React 19 · TypeScript (strict) · plain CSS (no UI framework)
-- **Rendering:** the page is prerendered as fully static HTML (`○ Static`); client components handle scroll/pointer motion and the cart.
+- **Rendering:** the page is prerendered as fully static HTML (`○ Static`); client components handle scroll/pointer motion and the nav shell.
 
 ## Getting started
 
@@ -25,7 +25,7 @@ src/
     globals.css     Design tokens + all component styles + motion system + responsive
     icon.svg        Favicon (auto-linked by the App Router metadata convention)
   components/        One file per section (Nav, Hero, Marquee, ProductGrid, Story, Sections, Footer)
-                     + CartProvider / CartDrawer (client cart) + BrandMark (shared logo mark)
+                     + UIProvider (mobile-menu / Escape / inert shell state) + BrandMark (shared logo mark)
   lib/
     motion.ts        Shared rAF Engine singleton + prefersReducedMotion / isFinePointer helpers
     products.ts      Product data, sizes, free-ship threshold, currency formatter
@@ -36,7 +36,7 @@ legacy/              Pre-React standalone HTML origin of the design (reference o
 ## Architecture notes
 
 - **Motion engine** (`lib/motion.ts`): one `requestAnimationFrame` loop drives every scroll/pointer effect. Each effect registers an `EngineItem`; an `IntersectionObserver` gates its `active` flag so off-screen and settled items stop stepping and the loop sleeps.
-- **Cart** (`CartProvider`): client-only in-memory state — checkout and the newsletter are intentionally stubbed demos (no backend/persistence). `CartProvider` also owns background `inert` for both the cart drawer and the mobile menu so the two modal layers never fight over it.
+- **UI shell** (`UIProvider`): holds the state that is not owned by any one section — mobile-menu open/close, the `Escape` handler, background `inert` while the menu covers the page, and the reduced-motion listener that re-inits on an OS-level change. The newsletter form is an intentionally stubbed demo (no backend).
 - **Accessibility:** reduced-motion has a full static fallback; the Thai story reveal segments graphemes with `Intl.Segmenter` (never `split('')`) and keeps the original text for screen readers.
 - **Imagery:** section media are CSS/SVG placeholders. Replace them with `next/image` (mark the hero `priority` — it is the LCP element); see the `แทนที่ .ph …` comments.
 
