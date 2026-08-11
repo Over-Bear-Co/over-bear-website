@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { Engine, isFinePointer, prefersReducedMotion } from "@/lib/motion";
 import PullUpHeading from "./PullUpHeading";
+import StoryScene from "./StoryScene";
 
 const Bear = () => (
   <svg className="bear" viewBox="0 0 200 200" aria-hidden="true">
@@ -16,6 +17,7 @@ const Bear = () => (
 
 export default function Story() {
   const storyRef = useRef<HTMLElement>(null);
+  const mediaRef = useRef<HTMLDivElement>(null);
 
   /* Thai grapheme scroll-ink reveal —
      ห้าม "ลดรูป" เป็น split('') เด็ดขาด: สระ/วรรณยุกต์ไทยจะหลุดจากพยัญชนะ
@@ -107,9 +109,11 @@ export default function Story() {
 
   return (
     <section className="story section" id="story" ref={storyRef}>
+      <StoryScene mediaRef={mediaRef} storyRef={storyRef} />
       <div className="wrap story__grid">
         {/* แทนที่ .ph ด้วยรูปนายแบบจริงผ่าน next/image (fill) */}
-        <div className="story__media ph reveal" role="img" aria-label="นายแบบหุ่นหมีใส่เสื้อ oversize">
+        {/* .ph เดิมคงไว้ทั้งหมด เป็น fallback ของ SSR / no-JS / reduce-motion / WebGL ล้มเหลว */}
+        <div className="story__media ph reveal" role="img" aria-label="นายแบบหุ่นหมีใส่เสื้อ oversize" ref={mediaRef}>
           <Bear />
           <span className="ph__note">▲ แทนที่ด้วยรูปนายแบบจริง</span>
         </div>

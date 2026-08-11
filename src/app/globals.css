@@ -226,6 +226,11 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .story{background:var(--ink-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .story__grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:clamp(2rem,5vw,4.5rem);align-items:center}
 .story__media{aspect-ratio:5/6}
+/* canvas ของโลโก้ 3D — ทับ .ph ที่ isolate ไว้แล้ว จึงไม่ต้องยุ่งกับ stacking เพิ่ม
+   .gl-on ถูกใส่จาก JS หลังเรนเดอร์เฟรมแรกสำเร็จเท่านั้น init ล้มเหลวจึงยังเห็นหมี SVG เหมือนเดิม */
+.story__gl{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0}
+.story__media.gl-on .bear{opacity:0}
+.story__media.gl-on .ph__note{display:none}
 .story__body .eyebrow{color:var(--sand)}
 .story__body .eyebrow::before{background:var(--sand)}
 .story__body h2{font-family:var(--display);text-transform:uppercase;font-size:clamp(2.4rem,6vw,4.5rem);line-height:1.02;font-weight:800;margin:1.1rem 0 1.3rem}
@@ -423,6 +428,7 @@ tbody td:first-child{color:var(--bone);font-weight:700}
   .size-sec tbody tr,.size-sec tbody td:first-child{opacity:1 !important;transform:none !important;animation:none !important}
   .pu__in{transform:none !important;transition:none !important}
   .flash{display:none !important}
+  .story__gl{display:none !important}
   .story__body p .ch{opacity:1 !important}
   .marquee__track--rev{transform:translateX(-25%)} /* static rows still show different copy */
 }

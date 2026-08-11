@@ -46,3 +46,14 @@ export const prefersReducedMotion = () =>
 
 export const isFinePointer = () =>
   typeof window !== "undefined" && matchMedia("(pointer: fine)").matches;
+
+/* capability gate สำหรับ 3D — เช็คก่อน import three เพื่อไม่ให้เครื่องที่รันไม่ได้ต้องโหลด bundle เปล่า ๆ */
+export const hasWebGL = () => {
+  if (typeof window === "undefined") return false;
+  try {
+    const c = document.createElement("canvas");
+    return !!(c.getContext("webgl2") || c.getContext("webgl"));
+  } catch {
+    return false;
+  }
+};
