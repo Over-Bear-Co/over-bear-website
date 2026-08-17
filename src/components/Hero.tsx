@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import { Engine, isFinePointer, prefersReducedMotion, type EngineItem } from "@/lib/motion";
 
 export default function Hero() {
@@ -150,48 +151,57 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="hero wrap" ref={heroRef}>
-      <span className="hero__side">EST. 2026 — BANGKOK / DROP 01</span>
-      <div className="hero__type" aria-hidden="true">
-        <span className="line-mask" ref={m1Ref}>
-          <span className="line">
-            OVERSIZED<span className="dot">.</span>
+    /* .hero เป็น full-bleed (ไม่ใช่ .wrap) — overflow:clip ของมันจึงตัดที่ขอบ "จอ"
+       ส่วน .hero__inner เป็น .wrap ที่ไม่ clip ตัวหนังสือจึงล้นออกจาก column ไปถึงขอบจอได้
+       แพตเทิร์นเดียวกับ Story: section อยู่นอก wrap, เนื้อหาอยู่ใน wrap ชั้นใน */
+    <section className="hero" ref={heroRef}>
+      <div className="wrap hero__inner">
+        <div className="hero__type" aria-hidden="true">
+          <span className="line-mask" ref={m1Ref}>
+            <span className="line">
+              OVERSIZED<span className="dot">.</span>
+            </span>
           </span>
-        </span>
-        <span className="line-mask" ref={m2Ref}>
-          <span className="line line--2">UNAPOLOGETIC</span>
-        </span>
-      </div>
-      <div className="hero__grid">
-        <div className="hero__lede">
-          <span className="eyebrow">Drop 01 — Dark Basics</span>
-          <h1 className="sr-only">OVERBEAR — เสื้อ oversize สีเข้มสำหรับหุ่นหมี</h1>
-          <p>
-            เสื้อยืด oversize สีเข้ม ตัดเผื่อทรงหุ่นหมีโดยเฉพาะ ผ้าหนา 240 GSM ทรง drop-shoulder ใส่สบาย
-            ดูเท่ทุกวัน — ไซซ์ M ถึง 5XL
-          </p>
-          <div className="hero__cta">
-            <a className="btn" href="#drop">
-              ช้อปดรอปล่าสุด <span className="arw">→</span>
-            </a>
-            <a className="btn btn--ghost" href="#size">
-              ดูตารางไซซ์
-            </a>
-          </div>
+          <span className="line-mask" ref={m2Ref}>
+            <span className="line line--2">UNAPOLOGETIC</span>
+          </span>
         </div>
-        {/* แทนที่เนื้อหา .ph ด้วย next/image (LCP ของหน้า): <Image src="/model.jpg" alt="..." fill priority /> วางรูปใน public/ */}
-        <div className="hero__media ph" role="img" aria-label="ภาพนายแบบหุ่นหมีใส่เสื้อ oversize สีดำ" ref={mediaRef}>
-          <span className="tag tag--sand">
-            <span className="tag__dot"></span>240 GSM
-          </span>
-          <svg className="bear" viewBox="0 0 200 200" aria-hidden="true">
-            <circle cx="55" cy="55" r="30" />
-            <circle cx="145" cy="55" r="30" />
-            <ellipse cx="100" cy="120" rx="70" ry="62" />
-            <circle className="eye" cx="55" cy="55" r="13" />
-            <circle className="eye" cx="145" cy="55" r="13" />
-          </svg>
-          <span className="ph__note">▲ แทนที่ด้วยรูปนายแบบจริง</span>
+        {/* spec line — เคยเป็น rail แนวตั้งมุมขวาบน ย้ายลงมาเป็นบรรทัดนอนใต้หัวเรื่อง
+            เพราะพอตัวหนังสือใหญ่พอจะล้นกรอบจริง มันกินพื้นที่มุมขวาบนจนหมด
+            (บรรทัด 2 พาดผ่าน x 1342–1360 ที่ rail อยู่ — วัดแล้วต้องใช้ฟอนต์ ≥492px จึงจะพ้นกัน) */}
+        <span className="hero__side">EST. 2026 — BANGKOK / DROP 01</span>
+        <div className="hero__grid">
+          <div className="hero__lede">
+            <span className="eyebrow">Drop 01 — Dark Basics</span>
+            <h1 className="sr-only">OVERBEAR — เสื้อ oversize สีเข้มสำหรับหุ่นหมี</h1>
+            <p>
+              เสื้อยืด oversize สีเข้ม ตัดเผื่อทรงหุ่นหมีโดยเฉพาะ ผ้าหนา 240 GSM ทรง drop-shoulder ใส่สบาย
+              ดูเท่ทุกวัน — ไซซ์ M ถึง 5XL
+            </p>
+            <div className="hero__cta">
+              <a className="btn" href="#drop">
+                ช้อปดรอปล่าสุด <span className="arw">→</span>
+              </a>
+              <a className="btn btn--ghost" href="#size">
+                ดูตารางไซซ์
+              </a>
+            </div>
+          </div>
+          {/* LCP ของหน้า — priority บังคับ ห้ามถอด
+              รูปนี้ยังเป็นตัวที่ UV torch โคลนไปทำเลเยอร์สว่างด้วย (ดู effect ด้านบน)
+              ช่อง 4:5 กว้างสุด 558px → ไฟล์ควรเป็น 1116×1396 (ตอนนี้มีแค่ 512px = เบลอ) */}
+          <div className="hero__media ph" ref={mediaRef}>
+            <Image
+              src="/tees/black.jpg"
+              alt="นายแบบหุ่นหมีใส่เสื้อยืด oversize สีดำ ผ้าหนา 240 GSM"
+              fill
+              priority
+              sizes="(max-width:456px) 92vw, (max-width:900px) 420px, (max-width:1391px) 42vw, 558px"
+            />
+            <span className="tag tag--slab">
+              <span className="tag__dot"></span>240 GSM
+            </span>
+          </div>
         </div>
       </div>
     </section>

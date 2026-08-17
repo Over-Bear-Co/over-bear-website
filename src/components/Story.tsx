@@ -1,18 +1,9 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import { Engine, isFinePointer, prefersReducedMotion } from "@/lib/motion";
 import PullUpHeading from "./PullUpHeading";
-
-const Bear = () => (
-  <svg className="bear" viewBox="0 0 200 200" aria-hidden="true">
-    <circle cx="55" cy="55" r="30" />
-    <circle cx="145" cy="55" r="30" />
-    <ellipse cx="100" cy="120" rx="70" ry="62" />
-    <circle className="eye" cx="55" cy="55" r="13" />
-    <circle className="eye" cx="145" cy="55" r="13" />
-  </svg>
-);
 
 export default function Story() {
   const storyRef = useRef<HTMLElement>(null);
@@ -108,10 +99,16 @@ export default function Story() {
   return (
     <section className="story section" id="story" ref={storyRef}>
       <div className="wrap story__grid">
-        {/* แทนที่ .ph ด้วยรูปนายแบบจริงผ่าน next/image (fill) */}
-        <div className="story__media ph reveal" role="img" aria-label="นายแบบหุ่นหมีใส่เสื้อ oversize">
-          <Bear />
-          <span className="ph__note">▲ แทนที่ด้วยรูปนายแบบจริง</span>
+        {/* ช่อง 5:6 แต่ ≤900px สลับเป็น 5:4 (แนวนอน) — object-fit:cover ครอปด้านข้างออก
+            รูปนี้แบบอยู่กลางเฟรม จึงรอดทั้งสองอัตราส่วน ถ้าเปลี่ยนรูปต้องเช็คซ้ำ
+            กว้างสุด 574px → ไฟล์ควรเป็น 1148×1378 (ตอนนี้มีแค่ 512px = เบลอ) */}
+        <div className="story__media ph reveal">
+          <Image
+            src="/tees/charcoal.jpg"
+            alt="นายแบบหุ่นหมีใส่เสื้อยืด oversize สีเทาถ่าน เห็นทรงบ่าตกและตัวยาว"
+            fill
+            sizes="(max-width:900px) 92vw, (max-width:1391px) 42vw, 574px"
+          />
         </div>
         <div className="story__body reveal reveal--pu">
           <span className="eyebrow">Made for size</span>

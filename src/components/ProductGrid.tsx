@@ -1,17 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { PRODUCTS, SIZES, money, type Product, type Size } from "@/lib/products";
 import { Engine, isFinePointer, prefersReducedMotion } from "@/lib/motion";
 import PullUpHeading from "./PullUpHeading";
-
-const Bear = () => (
-  <svg className="bear" viewBox="0 0 200 200" aria-hidden="true">
-    <circle cx="55" cy="55" r="30" />
-    <circle cx="145" cy="55" r="30" />
-    <ellipse cx="100" cy="120" rx="70" ry="62" />
-  </svg>
-);
 
 function ProductCard({ p }: { p: Product }) {
   const [size, setSize] = useState<Size>("M");
@@ -94,15 +87,20 @@ function ProductCard({ p }: { p: Product }) {
     <article className="card" ref={cardRef}>
       <div className="card__media" ref={mediaRef}>
         {p.badge && (
-          <span className={`card__badge tag ${p.badge === "NEW" ? "tag--tan" : "tag--sand"}`}>
+          <span className={`card__badge tag ${p.badge === "NEW" ? "tag--accent" : "tag--slab"}`}>
             <span className="tag__dot"></span>
             {p.badge}
           </span>
         )}
-        {/* แทนที่ .ph ด้วย next/image: <Image src={`/${p.id}.jpg`} alt={`${p.name} — ${p.color}`} fill /> (วางรูปใน public/) */}
-        <div className="ph" role="img" aria-label={`${p.name} — ${p.color}`}>
-          <Bear />
-          <span className="ph__note">▲ ใส่รูปสินค้า</span>
+        {/* ช่อง 1:1.05 · กว้างสุด 459px ที่จอ ~1029px (auto-fill เหลือ 2 คอลัมน์)
+            ไม่ใช่ที่จอกว้างสุด ซึ่งมี 4 คอลัมน์ = 302px — sizes จึงต้องไล่ตามลำดับนี้ */}
+        <div className="ph">
+          <Image
+            src={p.image}
+            alt={`${p.name} — สี${p.color}`}
+            fill
+            sizes="(max-width:1100px) 46vw, (max-width:1391px) 31vw, 302px"
+          />
         </div>
         <span className="glare" aria-hidden="true" ref={glareRef}></span>
       </div>
