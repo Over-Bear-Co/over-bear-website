@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { Engine, isFinePointer, prefersReducedMotion } from "@/lib/motion";
 
 const ROW1 = ["100% Heavy Cotton", "240 GSM", "Oversized Fit", "ไซซ์หมี สไตล์เท่", "Machine Wash Cold", "Made in Bangkok"];
-const ROW2 = ["Drop-Shoulder", "Boxy Cut", "M–5XL", "ตัดเผื่อหุ่นหมี", "Heavy Drape", "ทรงไม่เพี้ยน"];
+const ROW2 = ["Drop-Shoulder", "Boxy Cut", "XL–5XL", "ตัดเผื่อหุ่นหมี", "Heavy Drape", "ทรงไม่เพี้ยน"];
 
 export default function Marquee() {
   const mqRef = useRef<HTMLDivElement>(null);

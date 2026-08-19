@@ -52,7 +52,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 
 /* ---------- type ---------- */
 .display{font-family:var(--display);font-weight:400;text-transform:uppercase;line-height:.84;letter-spacing:.005em}
-.brand,.hero__type .line,.sec-head h2,.card__name,.story__body h2,.spec dd,.den h2,.mobile-menu a,.display{font-synthesis:weight none}
+.brand,.hero__type .line,.sec-head h2,.arch__name,.story__body h2,.spec dd,.den h2,.mobile-menu a,.display{font-synthesis:weight none}
 .eyebrow,.tag,.mono{font-family:var(--font-mono),ui-monospace,monospace}
 .eyebrow{
   font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--tan);
@@ -178,23 +178,14 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 @keyframes scroll{to{transform:translateX(-50%)}}
 
 /* ============================================================
-   PRODUCTS — THE DROP
+   SECTION HEAD — หัวข้อร่วมของทุก section
    ============================================================ */
 .sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-bottom:clamp(2rem,4vw,3.5rem)}
 .sec-head h2{font-family:var(--display);text-transform:uppercase;font-size:clamp(2.6rem,8vw,6rem);line-height:1;font-weight:800}
+/* คำเน้นสีแทน — ต้องรีเซ็ต font-style เพราะ Anton/Kanit ไม่มีหน้าตัวเอียง เบราว์เซอร์จะสังเคราะห์ให้เอง
+   (คู่กับ .story__body h2 em ที่ทำหน้าที่เดียวกันใน narrative band) */
+.sec-head h2 em{font-style:normal;color:var(--tan)}
 .sec-head .eyebrow{margin-bottom:1rem}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem}
-/* keep a tidy 2-up down to small phones — auto-fill would otherwise drop to 1 column across 521–677px */
-@media(max-width:677px){.grid{grid-template-columns:repeat(2,1fr)}}
-.card{background:var(--ink-3);border:1px solid var(--line);border-radius:8px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .3s,transform .3s var(--easing)}
-.card:hover{border-color:var(--line-2);transform:translateY(-4px)}
-.card__media{aspect-ratio:1/1.05;position:relative;overflow:hidden}
-.card__media .ph{position:absolute;inset:0;border:none;border-radius:0}
-/* hover zoom removed — JS tilt engine owns .card__media transforms (pointer:fine only) */
-.card__badge{position:absolute;top:.85rem;left:.85rem;z-index:2}
-.card__body{padding:1.15rem 1.25rem 1.4rem;display:flex;flex-direction:column;gap:.7rem;flex:1}
-.card__name{font-family:var(--display);font-size:1.35rem;text-transform:uppercase;letter-spacing:.02em;line-height:1}
-.card__meta{font-family:var(--font-mono),monospace;font-size:.72rem;letter-spacing:.08em;color:var(--ash);text-transform:uppercase}
 
 /* ============================================================
    MADE FOR SIZE — brand story (the bear world / tan accent)
@@ -234,7 +225,14 @@ tbody td:first-child{color:var(--bone);font-weight:700}
 .look__scroll::-webkit-scrollbar{height:6px}
 .look__scroll::-webkit-scrollbar-thumb{background:var(--line-2);border-radius:20px}
 .look__item{flex:0 0 clamp(240px,32vw,360px);scroll-snap-align:start}
-.look__item .ph{aspect-ratio:3/4}
+.look__item .frame{aspect-ratio:3/4}
+/* ON THE STREETS — รูปพักเป็นขาวดำ คืนสีพร้อมซูมเมื่อชี้ (ยกมาจาก mockup)
+   กันด้วย (hover:hover) เพราะทัชสกรีนไม่มี hover — ถ้าไม่กัน รูปจะค้างขาวดำถาวรบนมือถือ
+   ซูมที่นี่ปลอดภัยกว่าต้นฉบับ: .frame ไม่มี padding จึงไม่มีขอบมาตให้ภาพขยายทับจนหาย */
+@media(hover:hover){
+  .look__item .frame img{filter:grayscale(1);transition:filter .7s var(--easing),transform .7s var(--easing)}
+  .look__item:hover .frame img{filter:grayscale(0);transform:scale(1.05)}
+}
 .look__cap{font-family:var(--font-mono),monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ash);margin-top:.8rem;display:flex;justify-content:space-between}
 
 /* ============================================================
@@ -321,20 +319,14 @@ tbody td:first-child{color:var(--bone);font-weight:700}
 .js .size-sec .table-wrap:not(.in) tbody tr{opacity:0}
 .size-sec .table-wrap.in tbody tr{animation:mRowIn .5s var(--easing) both}
 .size-sec .table-wrap.in tbody td:first-child{animation:mTick .9s var(--easing) both}
+/* หน่วงทีละแถว — ต้องมีบรรทัดครบเท่าจำนวนแถวใน SpecificationSheet (ตอนนี้ 5 แถว: XL–5XL)
+   เพิ่มแถวเมื่อไรต้องเพิ่ม nth-child ที่นี่ด้วย ไม่งั้นแถวท้ายจะโผล่พร้อมกันหมด */
 .size-sec .table-wrap.in tbody tr:nth-child(2),.size-sec .table-wrap.in tbody tr:nth-child(2) td:first-child{animation-delay:70ms}
 .size-sec .table-wrap.in tbody tr:nth-child(3),.size-sec .table-wrap.in tbody tr:nth-child(3) td:first-child{animation-delay:140ms}
 .size-sec .table-wrap.in tbody tr:nth-child(4),.size-sec .table-wrap.in tbody tr:nth-child(4) td:first-child{animation-delay:210ms}
 .size-sec .table-wrap.in tbody tr:nth-child(5),.size-sec .table-wrap.in tbody tr:nth-child(5) td:first-child{animation-delay:280ms}
-.size-sec .table-wrap.in tbody tr:nth-child(6),.size-sec .table-wrap.in tbody tr:nth-child(6) td:first-child{animation-delay:350ms}
-.size-sec .table-wrap.in tbody tr:nth-child(7),.size-sec .table-wrap.in tbody tr:nth-child(7) td:first-child{animation-delay:420ms}
 @keyframes mRowIn{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}
 @keyframes mTick{0%,55%{color:var(--acid)}100%{color:var(--bone)}}
-
-/* -- 5. card tilt + glare -- */
-.card__media .glare{position:absolute;left:0;top:0;width:150%;aspect-ratio:1;border-radius:50%;
-  background:radial-gradient(circle,rgba(236,229,214,.09),transparent 62%);
-  opacity:0;transition:opacity .3s;pointer-events:none;z-index:1}
-.card.tilting .glare{opacity:1}
 
 /* -- 6. SIGNATURE: UV-torch spotlight on hero media -- */
 .flash{position:absolute;inset:0;z-index:3;pointer-events:none;opacity:0;transition:opacity .4s;contain:paint;
@@ -358,6 +350,104 @@ tbody td:first-child{color:var(--bone);font-weight:700}
 .story__body p .ch{opacity:.18}
 
 /* ============================================================
+   REAL PHOTOGRAPHY FRAME
+   คู่ของ .ph สำหรับช่องที่มีรูปจริงแล้ว — กรอบ/มุม/การซ้อนเหมือนกันเป๊ะ
+   เพื่อให้ช่องที่ยังเป็น placeholder กับช่องที่มีรูปวางเรียงกันได้โดยไม่สะดุด
+   ============================================================ */
+.frame{position:relative;overflow:hidden;border-radius:6px;border:1px solid var(--line);
+  background:var(--ink-2);isolation:isolate}
+.frame img{width:100%;height:100%;object-fit:cover}
+/* คำอธิบายมุมล่างซ้าย — z-index สูงกว่า .flash (z:3) ให้อ่านออกแม้ตอนไฟฉายส่อง */
+.frame__cap{position:absolute;left:.8rem;bottom:.8rem;z-index:4}
+.frame--contain img{object-fit:contain}
+
+/* ============================================================
+   INDUSTRIAL PRECISION / FABRIC TECHNOLOGY — narrative bands เพิ่มเติม
+   ใช้โครง .story__grid เดิม เพิ่มเฉพาะตัวสลับข้าง
+   ============================================================ */
+.story__grid--rev{grid-template-columns:1.05fr .95fr}
+.story__grid--rev .story__media{order:2}
+.prec__media{aspect-ratio:4/5}
+/* ต้นแบบทับ scrim ดำ 95% ทั้งภาพแล้วเจาะรูตามเมาส์ (code.html:224-230)
+   ที่นี่ได้ผลเดียวกันด้วยการหรี่ภาพพื้นแล้วปล่อยให้ .flash — สำเนาที่ brightness 1.45
+   ซึ่งโผล่ผ่านหน้ากากวงกลม — เป็นตัวเผย จึงไม่ต้องเพิ่มเลเยอร์ใหม่และยังใช้ rAF engine เดิม
+
+   `> img` สำคัญ: .flash อยู่ใน .prec__media และโคลน <img> ไปด้วย
+   ถ้าไม่ระบุลูกตรง ตัวโคลนจะโดนหรี่ตาม ลำไฟฉายก็จะไม่สว่างขึ้นเลย
+
+   (hover:hover) กันไว้เพราะทัชสกรีนไม่มีเมาส์มาเผย — ถ้าหรี่ค้าง ภาพจะมืดถาวรบนมือถือ */
+@media(hover:hover){
+  .prec__media>img{filter:grayscale(1) brightness(.34);transition:filter .7s var(--easing)}
+  .prec__media:hover>img{filter:grayscale(1) brightness(.46)}
+}
+.fabric__media{aspect-ratio:1/1}
+
+/* ============================================================
+   HEAVYWEIGHT ARCHIVE — การ์ดคลังสี (ทรงสูง โชว์ตัวเสื้อเต็มใบ)
+   พื้นโทนอุ่น เสื้อลอยกลางกรอบด้วย object-contain ไม่มี tilt (เป็น server component)
+   ============================================================ */
+.arch__grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem}
+.arch__card{position:relative;display:flex;flex-direction:column;background:var(--ink-3);
+  border:1px solid var(--line);border-radius:8px;overflow:hidden;
+  transition:border-color .3s,transform .3s var(--easing)}
+.arch__card:hover{border-color:var(--line-2);transform:translateY(-4px)}
+.arch__media{position:relative;aspect-ratio:1/1;background:
+  radial-gradient(120% 90% at 50% 0%,rgba(201,138,75,.14),transparent 60%)}
+.arch__media .frame,.arch__media .ph{position:absolute;inset:0;border:none;border-radius:0;background:transparent}
+.arch__tags{position:absolute;top:.85rem;left:.85rem;right:.85rem;z-index:3;
+  display:flex;justify-content:space-between;gap:.5rem;flex-wrap:wrap}
+.arch__body{padding:1.15rem 1.25rem 1.4rem;display:flex;flex-direction:column;gap:.55rem;flex:1}
+.arch__name{font-family:var(--display);font-size:1.3rem;text-transform:uppercase;letter-spacing:.02em;line-height:1;
+  font-synthesis:weight none}
+.arch__meta{font-family:var(--font-mono),monospace;font-size:.72rem;letter-spacing:.08em;
+  color:var(--ash);text-transform:uppercase}
+.arch__foot{margin-top:auto;padding-top:.9rem;border-top:1px solid var(--line);
+  font-family:var(--font-mono),monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
+  display:flex;align-items:center;gap:.5em;color:var(--ash)}
+.arch__foot .dot{width:.45em;height:.45em;border-radius:50%;background:var(--acid);flex:none}
+
+/* ============================================================
+   INDUSTRIAL SPEC — การ์ดรายละเอียดงานประกอบ (16:9 สองใบ)
+   ตั้งชื่อ .build เพื่อไม่ชนกับ .spec/.specs ที่เป็น dt/dd อยู่แล้ว
+   ============================================================ */
+.build__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
+.build__card{position:relative;border-radius:8px;overflow:hidden;border:1px solid var(--line);
+  aspect-ratio:16/9;transition:border-color .3s}
+.build__card:hover{border-color:var(--line-2)}
+.build__card .frame{position:absolute;inset:0;border:none;border-radius:0}
+/* แผ่นไล่สีรองข้อความ — ทึบพอให้ตัวอักษรผ่าน AA บนภาพที่สว่างไม่เท่ากัน */
+.build__cap{position:absolute;inset:auto 0 0 0;z-index:2;padding:2.6rem 1.4rem 1.25rem;
+  background:linear-gradient(to top,rgba(12,11,10,.94) 0%,rgba(12,11,10,.82) 45%,transparent 100%)}
+.build__cap h3{font-family:var(--display);font-size:clamp(1.15rem,2.4vw,1.6rem);text-transform:uppercase;
+  letter-spacing:.02em;line-height:1;color:var(--bone);font-synthesis:weight none;margin-bottom:.45rem}
+/* คำบรรยายเป็นประโยคไทยเต็ม จึงไม่ใช้ mono (Space Mono ไม่มี glyph ไทย จะตกไป monospace ของระบบ)
+   และไม่ใส่ tracking กว้าง เพราะทำให้สระ/วรรณยุกต์ลอยห่างพยัญชนะ */
+.build__cap p{font-size:.86rem;letter-spacing:.01em;color:var(--acid);line-height:1.55;max-width:46ch}
+/* ต้องมีแผ่นรองของตัวเอง — ภาพในการ์ดสว่างไม่เท่ากัน (คอเสื้อสว่าง ผ้าถักมืด)
+   ตัวเลขลอยบนภาพเปล่าจะจมหายไปในใบที่สว่าง */
+.build__no{position:absolute;top:.9rem;right:.9rem;z-index:2;font-family:var(--font-mono),monospace;
+  font-size:.68rem;letter-spacing:.16em;color:var(--bone);
+  background:rgba(12,11,10,.62);border:1px solid var(--line-2);border-radius:2px;
+  padding:.3em .55em;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+
+/* ============================================================
+   SPECIFICATION SHEET — ตารางไซซ์ฉบับเต็ม
+   ตัว table/th/td ใช้สไตล์กลางร่วมกับ .size-sec อยู่แล้ว เพิ่มเฉพาะกรอบเอกสาร
+   ============================================================ */
+.sheet{background:var(--ink-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  position:relative;overflow:hidden}
+/* ตารางตะแกรงจาง ๆ ให้ความรู้สึกกระดาษเขียนแบบ — .06 คือค่าต่ำสุดที่ยังมองเห็นบนจอปกติ */
+.sheet::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.06;
+  background-image:linear-gradient(var(--bone) 1px,transparent 1px),linear-gradient(90deg,var(--bone) 1px,transparent 1px);
+  background-size:48px 48px}
+.sheet>*{position:relative;z-index:1}
+.sheet__ref{font-family:var(--font-mono),monospace;font-size:.7rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--tan)}
+.sheet__mark{font-family:var(--display);font-size:clamp(3rem,9vw,7rem);line-height:.9;text-transform:uppercase;
+  color:var(--bone);opacity:.07;user-select:none;font-synthesis:weight none}
+.sheet .sec-head{align-items:flex-end}
+
+/* ============================================================
    RESPONSIVE
    ============================================================ */
 @media(max-width:900px){
@@ -368,14 +458,22 @@ tbody td:first-child{color:var(--bone);font-weight:700}
   .hero__media{max-width:420px}
   .story__grid{grid-template-columns:1fr}
   .story__media{aspect-ratio:5/4;max-height:440px}
+  /* แถบสลับข้างกลับมาเป็นรูปบน-ข้อความล่าง ให้เหมือน narrative band อื่นบนมือถือ */
+  .story__grid--rev .story__media{order:0}
+  .prec__media,.fabric__media{aspect-ratio:5/4;max-height:440px}
+  .build__grid{grid-template-columns:1fr}
   .footer__grid{grid-template-columns:1fr 1fr}
   .footer__brand{grid-column:1/-1}
 }
+/* .arch__grid เป็น auto-fill minmax(280px) — ถ้าไม่บังคับ จะหล่นเหลือคอลัมน์เดียวช่วง 521–677px */
+@media(max-width:677px){.arch__grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){
   :root{--stag:.7} /* load choreography ~30% faster on mobile */
-  .grid{grid-template-columns:1fr 1fr;gap:.9rem}
-  .card__body{padding:.9rem 1rem 1.1rem}
-  .card__name{font-size:1.1rem}
+  .arch__grid{gap:.9rem}
+  .arch__body{padding:.9rem 1rem 1.1rem}
+  .arch__name{font-size:1.05rem}
+  .arch__tags{flex-direction:column;align-items:flex-start}
+  .build__cap{padding:2rem 1rem 1rem}
   .specs{grid-template-columns:1fr}
   .footer__grid{grid-template-columns:1fr}
   .footer__bottom{flex-direction:column;align-items:flex-start}
@@ -394,6 +492,11 @@ tbody td:first-child{color:var(--bone);font-weight:700}
   .size-sec tbody tr,.size-sec tbody td:first-child{opacity:1 !important;transform:none !important;animation:none !important}
   .pu__in{transform:none !important;transition:none !important}
   .flash{display:none !important}
+  /* คงการคืนสีตอน hover ไว้ (เปลี่ยนสีไม่กระตุ้นอาการเวียนศีรษะ) ตัดออกเฉพาะการซูม */
+  .look__item:hover .frame img{transform:none !important}
+  /* ไฟฉายคือตัวเผยภาพที่หรี่ไว้ แต่โหมดนี้ไม่มี .flash เลย — ต้องคืนความสว่าง
+     ไม่งั้นพาเนลจะเป็นกล่องดำที่ไม่มีทางเปิดดูได้ */
+  .prec__media>img{filter:none !important}
   .story__body p .ch{opacity:1 !important}
   .marquee__track--rev{transform:translateX(-25%)} /* static rows still show different copy */
 }

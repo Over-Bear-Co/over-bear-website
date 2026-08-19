@@ -7,7 +7,7 @@ const anton = Anton({ weight: "400", subsets: ["latin"], variable: "--font-anton
 const archivo = Archivo({ subsets: ["latin"], variable: "--font-archivo", display: "swap" });
 // Kanit is the Thai fallback for the Anton display face (Anton has no Thai glyphs; it covers Latin),
 // so only the Thai subset and the weights actually rendered are loaded. 700 is not optional: every
-// display element at font-weight 400 (.brand, .card__name, .mobile-menu a, .spec dd) falls back to the
+// display element at font-weight 400 (.brand, .arch__name, .mobile-menu a, .spec dd) falls back to the
 // nearest loaded Kanit, and `font-synthesis:weight none` in globals.css forbids faux weights.
 // 800 covers the section headings.
 const kanit = Kanit({ weight: ["700", "800"], subsets: ["thai"], variable: "--font-kanit", display: "swap" });
@@ -16,10 +16,10 @@ const spaceMono = Space_Mono({ weight: ["400", "700"], subsets: ["latin"], varia
 export const metadata: Metadata = {
   title: "OVERBEAR — เสื้อ Oversize สายหมี | ไซซ์หมี สไตล์เท่",
   description:
-    "เสื้อยืด oversize สีเข้ม ตัดเผื่อทรงหุ่นหมีโดยเฉพาะ ผ้าหนา 240 GSM ทรง drop-shoulder ไซซ์ M–5XL ใส่สบาย ดูเท่ทุกวัน",
+    "เสื้อยืด oversize สีเข้ม ตัดเผื่อทรงหุ่นหมีโดยเฉพาะ ผ้าหนา 240 GSM ทรง drop-shoulder ไซซ์ XL–5XL ใส่สบาย ดูเท่ทุกวัน",
   openGraph: {
     title: "OVERBEAR — OVERSIZED. UNAPOLOGETIC.",
-    description: "เสื้อ oversize สีเข้ม ตัดเผื่อทรงหุ่นหมี ผ้าหนา ไซซ์ M–5XL",
+    description: "เสื้อ oversize สีเข้ม ตัดเผื่อทรงหุ่นหมี ผ้าหนา ไซซ์ XL–5XL",
     type: "website",
   },
 };

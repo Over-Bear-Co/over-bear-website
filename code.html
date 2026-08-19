@@ -1,0 +1,668 @@
+<!DOCTYPE html><html class="dark" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>OVERBEAR - HEAVYWEIGHT INDUSTRIAL CLOTHING</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&amp;family=Kanit:wght@300;400;500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-high": "#2b2a28",
+                      "on-primary-container": "#566c00",
+                      "bone-dim": "#a5a196",
+                      "surface-container-low": "#1d1b1a",
+                      "surface-dim": "#141312",
+                      "on-surface": "#e6e1df",
+                      "error-container": "#93000a",
+                      "primary": "#ffffff",
+                      "tertiary-container": "#e9e2d3",
+                      "on-secondary": "#4a2800",
+                      "surface-variant": "#363433",
+                      "warm-ink": "#0c0b0a",
+                      "on-secondary-fixed": "#2d1600",
+                      "surface-container-highest": "#363433",
+                      "tertiary-fixed-dim": "#ccc6b8",
+                      "surface-tint": "#afd432",
+                      "on-tertiary-fixed": "#1e1b12",
+                      "error": "#ffb4ab",
+                      "tertiary": "#ffffff",
+                      "acid": "#cbf24e",
+                      "on-tertiary-container": "#686458",
+                      "on-surface-variant": "#c5c9b0",
+                      "surface-container-lowest": "#0f0e0d",
+                      "secondary-container": "#6d3d02",
+                      "tertiary-fixed": "#e9e2d3",
+                      "secondary-fixed-dim": "#feb874",
+                      "surface": "#141312",
+                      "background": "#141312",
+                      "outline-variant": "#444936",
+                      "primary-container": "#caf14d",
+                      "inverse-on-surface": "#32302f",
+                      "tinted-card": "#1f1811",
+                      "on-tertiary-fixed-variant": "#4a473c",
+                      "on-error-container": "#ffdad6",
+                      "on-primary-fixed-variant": "#3c4d00",
+                      "on-primary-fixed": "#161e00",
+                      "surface-bright": "#3b3937",
+                      "primary-fixed": "#caf14d",
+                      "on-primary": "#293500",
+                      "outline": "#8f937c",
+                      "on-tertiary": "#333026",
+                      "on-secondary-container": "#eeaa68",
+                      "ash": "#444936",
+                      "bone": "#ece5d6",
+                      "kraft-tan": "#c98a4b",
+                      "inverse-surface": "#e6e1df",
+                      "inverse-primary": "#516600",
+                      "on-background": "#e6e1df",
+                      "primary-fixed-dim": "#afd432",
+                      "on-secondary-fixed-variant": "#6a3b00",
+                      "on-error": "#690005",
+                      "secondary": "#feb874",
+                      "secondary-fixed": "#ffdcbf",
+                      "surface-container": "#211f1e",
+                      "lifted-panel": "#151109"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "section-gap": "120px",
+                      "z-ui": "100",
+                      "margin-mobile": "16px",
+                      "z-glass": "200",
+                      "z-overlay": "300",
+                      "gutter": "24px",
+                      "base": "4px",
+                      "margin-desktop": "64px"
+              },
+              "fontFamily": {
+                      "body-lg": [
+                              "Archivo Narrow"
+                      ],
+                      "headline-sm": [
+                              "Anton"
+                      ],
+                      "meta": [
+                              "Archivo Narrow"
+                      ],
+                      "body-md": [
+                              "Archivo Narrow"
+                      ],
+                      "display-lg-mobile": [
+                              "Anton"
+                      ],
+                      "display-md": [
+                              "Anton"
+                      ],
+                      "button-label": [
+                              "Space Mono"
+                      ],
+                      "display-lg": [
+                              "Anton"
+                      ],
+                      "eyebrow": [
+                              "Space Mono"
+                      ],
+                      "thai": [
+                              "Kanit", "sans-serif"
+                      ]
+              },
+              "fontSize": {
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-sm": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "meta": [
+                              "12px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg-mobile": [
+                              "56px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-md": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "button-label": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "letterSpacing": "0.1em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "display-lg": [
+                              "84px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "eyebrow": [
+                              "12px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "letterSpacing": "0.28em",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .noise-veil {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+        .parallax-text {
+            will-change: transform;
+            transition: transform 0.1s ease-out;
+        }
+        .reveal-rise {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-rise.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .torch-reveal {
+            position: relative;
+            overflow: hidden;
+        }
+        .torch-mask {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle 200px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, rgba(12, 11, 10, 0.95) 100%);
+            pointer-events: none;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body class="bg-warm-ink text-on-surface font-body-lg selection:bg-acid selection:text-warm-ink overflow-x-hidden relative">
+<!-- Background Liquid Shader -->
+<div class="fixed inset-0 w-full h-full z-0 pointer-events-none opacity-40">
+</div>
+<div class="noise-veil"></div>
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-overlay bg-transparent backdrop-blur-md border-b border-white/10 transition-all duration-300 ease-in-out hidden md:block">
+<div class="flex justify-between items-center px-margin-desktop py-6 w-full">
+<div class="font-display-lg text-display-md text-acid tracking-tighter">OVERBEAR</div>
+<div class="flex space-x-8 font-button-label text-button-label uppercase tracking-widest">
+<a class="text-acid border-b-2 border-acid pb-1 hover:text-acid hover:opacity-80" href="#">CATALOGUE</a>
+<a class="text-bone-dim hover:text-primary transition-colors hover:opacity-80" href="#">STORY</a>
+<a class="text-bone-dim hover:text-primary transition-colors hover:opacity-80" href="#">EDITORIAL</a>
+<a class="text-bone-dim hover:text-primary transition-colors hover:opacity-80" href="#">COMMUNITY</a>
+</div>
+<button class="text-acid hover:text-acid hover:opacity-80 transition-all duration-300 ease-in-out">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+</div>
+</nav>
+<main class="relative z-10">
+<!-- Hero Experience -->
+<section class="relative w-full h-screen overflow-hidden flex items-center justify-center">
+<div class="relative z-20 flex flex-col items-center justify-center text-center mt-20 w-full px-margin-desktop">
+<div class="overflow-hidden w-full group">
+<h1 class="font-display-lg text-[9vw] leading-none text-acid uppercase parallax-text whitespace-nowrap inline-block transform transition-transform duration-700 group-hover:skew-x-[-10deg]" data-speed="0.2" id="hero-shear-text" style="transform: translate(0.724px, 8.728px);">OVERSIZED. UNAPOLOGETIC.<br>DEFINING THE NEW HEAVYWEIGHT.</h1>
+</div>
+<h2 class="font-thai text-display-md text-bone-dim uppercase mt-4 parallax-text py-4 mb-8" data-speed="0.4" style="transform: translate(1.448px, 17.456px);">ไซซ์หมี</h2>
+<button class="mt-12 bg-acid text-warm-ink font-button-label text-button-label px-8 py-4 uppercase tracking-widest hover:bg-white transition-colors duration-300 flex items-center gap-2 relative z-30">
+                    ENTER CATALOG <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+<div class="absolute bottom-8 left-margin-desktop z-20 font-eyebrow text-eyebrow text-bone-dim uppercase">
+                SCROLL TO EXPLORE <span class="material-symbols-outlined align-middle ml-2 animate-bounce">arrow_downward</span>
+</div>
+</section>
+<!-- Brand Narrative (Story) Lookbook -->
+<section class="relative w-full py-section-gap px-margin-desktop z-30">
+<div class="max-w-[1440px] mx-auto grid grid-cols-12 gap-gutter items-center">
+<div class="col-span-12 mb-16 reveal-rise is-visible">
+<h2 class="font-display-md text-display-md text-acid uppercase mb-8">INDUSTRIAL PRECISION</h2>
+<div class="h-px w-full bg-ash mt-4"></div>
+</div>
+<div class="col-span-12 md:col-span-5 h-[700px] border border-ash p-2 relative bg-surface-container-low group overflow-hidden torch-reveal reveal-rise is-visible" id="torch-container" style="--mouse-x: 395px; --mouse-y: 782.203125px;">
+<img class="w-full h-full object-cover grayscale opacity-90 group-hover:opacity-100 transition-opacity duration-700" data-alt="Macro studio photography of high-tech industrial technical fabric with a clear polyester weave, 240GSM." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3qcXy457R8vao4d0pT2y2Q_9cizSEdvafIK2wpeSkSZ1WmkUlgjNFwvDcHY4YxRBb7tW8bN6jk3NBEknOtabXdmWo5KVoouEg2k4u0Ve7tIApv-mThhDS57W9oKdPNH8l-bjvwoIuF85efReoqhEYKCcdez_kYLcZ5SVhSyO5STNoY-D6n5z2GebiLbsI_AEkNTrieYZH_x3EvWWnbnSe5NlAuFv-heag2lwIizHQv8055spi_-Vy">
+<div class="torch-mask"></div>
+<div class="absolute bottom-4 left-4 font-meta text-meta text-kraft-tan bg-warm-ink/80 px-2 py-1 backdrop-blur-sm border border-ash z-20">240GSM TEXTILE</div>
+</div>
+<div class="col-span-12 md:col-span-7 flex flex-col justify-center pl-0 md:pl-16 mt-12 md:mt-0 reveal-rise is-visible" style="transition-delay: 0.2s">
+<span class="font-eyebrow text-eyebrow text-kraft-tan mb-6 uppercase block">THE BEAR SIZE PHILOSOPHY</span>
+<h3 class="font-display-lg text-5xl md:text-6xl text-primary mb-8 uppercase leading-tight">ENGINEERED FOR SUBSTANTIAL PRESENCE.<br><span class="text-outline">240GSM OF DENSE INDUSTRIAL ARCHITECTURE.</span></h3>
+<p class="font-body-lg text-body-lg text-on-surface mb-8 max-w-xl">
+                        Our garments reject the fragile nature of modern fast fashion. We construct industrial-grade clothing designed to drape heavily and withstand the rigorous demands of urban existence. 
+                    </p>
+<p class="font-thai text-body-lg text-bone-dim mb-12 max-w-xl py-2">
+                        ออกแบบมาเพื่อโครงสร้างที่แข็งแรง เสื้อผ้าของเราปฏิเสธความเปราะบางของแฟชั่นยุคใหม่ เราสร้างสรรค์เสื้อผ้าเกรดอุตสาหกรรมที่ทิ้งตัวอย่างมีน้ำหนัก และทนทานต่อการใช้งานหนักในชีวิตเมือง
+                    </p>
+<div class="grid grid-cols-2 gap-8 border-t border-ash pt-8 max-w-xl">
+<div>
+<span class="block font-headline-sm text-headline-sm text-acid mb-2">420G</span>
+<span class="font-meta text-meta text-bone-dim uppercase">HEAVYWEIGHT PRECISION</span>
+</div>
+<div>
+<span class="block font-headline-sm text-headline-sm text-acid mb-2">0%</span>
+<span class="font-meta text-meta text-bone-dim uppercase">DENSE STRUCTURE</span>
+</div>
+</div>
+</div>
+</div>
+</section><section class="relative w-full py-section-gap px-margin-desktop z-30 bg-warm-ink border-t border-ash">
+<div class="max-w-[1440px] mx-auto grid grid-cols-12 gap-gutter items-center">
+<div class="col-span-12 md:col-span-6 reveal-rise is-visible">
+<div class="border border-ash p-2 bg-surface-container-low overflow-hidden">
+<img alt="Industrial streetwear fabric texture" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDIre4H0QHq33MHUJh9jBc0oD1zYWoI4x6u2L68N-6ErrppMyQzyINt2x21bOPJ-j7uA6VJDKe7AJyTeAFdgiv1HWIT9snMr27743mqpF4fBDwg6cSQCseiB83RdAEx6TcDSdz2bwUyf4VRS90Vpo7k8N4Bc1kWyIaDZsRmADPnCbztdTVQOY_LWpmjb8-3MZ8czlqJk4FT9D141GnigXaTX1NdxKcWWZCyKDzQbUGEJze_qyJvpa0rWWNT7Wtas8dGA">
+</div>
+</div>
+<div class="col-span-12 md:col-span-6 flex flex-col justify-center pl-0 md:pl-16 mt-12 md:mt-0 reveal-rise is-visible" style="transition-delay: 0.2s">
+<span class="font-eyebrow text-eyebrow text-kraft-tan mb-6 uppercase block">— FABRIC TECHNOLOGY</span>
+<h2 class="font-display-md text-display-md text-acid uppercase mb-8">TECHNICAL FABRIC // THE HYBRID CORE</h2>
+<h3 class="font-thai text-headline-sm text-primary mb-6">นุ่มสบาย ไม่ร้อน ระบายอากาศได้ดี</h3>
+<p class="font-thai text-body-lg text-bone-dim max-w-xl">
+                โครงสร้างผ้าแบบ Hybrid ที่ผสมผสานคุณสมบัติที่ดีที่สุดของ Cotton 50% และ Polyester 50% เข้าด้วยกัน ให้สัมผัสที่นุ่มนวลต่อผิวหนังแต่ยังคงความทนทานและระบายอากาศได้ยอดเยี่ยม เหมาะสำหรับสภาพอากาศเมืองร้อนและการใช้งานหนักในชีวิตประจำวัน
+            </p>
+<div class="mt-12 flex gap-8">
+<div class="flex flex-col">
+<span class="font-headline-sm text-primary">50%</span>
+<span class="font-meta text-bone-dim uppercase">Premium Cotton</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-primary">50%</span>
+<span class="font-meta text-bone-dim uppercase">Industrial Poly</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Heavyweight Archive Catalog -->
+<section class="relative w-full bg-surface-container-low py-section-gap px-margin-desktop z-30 border-t border-ash">
+<div class="max-w-[1440px] mx-auto">
+<div class="flex justify-between items-end mb-16 reveal-rise is-visible">
+<div>
+<span class="font-eyebrow text-eyebrow text-kraft-tan mb-4 block">HEAVYWEIGHT ARCHIVE</span>
+<h2 class="font-display-md text-display-md text-acid uppercase mb-8">INDUSTRIAL SPECTRUM // EARTH TONES ARCHIVE</h2>
+</div>
+<a class="font-button-label text-button-label text-acid uppercase border-b border-acid pb-1 hover:opacity-80 transition-opacity" href="#">VIEW FULL ARCHIVE</a>
+</div>
+<div class="grid grid-cols-1 gap-8 md:grid-cols-3"><!-- Product 1: SLATE -->
+<div class="relative bg-tinted-card border border-ash p-8 group reveal-rise flex flex-col items-center h-[600px] justify-center is-visible">
+<div class="absolute top-4 left-4 flex gap-2 z-10">
+<span class="font-meta text-meta text-kraft-tan bg-warm-ink border border-ash px-2 py-1">UNIT 01</span>
+<span class="font-meta text-meta text-bone-dim bg-warm-ink border border-ash px-2 py-1">240GSM</span>
+</div>
+<img alt="UNIT 01 // SLATE" class="w-3/4 object-contain filter drop-shadow-2xl group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDv8K2AbKmnYCAeFJ94CrphY7ugAVoMGVHnKvMchqQzHddgHNuEiEYso1rN0gAsZeiBpDySYQvzVnQ3kbBkrkWjcCGdo7hzeQyenGkYZ3Sgo6u05ekVrKMHYkPUjfq5zWjaDTzbDczTxyvUBT6kft-2v60FgyUnrfFo7heDSDcJk5P9YNCDqEnK5mBQQqVoLKnR37oqct4dMum_VJIJhTBxx_d-5PlgGNHqS-p80bGCgeMwMGoQR_5a">
+<div class="absolute bottom-8 left-8 right-8 flex justify-between items-end border-t border-ash/50 pt-4">
+<div>
+<h3 class="font-headline-sm text-primary uppercase">UNIT 01 // SLATE</h3>
+<p class="font-meta text-bone-dim mt-1">GARMENT DYED</p>
+</div>
+<span class="font-button-label text-acid uppercase text-sm border border-acid px-3 py-1">AVAILABLE</span>
+</div>
+</div>
+<!-- Product 2: OLIVE -->
+<div class="relative bg-tinted-card border border-ash p-8 group reveal-rise flex flex-col items-center h-[600px] justify-center is-visible">
+<div class="absolute top-4 left-4 flex gap-2 z-10">
+<span class="font-meta text-meta text-kraft-tan bg-warm-ink border border-ash px-2 py-1">UNIT 02</span>
+<span class="font-meta text-meta text-bone-dim bg-warm-ink border border-ash px-2 py-1">240GSM</span>
+</div>
+<img alt="UNIT 02 // OLIVE" class="w-3/4 object-contain filter drop-shadow-2xl group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpeOpWSyvkfurqBekrkefNz7G4XOjSA5Iq3Q94OXmm-UcJjBGVseuIbgOo4287H5wuoWzoPrhho_LAj7dKfViVVkYf8ilJmK6pnJvAAcai5s6BL80edu4SfH03AeavU7Fjk7-vWGW3pgxTFxc1KMAUArY0uL81AX6wjSiFHwC9GoRr6moNSRN06nMEZ2RzEMBURNzYsuQ6LGp1xiYCIa34QIZGJ153svblWB6gueBPn3uzct2WI2vh">
+<div class="absolute bottom-8 left-8 right-8 flex justify-between items-end border-t border-ash/50 pt-4">
+<div>
+<h3 class="font-headline-sm text-primary uppercase">UNIT 02 // OLIVE</h3>
+<p class="font-meta text-bone-dim mt-1">GARMENT DYED</p>
+</div>
+<span class="font-button-label text-acid uppercase text-sm border border-acid px-3 py-1">AVAILABLE</span>
+</div>
+</div>
+<!-- Product 3: SAND -->
+<div class="relative bg-tinted-card border border-ash p-8 group reveal-rise flex flex-col items-center h-[600px] justify-center is-visible">
+<div class="absolute top-4 left-4 flex gap-2 z-10">
+<span class="font-meta text-meta text-kraft-tan bg-warm-ink border border-ash px-2 py-1">UNIT 03</span>
+<span class="font-meta text-meta text-bone-dim bg-warm-ink border border-ash px-2 py-1">240GSM</span>
+</div>
+<img alt="UNIT 03 // SAND" class="w-3/4 object-contain filter drop-shadow-2xl group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDYeuocVBMkAokeM40Q1XqAXrAw_fcXHt79oDGR3ixkmXJXUK2z2UY9m8dLEC7qrq52vEe_tXYpTQYGrk0BaPRp6WSb_ytA5MKrZIlM0h0q4Q4eCxHfBQLnCz59cMaX9fNMEDemV0y7kC_jkflSdgYzKc30U8VNT8xP-K71HqKDHMCylaIAO-59RZRxx7nL-68yCGcjxcc96BQd1NYqIqGARTpJx7PSkegaz-6I9h0yy-wZXEI-GlK">
+<div class="absolute bottom-8 left-8 right-8 flex justify-between items-end border-t border-ash/50 pt-4">
+<div>
+<h3 class="font-headline-sm text-primary uppercase">UNIT 03 // SAND</h3>
+<p class="font-meta text-bone-dim mt-1">GARMENT DYED</p>
+</div>
+<span class="font-button-label text-acid uppercase text-sm border border-acid px-3 py-1">AVAILABLE</span>
+</div>
+</div>
+<!-- Product 4: CLAY -->
+<!-- Product 5: CARBON -->
+<div class="relative bg-tinted-card border border-ash p-8 group reveal-rise flex flex-col items-center h-[600px] justify-center is-visible">
+<div class="absolute top-4 left-4 flex gap-2 z-10">
+<span class="font-meta text-meta text-kraft-tan bg-warm-ink border border-ash px-2 py-1">UNIT 05</span>
+<span class="font-meta text-meta text-bone-dim bg-warm-ink border border-ash px-2 py-1">240GSM</span>
+</div>
+<img alt="UNIT 05 // CARBON" class="w-3/4 object-contain filter drop-shadow-2xl group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBicEt4NLN9DR7zIKMDvqKaU3ep4cVkGlSejSSJueVq7tg7LHSBedOPkfy9kAbzaLCtHKTePRR_W9g2V-UlLTfNSqS-MJ5AtiSyqObd2Muf1vCLHLjPMNRrAXF5ZcyBgFPG_zD_0wFrsRluoA64Zt0g9ZusfUTOAXu_lCMMk89GEzSm5ve-dYwPRuMOkcGyqBHH7eAEHGzovAn2cw1JKQHWHPrRm76Qh1FABoV_4Xdtrx2fn25-Pm9w">
+<div class="absolute bottom-8 left-8 right-8 flex justify-between items-end border-t border-ash/50 pt-4">
+<div>
+<h3 class="font-headline-sm text-primary uppercase">UNIT 05 // CARBON</h3>
+<p class="font-meta text-bone-dim mt-1">GARMENT DYED</p>
+</div>
+<span class="font-button-label text-acid uppercase text-sm border border-acid px-3 py-1">AVAILABLE</span>
+</div>
+</div><!-- Product 6: WHITE -->
+<div class="relative bg-tinted-card border border-ash p-8 group reveal-rise flex flex-col items-center h-[600px] justify-center is-visible">
+<div class="absolute top-4 left-4 flex gap-2 z-10">
+<span class="font-meta text-meta text-kraft-tan bg-warm-ink border border-ash px-2 py-1">UNIT 06</span>
+<span class="font-meta text-meta text-bone-dim bg-warm-ink border border-ash px-2 py-1">240GSM</span>
+</div>
+<img alt="UNIT 06 // WHITE" class="w-3/4 object-contain filter drop-shadow-2xl group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZGJy9L8-u3O7lyKKKUNvgx76jgJhBAwGQhU2y-xv6Q6M4KHR5dwmH8fV3kqo-VB-rXMguJ3767oVHVkeGgzsXd0qg4U2d0wUGD7DQjThjs6yGGcypAtaVpTJFkiwoOyZNPDlgNAokRPIdTpggCgMiF2JQbjysWFUqyNEevy7tnLbSa8aACbfwqI5bHVV7Y3eqUJ44QjTHf6WC5pZzYT0sB08ftoWeW3CVu9gh0f9zyVqQvmrmrQCB">
+<div class="absolute bottom-8 left-8 right-8 flex justify-between items-end border-t border-ash/50 pt-4">
+<div>
+<h3 class="font-headline-sm text-primary uppercase">UNIT 06 // WHITE</h3>
+<p class="font-meta text-bone-dim mt-1">GARMENT DYED</p>
+</div>
+<span class="font-button-label text-acid uppercase text-sm border border-acid px-3 py-1">AVAILABLE</span>
+</div>
+</div></div>
+</div>
+</section>
+<!-- Industrial Spec Section -->
+<section class="relative w-full py-section-gap px-margin-desktop z-30 bg-surface border-t border-ash overflow-hidden">
+<div class="max-w-[1440px] mx-auto reveal-rise is-visible">
+<div class="mb-16">
+<span class="font-eyebrow text-eyebrow text-kraft-tan uppercase block mb-4 tracking-[0.3em]">// LOOKBOOK</span>
+<h2 class="font-display-md text-display-md text-acid uppercase mb-8">ON THE STREETS</h2>
+</div>
+<div class="flex gap-gutter overflow-x-auto pb-12 no-scrollbar">
+<!-- FIT 01 -->
+<div class="flex-shrink-0 w-[300px] md:w-[450px] group">
+<div class="aspect-[3/4] border border-ash p-2 bg-surface-container-low overflow-hidden mb-6">
+<img alt="FIT 01 // OPTICAL WHITE" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmdGGc_NVQIUJep0Cd4BszEhkceKX9My0APurW3CL7UjlsDUwTbIiYv9pmNMjxYLsP-5LfrlgCTMHD29WZBKb8mXkhT8c9W7mDIDS7Y_Cc4Sa3NVxNYzKlnY7VkVdMIVYF-n3V63GQ_-b6-a36WjQF7tKKxhkLtjPN--jsCcSnjcZOLXR1yux0fWvtW2HXFZuBbPEjCcjpRoZYss6_LlkojEvVM_3_MHbtzq4pwS1rUP79fWDHpGTD">
+</div>
+<div class="flex justify-between items-end border-t border-ash/30 pt-4">
+<span class="font-button-label text-bone uppercase">FIT 01</span>
+<span class="font-meta text-bone-dim uppercase">OPTICAL WHITE</span>
+</div>
+</div>
+<!-- FIT 02 -->
+<div class="flex-shrink-0 w-[300px] md:w-[450px] group">
+<div class="aspect-[3/4] border border-ash p-2 bg-surface-container-low overflow-hidden mb-6">
+<img alt="FIT 02 // OLIVE DRAB" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLQS7jBEr0ZLGaFvQX5NcyrMHNup1B5A20RGVl5OOx7KRUKdVxwBlK-3HPZe02ltLfBSelO-MuCjgsL4Z_Jk1s94Vl27mSIVEoV1cgKRZqolyTjT2P9ZRUNxwpL5D13WMgNwZCP7FNmpa5fwf7n9KPdqIbJ_FVNoGLE90G2eq16h_IzawPSvQdxNWYsv19VuE4bQ6yUPOI-8siDZVdVesFplLUtUwIXztUSpFh5RvkJLIMLY7CjAOe">
+</div>
+<div class="flex justify-between items-end border-t border-ash/30 pt-4">
+<span class="font-button-label text-bone uppercase">FIT 02</span>
+<span class="font-meta text-bone-dim uppercase">OLIVE DRAB</span>
+</div>
+</div>
+<!-- FIT 03 -->
+<div class="flex-shrink-0 w-[300px] md:w-[450px] group">
+<div class="aspect-[3/4] border border-ash p-2 bg-surface-container-low overflow-hidden mb-6">
+<img alt="FIT 03 // SANDSTONE TAN" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAveKlDfvwScu3ignkrQSgGhaxCRddWRwMgmmUqUMQShQvy7ozqiqZRh3k1PhKqiIve1zDqnlPzygc3lx9503zaYgXmiDznsmw9DlCfPKqkm8cdYfHQ7yUIdpsq-aKTXyuh2f7z-4ZAltKwbONifvO5gz43-TwvPfvqhKdksmKTyAwzMmvQHcRc2yV00f1MRnU1queCCv4OXBGuMp6tPiPZR32Xgbt8BqFS4jQkJ9SR_0OO6weZcioh">
+</div>
+<div class="flex justify-between items-end border-t border-ash/30 pt-4">
+<span class="font-button-label text-bone uppercase">FIT 03</span>
+<span class="font-meta text-bone-dim uppercase">SANDSTONE TAN</span>
+</div>
+</div>
+<!-- FIT 04 -->
+<div class="flex-shrink-0 w-[300px] md:w-[450px] group">
+<div class="aspect-[3/4] border border-ash p-2 bg-surface-container-low overflow-hidden mb-6">
+<img alt="FIT 04 // CARBON BLACK" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJQzzn-GuwNsK2fse_GbkRUx2H9Xi4YaoXIQNEaKoIjjkAcDCeoTJ70TjvYI_zuGZHbDzUX6Pqqbs_x7S-SG2aH0XS6CRkt5OyD_o0v0qBAOh1Mc1BL5Z_bMmqa4fUJQmGtj_tqWCRKGwvwUKBedB-Sawuq7C3pjWvq1bfU3fSMMp6bjHP8RnjzIHdDxdpzRWrtgqE3-FMcFyuiGHSZeV10SFnKf0s5N8AxclOwI0SjkmY7uFdoF0E">
+</div>
+<div class="flex justify-between items-end border-t border-ash/30 pt-4">
+<span class="font-button-label text-bone uppercase">FIT 04</span>
+<span class="font-meta text-bone-dim uppercase">CARBON BLACK</span>
+</div>
+</div>
+</div>
+</div>
+</section><section class="relative w-full py-section-gap px-margin-desktop z-30 bg-warm-ink border-t border-ash">
+<div class="max-w-[1440px] mx-auto reveal-rise is-visible">
+<div class="mb-12">
+<span class="font-eyebrow text-eyebrow text-kraft-tan uppercase block mb-4">— INDUSTRIAL SPEC</span>
+<h2 class="font-display-md text-display-md text-acid uppercase mb-8">INDUSTRIAL SPECTRUM SIZE ARCHIVE</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="bg-tinted-card border border-ash aspect-[16/9] relative overflow-hidden group">
+<div class="absolute inset-0 bg-warm-ink/40 z-10 transition-colors duration-500 group-hover:bg-transparent"></div>
+<img class="w-full h-full object-cover grayscale absolute inset-0 group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCw65L95Va2LBv2ICAJz7U7zqDO-HuTVvNTqQXbLsk5JvFihMuYhGNRpWy9ExOFlKHZ64Aa8rxhA0CM3jt0P7GHX0_MtCRQYZ87MwhRGWhT1K7Yp21QmAa7gIM4dD1gkrVlTVQNt14oPn0cZ5Wcq8jBMmFC8OP2ZAEz0NtMuEPRoRzBSX42alOvKxppzlmlfD8xVehrRi2fJuHgvBRbrU70BQnGKwWsbzHLf3lExPfgBDLq0olI-ZIt">
+<div class="relative z-20 flex flex-col justify-end h-full p-8 bg-gradient-to-t from-warm-ink via-warm-ink/50 to-transparent">
+<h3 class="font-headline-sm text-primary uppercase">TRIPLE-STITCHED SEAMS</h3>
+<p class="font-meta text-bone-dim mt-2">Reinforced architecture for maximum durability under stress.</p>
+</div>
+</div>
+<div class="bg-tinted-card border border-ash aspect-[16/9] relative overflow-hidden group">
+<div class="absolute inset-0 bg-warm-ink/40 z-10 transition-colors duration-500 group-hover:bg-transparent"></div>
+<img class="w-full h-full object-cover grayscale absolute inset-0 group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCw65L95Va2LBv2ICAJz7U7zqDO-HuTVvNTqQXbLsk5JvFihMuYhGNRpWy9ExOFlKHZ64Aa8rxhA0CM3jt0P7GHX0_MtCRQYZ87MwhRGWhT1K7Yp21QmAa7gIM4dD1gkrVlTVQNt14oPn0cZ5Wcq8jBMmFC8OP2ZAEz0NtMuEPRoRzBSX42alOvKxppzlmlfD8xVehrRi2fJuHgvBRbrU70BQnGKwWsbzHLf3lExPfgBDLq0olI-ZIt">
+<div class="relative z-20 flex flex-col justify-end h-full p-8 bg-gradient-to-t from-warm-ink via-warm-ink/50 to-transparent">
+<h3 class="font-headline-sm text-primary uppercase">HIGH-DENSITY COLLAR</h3>
+<p class="font-meta text-bone-dim mt-2">Thick ribbed collar constructed to permanently hold its structure.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Community Conversion -->
+<section class="relative w-full py-section-gap px-margin-desktop z-30 bg-surface-container-low border-y border-ash"><div class="max-w-[1440px] mx-auto reveal-rise is-visible">
+<div class="mb-12 flex flex-col md:flex-row justify-between items-end gap-4">
+<div>
+<span class="font-eyebrow text-eyebrow text-acid uppercase block mb-4 tracking-[0.3em]">// SPECIFICATION SHEET</span>
+<h2 class="font-display-md text-display-md text-primary uppercase leading-none">INDUSTRIAL SPECTRUM<br><span class="text-acid">SIZE ARCHIVE</span></h2>
+</div>
+<div class="text-right">
+<span class="font-thai font-display-md text-bone-dim opacity-40 uppercase">ไซซ์หมี</span>
+</div>
+</div>
+<div class="bg-warm-ink border border-ash/50 relative overflow-hidden">
+<!-- Industrial Grid Overlay -->
+<div class="absolute inset-0 pointer-events-none opacity-5" style="background-image: radial-gradient(circle, #444936 1px, transparent 1px); background-size: 24px 24px;"></div>
+<div class="overflow-x-auto relative z-10">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b-2 border-acid bg-ash/10">
+<th class="p-6 font-button-label text-acid uppercase tracking-widest border-r border-ash/30">UNIT ID</th>
+<th class="p-6 font-button-label text-bone uppercase tracking-widest border-r border-ash/30">CHEST (IN)</th>
+<th class="p-6 font-button-label text-bone uppercase tracking-widest border-r border-ash/30">LENGTH (IN)</th>
+<th class="p-6 font-button-label text-bone uppercase tracking-widest border-r border-ash/30">SHOULDER (IN)</th>
+<th class="p-6 font-button-label text-bone uppercase tracking-widest">WEIGHT CLASS</th>
+</tr>
+</thead>
+<tbody class="font-button-label text-bone-dim">
+<tr class="border-b border-ash/30 hover:bg-acid/5 transition-colors group"><td class="p-6 font-bold text-acid border-r border-ash/30 bg-ash/5">XL-03</td><td class="p-6 border-r border-ash/30 group-hover:text-primary">49.00</td><td class="p-6 border-r border-ash/30 group-hover:text-primary">33.00</td><td class="p-6 border-r border-ash/30 group-hover:text-primary">25.00</td><td class="p-6 group-hover:text-primary">80-92 KG</td></tr>
+<tr class="border-b border-ash/30 hover:bg-acid/5 transition-colors group"><td class="p-6 font-bold text-acid border-r border-ash/30 bg-ash/5">2XL-04</td><td class="p-6 border-r border-ash/30 group-hover:text-primary">51.00</td><td class="p-6 border-r border-ash/30 group-hover:text-primary">34.00</td><td class="p-6 border-r border-ash/30 group-hover:text-primary">26.00</td><td class="p-6 group-hover:text-primary">92-105 KG</td></tr>
+<tr class="border-b border-ash/30 hover:bg-acid/5 transition-colors group"><td class="p-6 font-bold text-acid border-r border-ash/30 bg-ash/5">3XL-05</td><td class="p-6 border-r border-ash/30 group-hover:text-primary">53.00</td><td class="p-6 border-r border-ash/30 group-hover:text-primary">35.00</td><td class="p-6 border-r border-ash/30 group-hover:text-primary">27.00</td><td class="p-6 group-hover:text-primary">105-118 KG</td></tr>
+<tr class="border-b border-ash/30 hover:bg-acid/5 transition-colors group"><td class="p-6 font-bold text-acid border-r border-ash/30 bg-ash/5">4XL-06</td><td class="p-6 border-r border-ash/30 group-hover:text-primary">55.00</td><td class="p-6 border-r border-ash/30 group-hover:text-primary">36.00</td><td class="p-6 border-r border-ash/30 group-hover:text-primary">28.00</td><td class="p-6 group-hover:text-primary">118-130 KG</td></tr>
+<tr class="hover:bg-acid/5 transition-colors group"><td class="p-6 font-bold text-acid border-r border-ash/30 bg-ash/5">5XL-07</td><td class="p-6 border-r border-ash/30 group-hover:text-primary">57.00</td><td class="p-6 border-r border-ash/30 group-hover:text-primary">37.00</td><td class="p-6 border-r border-ash/30 group-hover:text-primary">29.00</td><td class="p-6 group-hover:text-primary">130+ KG</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="mt-8 flex flex-col md:flex-row justify-between items-start gap-4">
+<div class="font-thai text-meta text-ash uppercase tracking-widest">
+            * วัดจากตัวเสื้อจริงแบบราบ อาจคลาดเคลื่อน ±1 นิ้ว · ชอบทรงหลวมพิเศษ เลือกเผื่อขึ้นอีก 1 ไไซซ์
+        </div>
+<div class="font-meta text-meta text-acid/50 uppercase">
+            REF: OB-ARCHIVE-2024-V1
+        </div>
+</div>
+</div></section><section class="relative w-full px-margin-mobile md:px-margin-desktop py-20 z-30">
+<div class="max-w-[1440px] mx-auto bg-acid rounded-xl p-8 md:p-20 flex flex-col items-center justify-center text-center">
+<span class="font-eyebrow text-eyebrow text-warm-ink uppercase mb-8 tracking-widest">— JOIN THE DEN</span>
+<h2 class="font-display-lg text-[12vw] md:text-[120px] text-warm-ink uppercase mb-6 leading-none font-thai font-bold">เข้าถ้ำ<br>ก่อนใคร</h2>
+<p class="font-thai font-body-lg text-warm-ink max-w-lg mb-12">
+            สมัครรับข่าวรอบใหม่ ส่วนลดเฉพาะสมาชิก และของลิมิเต็ด<br>ก่อนเปิดขายจริง
+        </p>
+<div class="flex flex-col md:flex-row w-full max-w-xl gap-2">
+<input class="bg-warm-ink border-none text-bone placeholder-bone-dim font-thai text-body-md w-full py-5 px-6 focus:outline-none focus:ring-0 transition-colors rounded-lg" placeholder="อีเมลของคุณ" type="email">
+<button class="bg-warm-ink text-acid font-thai text-body-md px-10 py-5 uppercase hover:bg-surface-container-highest transition-colors flex-shrink-0 flex items-center justify-center gap-2 rounded-lg">
+                สมัคร <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="relative w-full z-30 border-t border-ash/30 bg-surface">
+<div class="max-w-[1440px] mx-auto px-margin-desktop py-20">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-20">
+<!-- Brand Info -->
+<div class="md:col-span-4">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-acid text-4xl">pets</span>
+<span class="font-display-lg text-4xl tracking-tighter text-acid">OVERBEAR</span>
+</div>
+<p class="font-thai text-body-md text-bone-dim max-w-xs">
+                    เสื้อ oversize สีเข้มสำหรับหุ่นหมี ตัดจริง ใส่จริง ดูเท่าจริง · Bangkok, TH
+                </p>
+</div>
+<!-- Links Grid -->
+<div class="md:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-8">
+<div>
+<h4 class="font-button-label text-kraft-tan uppercase mb-6 tracking-widest">SHOP</h4>
+<ul class="space-y-4 font-thai text-bone-dim font-meta">
+<li class=""><a class="hover:text-primary transition-colors" href="#">The Drop</a></li>
+<li class=""><a class="hover:text-primary transition-colors" href="#">เสื้อยืด</a></li>
+<li class=""><a class="hover:text-primary transition-colors" href="#">ตารางไซซ์</a></li>
+<li class=""><a class="hover:text-primary transition-colors" href="#">ของลิมิเต็ด</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-button-label text-kraft-tan uppercase mb-6 tracking-widest">ช่วยเหลือ</h4>
+<ul class="space-y-4 font-thai text-bone-dim font-meta">
+<li class=""><a class="hover:text-primary transition-colors" href="#">วิธีเลือกไซซ์</a></li>
+<li class=""><a class="hover:text-primary transition-colors" href="#">การจัดส่ง</a></li>
+<li class=""><a class="hover:text-primary transition-colors" href="#">คืน/เปลี่ยนสินค้า</a></li>
+<li class=""><a class="hover:text-primary transition-colors" href="#">ติดต่อเรา</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-button-label text-kraft-tan uppercase mb-6 tracking-widest">ติดตาม</h4>
+<ul class="space-y-4 font-thai text-bone-dim font-meta">
+<li class=""><a class="hover:text-primary transition-colors" href="#">Instagram</a></li>
+<li class=""><a class="hover:text-primary transition-colors" href="#">TikTok</a></li>
+<li class=""><a class="hover:text-primary transition-colors" href="#">LINE OA</a></li>
+<li class=""><a class="hover:text-primary transition-colors" href="#">Facebook</a></li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Bottom Bar -->
+<div class="border-t border-ash/30 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="font-meta text-meta text-bone-dim uppercase tracking-widest">
+                © 2026 OVERBEAR — ALL RIGHTS RESERVED
+            </div>
+<div class="flex gap-2">
+<span class="border border-ash/50 px-2 py-1 font-meta text-[10px] text-bone-dim">VISA</span>
+<span class="border border-ash/50 px-2 py-1 font-meta text-[10px] text-bone-dim">MASTER</span>
+<span class="border border-ash/50 px-2 py-1 font-meta text-[10px] text-bone-dim">PROMPTPAY</span>
+<span class="border border-ash/50 px-2 py-1 font-meta text-[10px] text-bone-dim">COD</span>
+</div>
+</div>
+</div>
+</footer>
+<script>
+        // Simple Parallax Effect for Hero Text
+        document.addEventListener('mousemove', (e) => {
+            const x = (window.innerWidth / 2 - e.pageX) / 50;
+            const y = (window.innerHeight / 2 - e.pageY) / 50;
+            
+            document.querySelectorAll('.parallax-text').forEach(el => {
+                const speed = el.getAttribute('data-speed') || 1;
+                el.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+            });
+
+            // Torch Effect
+            const torchContainer = document.getElementById('torch-container');
+            if(torchContainer) {
+                const rect = torchContainer.getBoundingClientRect();
+                const xPos = e.clientX - rect.left;
+                const yPos = e.clientY - rect.top;
+                torchContainer.style.setProperty('--mouse-x', `${xPos}px`);
+                torchContainer.style.setProperty('--mouse-y', `${yPos}px`);
+            }
+        });
+
+        // Horizontal scroll shear for hero text
+        window.addEventListener('scroll', () => {
+            const scroll = window.scrollY;
+            const heroText = document.getElementById('hero-shear-text');
+            if(heroText) {
+                heroText.style.transform = `translateX(-${scroll * 0.5}px) skewX(-10deg)`;
+            }
+        });
+
+        // Intersection Observer for Reveal Rise animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-rise').forEach((el) => {
+            observer.observe(el);
+        });
+    </script>
+
+
+
+
+</body></html>

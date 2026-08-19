@@ -15,8 +15,8 @@ export default function Footer() {
           <div>
             <h4>Shop</h4>
             <ul>
-              <li><a href="#drop">The Drop</a></li>
-              <li><a href="#drop">เสื้อยืด</a></li>
+              <li><a href="#drop">คลังสี</a></li>
+              <li><a href="#streets">ลุคจากลูกค้า</a></li>
               <li><a href="#size">ตารางไซซ์</a></li>
               <li><a href="#den">ของลิมิเต็ด</a></li>
             </ul>

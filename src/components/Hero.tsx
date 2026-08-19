@@ -1,7 +1,16 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { Engine, isFinePointer, prefersReducedMotion, type EngineItem } from "@/lib/motion";
+import Image from "next/image";
+import { Engine, isFinePointer, prefersReducedMotion } from "@/lib/motion";
+import { useTorch, type TorchNote } from "@/lib/useTorch";
+
+/* สเปกที่โผล่ในลำแสง — ต้องตรงกับหัวข้อใน IndustrialSpec */
+const HERO_TORCH_NOTES: readonly TorchNote[] = [
+  ["240 GSM", "24%", "12%"],
+  ["TRIPLE-STITCH", "48%", "56%"],
+  ["DROP +6CM", "74%", "16%"],
+];
 
 export default function Hero() {
   const heroRef = useRef<HTMLElement>(null);
@@ -54,100 +63,8 @@ export default function Hero() {
     };
   }, []);
 
-  /* SIGNATURE — UV-torch spotlight: โคลนเนื้อหา media (placeholder ตอนนี้ รูปจริงทีหลัง)
-     เป็นเลเยอร์สว่างที่เผยผ่าน radial mask ตามเมาส์ */
-  useEffect(() => {
-    if (prefersReducedMotion()) return;
-    const media = mediaRef.current;
-    if (!media) return;
-
-    const flash = document.createElement("div");
-    flash.className = "flash" + (media.classList.contains("ph") ? " ph" : "");
-    flash.setAttribute("aria-hidden", "true");
-    // โคลน DOM ตรงๆ (ไม่ใช้ innerHTML) — เนื้อหาเป็น markup ของเราเองทั้งหมด
-    Array.from(media.children).forEach((child) => flash.append(child.cloneNode(true)));
-    flash.querySelector(".ph__note")?.remove();
-    (
-      [
-        ["240 GSM", "24%", "12%"],
-        ["FLATLOCK SEAM", "48%", "56%"],
-        ["DROP +6CM", "74%", "16%"],
-      ] as const
-    ).forEach(([t, top, leftPos]) => {
-      const s = document.createElement("span");
-      s.className = "flash__note";
-      s.textContent = t;
-      s.style.top = top;
-      s.style.left = leftPos;
-      flash.append(s);
-    });
-    media.append(flash);
-
-    let tx = 50, ty = 50, sx = 50, sy = 50;
-    let lx = "", ly = "";
-    let offT: ReturnType<typeof setTimeout> | undefined;
-    const torch = {
-      active: false,
-      step() {
-        sx += (tx - sx) * 0.1;
-        sy += (ty - sy) * 0.1;
-        if (Math.abs(tx - sx) < 0.05) sx = tx; // snap ให้ loop หลับได้ตอนเมาส์นิ่ง
-        if (Math.abs(ty - sy) < 0.05) sy = ty;
-        const vx = sx.toFixed(2) + "%", vy = sy.toFixed(2) + "%";
-        if (vx !== lx) { flash.style.setProperty("--mx", vx); lx = vx; }
-        if (vy !== ly) { flash.style.setProperty("--my", vy); ly = vy; }
-        return sx !== tx || sy !== ty;
-      },
-    };
-    const enter = () => { clearTimeout(offT); torch.active = true; flash.classList.add("on"); Engine.wake(); };
-    const move = (e: PointerEvent) => {
-      const r = media.getBoundingClientRect();
-      tx = ((e.clientX - r.left) / r.width) * 100;
-      ty = ((e.clientY - r.top) / r.height) * 100;
-      Engine.wake();
-    };
-    const leave = () => { flash.classList.remove("on"); offT = setTimeout(() => (torch.active = false), 450); };
-
-    let io: IntersectionObserver | undefined;
-    let sweep: EngineItem | undefined;
-    if (isFinePointer()) {
-      Engine.add(torch); // torch ขับด้วย pointer เท่านั้น — เพิ่มเข้า engine เฉพาะ fine pointer
-      media.addEventListener("pointerenter", enter);
-      media.addEventListener("pointermove", move, { passive: true });
-      media.addEventListener("pointerleave", leave);
-    } else {
-      // touch: กวาดไฟหนึ่งรอบตอน media เข้าจอครั้งแรก
-      io = new IntersectionObserver((es, obs) => {
-        if (!es[0].isIntersecting) return;
-        obs.disconnect();
-        flash.classList.add("on");
-        const t0 = performance.now(), D = 2200;
-        sweep = {
-          active: true,
-          step() {
-            const p = Math.min(1, (performance.now() - t0) / D);
-            const e = 1 - Math.pow(1 - p, 3);
-            flash.style.setProperty("--mx", 8 + e * 80 + "%");
-            flash.style.setProperty("--my", 10 + e * 70 + "%");
-            if (p >= 1) { flash.classList.remove("on"); this.active = false; return false; }
-            return true;
-          },
-        };
-        Engine.add(sweep);
-      }, { threshold: 0.5 });
-      io.observe(media);
-    }
-    return () => {
-      media.removeEventListener("pointerenter", enter);
-      media.removeEventListener("pointermove", move);
-      media.removeEventListener("pointerleave", leave);
-      io?.disconnect();
-      clearTimeout(offT);
-      Engine.remove(torch);
-      if (sweep) Engine.remove(sweep);
-      flash.remove();
-    };
-  }, []);
+  /* SIGNATURE — UV-torch spotlight (ดู lib/useTorch.ts) — ใช้ร่วมกับ IndustrialPrecision */
+  useTorch(mediaRef, HERO_TORCH_NOTES);
 
   return (
     <section className="hero wrap" ref={heroRef}>
@@ -168,7 +85,7 @@ export default function Hero() {
           <h1 className="sr-only">OVERBEAR — เสื้อ oversize สีเข้มสำหรับหุ่นหมี</h1>
           <p>
             เสื้อยืด oversize สีเข้ม ตัดเผื่อทรงหุ่นหมีโดยเฉพาะ ผ้าหนา 240 GSM ทรง drop-shoulder ใส่สบาย
-            ดูเท่ทุกวัน — ไซซ์ M ถึง 5XL
+            ดูเท่ทุกวัน — ไซซ์ XL ถึง 5XL
           </p>
           <div className="hero__cta">
             <a className="btn" href="#drop">
@@ -179,19 +96,20 @@ export default function Hero() {
             </a>
           </div>
         </div>
-        {/* แทนที่เนื้อหา .ph ด้วย next/image (LCP ของหน้า): <Image src="/model.jpg" alt="..." fill priority /> วางรูปใน public/ */}
-        <div className="hero__media ph" role="img" aria-label="ภาพนายแบบหุ่นหมีใส่เสื้อ oversize สีดำ" ref={mediaRef}>
+        {/* priority: รูปนี้คือ LCP ของหน้า จึงต้อง preload ไม่ lazy-load
+            ไม่ใส่ role="img"/aria-label บน div แล้ว เพราะ <img> ถือ alt เองเมื่อเป็นรูปจริง
+            useTorch จะโคลนลูกทั้งหมดของ div นี้ไปทำเลเยอร์ไฟฉาย — .flash img ใน globals.css รองรับอยู่แล้ว */}
+        <div className="hero__media frame" ref={mediaRef}>
+          <Image
+            src="/media/hero/model.jpg"
+            alt="นายแบบหุ่นหมีใส่เสื้อยืด oversize สีเทาเข้ม ยืนกอดอกหน้าอาคารโรงงานเก่า"
+            fill
+            priority
+            sizes="(max-width:900px) 92vw, 42vw"
+          />
           <span className="tag tag--acid">
             <span className="tag__dot"></span>240 GSM
           </span>
-          <svg className="bear" viewBox="0 0 200 200" aria-hidden="true">
-            <circle cx="55" cy="55" r="30" />
-            <circle cx="145" cy="55" r="30" />
-            <ellipse cx="100" cy="120" rx="70" ry="62" />
-            <circle cx="55" cy="55" r="13" fill="#0c0b0a" />
-            <circle cx="145" cy="55" r="13" fill="#0c0b0a" />
-          </svg>
-          <span className="ph__note">▲ แทนที่ด้วยรูปนายแบบจริง</span>
         </div>
       </div>
     </section>

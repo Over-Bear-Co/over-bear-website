@@ -1,18 +1,9 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import { Engine, isFinePointer, prefersReducedMotion } from "@/lib/motion";
 import PullUpHeading from "./PullUpHeading";
-
-const Bear = () => (
-  <svg className="bear" viewBox="0 0 200 200" aria-hidden="true">
-    <circle cx="55" cy="55" r="30" />
-    <circle cx="145" cy="55" r="30" />
-    <ellipse cx="100" cy="120" rx="70" ry="62" />
-    <circle cx="55" cy="55" r="13" fill="#151109" />
-    <circle cx="145" cy="55" r="13" fill="#151109" />
-  </svg>
-);
 
 export default function Story() {
   const storyRef = useRef<HTMLElement>(null);
@@ -108,10 +99,14 @@ export default function Story() {
   return (
     <section className="story section" id="story" ref={storyRef}>
       <div className="wrap story__grid">
-        {/* แทนที่ .ph ด้วยรูปนายแบบจริงผ่าน next/image (fill) */}
-        <div className="story__media ph reveal" role="img" aria-label="นายแบบหุ่นหมีใส่เสื้อ oversize">
-          <Bear />
-          <span className="ph__note">▲ แทนที่ด้วยรูปนายแบบจริง</span>
+        {/* ไม่ใส่ role="img"/aria-label บน div เพราะ <img> ถือ alt เองแล้ว */}
+        <div className="story__media frame reveal">
+          <Image
+            src="/media/story/model.jpg"
+            alt="นายแบบหุ่นหมีใส่เสื้อยืด oversize สีเทาเข้ม ยืนในโกดังเก่า"
+            fill
+            sizes="(max-width:900px) 92vw, 45vw"
+          />
         </div>
         <div className="story__body reveal reveal--pu">
           <span className="eyebrow">Made for size</span>
@@ -139,7 +134,7 @@ export default function Story() {
             </div>
             <div className="spec">
               <dt>ช่วงไซซ์</dt>
-              <dd>M–5XL</dd>
+              <dd>XL–5XL</dd>
             </div>
             <div className="spec">
               <dt>ผ้า</dt>

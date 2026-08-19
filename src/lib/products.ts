@@ -1,18 +1,23 @@
 export type Product = {
   id: string;
+  unit: string; // รหัสในคลัง — ใช้เป็น badge ใน HeavyweightArchive
   name: string;
   price: number;
   color: string;
+  /* ไฟล์ใน public/media/product/ — ไม่มี = ยังไม่ได้ถ่าย ให้ตกไปใช้ .ph placeholder */
+  image?: string;
   badge?: "BESTSELLER" | "NEW";
 };
 
 /* แก้สินค้า/ราคาได้ที่นี่ที่เดียว
-   price ยังเก็บไว้เป็นข้อมูลอ้างอิง แม้การ์ดจะไม่แสดงราคาแล้ว (เว็บเป็นแคตตาล็อกล้วน ไม่มีตะกร้า) */
+   price ยังเก็บไว้เป็นข้อมูลอ้างอิง แม้การ์ดจะไม่แสดงราคาแล้ว (เว็บเป็นแคตตาล็อกล้วน ไม่มีตะกร้า)
+   ช่วงสีเป็นเอิร์ธโทนตามชุดรูปจริง ถ่ายชุดเดียวกันทั้ง 6 ตัว (ผนังปูน ไม้แขวน หลอดไฟเดียวกัน)
+   image เป็น optional ไว้รองรับสินค้าที่ยังไม่ได้ถ่าย — จะตกไปใช้ .ph placeholder อัตโนมัติ */
 export const PRODUCTS: Product[] = [
-  { id: "midnight", name: "Midnight Heavy Tee", price: 890, color: "ดำสนิท", badge: "BESTSELLER" },
-  { id: "shadow", name: "Shadow Drop-Shoulder", price: 990, color: "ดำวอช" },
-  { id: "charcoal", name: "Charcoal Boxy Tee", price: 890, color: "เทาถ่าน" },
-  { id: "obsidian", name: "Obsidian Long Tee", price: 990, color: "ดำยาว", badge: "NEW" },
-  { id: "onyx", name: "Onyx Pocket Tee", price: 950, color: "ดำมีกระเป๋า" },
-  { id: "graphite", name: "Graphite Oversized", price: 920, color: "เทากราไฟต์" },
+  { id: "slate",  unit: "01", name: "Slate Heavy Tee",          price: 890, color: "เทาสเลท",   image: "/media/product/slate.jpg",  badge: "BESTSELLER" },
+  { id: "olive",  unit: "02", name: "Olive Drab Boxy",          price: 990, color: "เขียวขี้ม้า", image: "/media/product/olive.jpg" },
+  { id: "sand",   unit: "03", name: "Sandstone Drop-Shoulder",  price: 890, color: "ทรายอ่อน",   image: "/media/product/sand.jpg" },
+  { id: "clay",   unit: "04", name: "Clay Oversized",           price: 990, color: "ดินเผา",    image: "/media/product/clay.jpg" },
+  { id: "carbon", unit: "05", name: "Carbon Long Tee",          price: 950, color: "ดำคาร์บอน",  image: "/media/product/carbon.jpg", badge: "NEW" },
+  { id: "white",  unit: "06", name: "Optical White Tee",        price: 920, color: "ขาวออฟไวต์", image: "/media/product/white.jpg" },
 ];
