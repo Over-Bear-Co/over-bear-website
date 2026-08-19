@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { PRODUCTS, SIZES, money, type Product, type Size } from "@/lib/products";
+import { useEffect, useRef } from "react";
+import { PRODUCTS, type Product } from "@/lib/products";
 import { Engine, isFinePointer, prefersReducedMotion } from "@/lib/motion";
-import { useCart } from "./CartProvider";
 import PullUpHeading from "./PullUpHeading";
 
 const Bear = () => (
@@ -15,12 +14,9 @@ const Bear = () => (
 );
 
 function ProductCard({ p }: { p: Product }) {
-  const { addToCart } = useCart();
-  const [size, setSize] = useState<Size>("M");
   const cardRef = useRef<HTMLElement>(null);
   const mediaRef = useRef<HTMLDivElement>(null);
   const glareRef = useRef<HTMLSpanElement>(null);
-  const echoRef = useRef<HTMLSpanElement>(null);
 
   /* heavyweight tilt + glare (pointer:fine เท่านั้น) — เอียงสูงสุด 5° ให้รู้สึกมีมวล */
   useEffect(() => {
@@ -86,19 +82,6 @@ function ProductCard({ p }: { p: Product }) {
     };
   }, []);
 
-  const pickSize = (s: Size, chip: HTMLButtonElement) => {
-    const changed = s !== size;
-    setSize(s);
-    if (prefersReducedMotion()) return;
-    chip.classList.add("stamp");
-    chip.addEventListener("animationend", () => chip.classList.remove("stamp"), { once: true });
-    if (changed)
-      echoRef.current?.animate(
-        [{ transform: "translateY(100%)" }, { transform: "translateY(0)" }],
-        { duration: 160, easing: "cubic-bezier(.22,1,.36,1)" }
-      );
-  };
-
   return (
     <article className="card" ref={cardRef}>
       <div className="card__media" ref={mediaRef}>
@@ -114,42 +97,10 @@ function ProductCard({ p }: { p: Product }) {
           <span className="ph__note">▲ ใส่รูปสินค้า</span>
         </div>
         <span className="glare" aria-hidden="true" ref={glareRef}></span>
-        <div className="card__quick">
-          <button className="btn add" type="button" onClick={() => addToCart(p.id, size, cardRef.current)}>
-            เพิ่มลงตะกร้า ·{" "}
-            <span className="add__size-w">
-              <span className="add__size" ref={echoRef}>
-                {size}
-              </span>
-            </span>{" "}
-            +
-          </button>
-        </div>
       </div>
       <div className="card__body">
         <div className="card__name">{p.name}</div>
         <div className="card__meta">สี {p.color} · 240 GSM · Oversized</div>
-        <div className="sizes" role="group" aria-label={`เลือกไซซ์ ${p.name}`}>
-          {SIZES.map((s) => (
-            <button
-              key={s}
-              className="size"
-              type="button"
-              aria-pressed={s === size}
-              onClick={(e) => pickSize(s, e.currentTarget)}
-            >
-              {s}
-            </button>
-          ))}
-        </div>
-        <div className="card__row">
-          <span className="price-flip">
-            <span className="price-flip__stack">
-              <span className="card__price">{money(p.price)}</span>
-              <span className="card__price card__price--add">{money(p.price)} · ADD</span>
-            </span>
-          </span>
-        </div>
       </div>
     </article>
   );

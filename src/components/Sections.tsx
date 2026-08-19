@@ -158,5 +158,14 @@ export function MotionRoot() {
     els.forEach((el) => io.observe(el));
     return () => io.disconnect();
   }, []);
+
+  /* motion gate อ่านครั้งเดียวตอนโหลด — ถ้า OS สลับ Reduce Motion กลางคัน ให้ re-init ทั้งหน้า */
+  useEffect(() => {
+    const rm = matchMedia("(prefers-reduced-motion: reduce)");
+    const onChange = () => location.reload();
+    rm.addEventListener?.("change", onChange);
+    return () => rm.removeEventListener?.("change", onChange);
+  }, []);
+
   return null;
 }

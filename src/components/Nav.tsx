@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { useCart } from "./CartProvider";
+import { useEffect, useState } from "react";
 import BrandMark from "./BrandMark";
 
 const LINKS = [
@@ -12,11 +11,30 @@ const LINKS = [
 ];
 
 export default function Nav() {
-  const { count, openCart, setNavCountEl, menuOpen, toggleMenu, closeMenu } = useCart();
+  const [menuOpen, setMenuOpen] = useState(false);
   const [glass, setGlass] = useState(false);
-  const countRef = useRef<HTMLSpanElement>(null);
 
-  useEffect(() => setNavCountEl(countRef.current), [setNavCountEl]);
+  /* เมนูมือถือเป็น overlay เต็มจอทับ main/footer จึงต้อง inert พื้นหลังกัน Tab หลุดไปข้างหลัง
+     .nav ไม่ inert เพราะปุ่ม burger ที่ใช้ปิดเมนูอยู่ในนั้น · cleanup กันค้าง inert ตอน unmount */
+  useEffect(() => {
+    const bg = document.querySelectorAll<HTMLElement>("main, footer");
+    bg.forEach((el) => {
+      el.inert = menuOpen;
+    });
+    return () => bg.forEach((el) => {
+      el.inert = false;
+    });
+  }, [menuOpen]);
+
+  /* Escape ปิดเมนู — ผูก listener เฉพาะตอนเปิด */
+  useEffect(() => {
+    if (!menuOpen) return;
+    const h = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMenuOpen(false);
+    };
+    document.addEventListener("keydown", h);
+    return () => document.removeEventListener("keydown", h);
+  }, [menuOpen]);
 
   /* nav กลายเป็นกระจกเมื่อ hero พ้นจอ — คำนวณจาก scroll ตรงๆ (IO sentinel เคย flaky) */
   useEffect(() => {
@@ -65,34 +83,23 @@ export default function Nav() {
               </a>
             ))}
           </nav>
-          <div className="nav__right">
-            <button
-              className="cart-btn"
-              id="openCart"
-              aria-label={`เปิดตะกร้าสินค้า มีสินค้า ${count} ชิ้น`}
-              onClick={openCart}
-            >
-              Cart{" "}
-              <span className="count" ref={countRef}>
-                {count}
-              </span>
-            </button>
-            <button
-              className="burger"
-              aria-label={menuOpen ? "ปิดเมนู" : "เปิดเมนู"}
-              aria-expanded={menuOpen}
-              onClick={toggleMenu}
-            >
-              <span></span>
-              <span></span>
-              <span></span>
-            </button>
-          </div>
+          {/* burger เป็นลูกตรงๆ ของ .nav__inner (ไม่มี wrapper) — จอ >900px burger เป็น display:none
+              จึงเหลือ 2 flex items คือแบรนด์ซ้าย เมนูขวา */}
+          <button
+            className="burger"
+            aria-label={menuOpen ? "ปิดเมนู" : "เปิดเมนู"}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((o) => !o)}
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
         </div>
       </header>
       <nav className={"mobile-menu" + (menuOpen ? " open" : "")} aria-label="เมนูมือถือ">
         {LINKS.map((l) => (
-          <a key={l.href} href={l.href} onClick={closeMenu}>
+          <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)}>
             {l.label}
           </a>
         ))}
