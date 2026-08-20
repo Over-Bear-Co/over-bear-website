@@ -1,148 +1,47 @@
-"use client";
+import Frame from "./Frame";
+import { Dressform, Leaf, Medal } from "./icons";
 
-import { useEffect, useRef } from "react";
-import Image from "next/image";
-import { Engine, isFinePointer, prefersReducedMotion } from "@/lib/motion";
-import PullUpHeading from "./PullUpHeading";
+/* 3 คอลัมน์ตามอ้างอิง: รูป / ข้อความ / รายการคุณสมบัติคั่นด้วยเส้นตั้ง
+   สัดส่วน 397:598:265 ยกมาจากค่าที่วัดได้จริงในไฟล์อ้างอิง */
+const FEATS = [
+  { Icon: Dressform, t: "ตัดเผื่อทรงจริง" },
+  { Icon: Leaf,      t: "ใส่สบายทุกวัน" },
+  { Icon: Medal,     t: "คุณภาพที่จับได้" },
+];
 
 export default function Story() {
-  const storyRef = useRef<HTMLElement>(null);
-
-  /* Thai grapheme scroll-ink reveal —
-     ห้าม "ลดรูป" เป็น split('') เด็ดขาด: สระ/วรรณยุกต์ไทยจะหลุดจากพยัญชนะ
-     ใช้ Intl.Segmenter เท่านั้น · screen reader ได้ต้นฉบับใน .sr-only */
-  useEffect(() => {
-    if (prefersReducedMotion() || !("Segmenter" in Intl)) return;
-    const story = storyRef.current;
-    if (!story) return;
-    const paras = [...story.querySelectorAll<HTMLParagraphElement>(".story__body p")];
-    if (!paras.length) return;
-
-    const wordSeg = new Intl.Segmenter("th", { granularity: "word" });
-    const charSeg = new Intl.Segmenter("th", { granularity: "grapheme" });
-    const coarse = !isFinePointer(); // มือถือขยับระดับคำ (~60 nodes) เดสก์ท็อประดับ grapheme (~300)
-    const units: HTMLElement[] = [];
-    const originals = new Map<HTMLParagraphElement, string>();
-
-    paras.forEach((p) => {
-      const text = p.textContent ?? "";
-      originals.set(p, text);
-      const sr = document.createElement("span");
-      sr.className = "sr-only";
-      sr.textContent = text;
-      const vis = document.createElement("span");
-      vis.setAttribute("aria-hidden", "true");
-      for (const w of wordSeg.segment(text)) {
-        if (!w.segment.trim()) {
-          vis.append(document.createTextNode(w.segment));
-          continue;
-        }
-        const wEl = document.createElement("span");
-        wEl.className = "w";
-        if (coarse) {
-          wEl.classList.add("ch");
-          wEl.textContent = w.segment;
-          units.push(wEl);
-        } else {
-          for (const g of charSeg.segment(w.segment)) {
-            const c = document.createElement("span");
-            c.className = "ch";
-            c.textContent = g.segment;
-            wEl.append(c);
-            units.push(c);
-          }
-        }
-        vis.append(wEl);
-      }
-      p.textContent = "";
-      p.append(sr, vis);
-    });
-
-    const N = units.length;
-    const last = new Float32Array(N).fill(0.18);
-    const denom = N > 1 ? N - 1 : 1;
-    const ink = {
-      active: false,
-      step() {
-        const r = story.getBoundingClientRect(), vh = innerHeight;
-        const p = Math.max(0, Math.min(1, (0.8 * vh - r.top) / (0.6 * vh + r.height)));
-        let moving = false;
-        for (let i = 0; i < N; i++) {
-          // บีบช่วง checkpoint ไว้ที่ ~0.9 เพื่อให้ยูนิตสุดท้าย (cp+0.05) ถึง opacity 1 ก่อน p แตะ 1
-          const cp = (i / denom) * 0.9;
-          const o = 0.18 + 0.82 * Math.max(0, Math.min(1, (p - (cp - 0.1)) / 0.15));
-          if (Math.abs(o - last[i]) > 0.02) {
-            units[i].style.opacity = String(o);
-            last[i] = o;
-            moving = true;
-          }
-        }
-        return moving;
-      },
-    };
-    Engine.add(ink);
-    const io = new IntersectionObserver(
-      (es) => {
-        ink.active = es[0].isIntersecting;
-        Engine.wake();
-      },
-      { rootMargin: "20% 0px" }
-    );
-    io.observe(story);
-    return () => {
-      io.disconnect();
-      Engine.remove(ink);
-      originals.forEach((text, p) => (p.textContent = text)); // คืนต้นฉบับตอน unmount
-    };
-  }, []);
-
   return (
-    <section className="story section" id="story" ref={storyRef}>
-      <div className="wrap story__grid">
-        {/* ไม่ใส่ role="img"/aria-label บน div เพราะ <img> ถือ alt เองแล้ว */}
-        <div className="story__media frame reveal">
-          <Image
+    <section className="sec sec--warm story" id="story">
+      <div className="wrap story__in">
+        <div className="story__media reveal">
+          <Frame
             src="/media/story/model.jpg"
-            alt="นายแบบหุ่นหมีใส่เสื้อยืด oversize สีเทาเข้ม ยืนในโกดังเก่า"
-            fill
-            sizes="(max-width:900px) 92vw, 45vw"
+            alt="นายแบบพลัสไซซ์ใส่เสื้อยืดทรง oversize ยืนในสตูดิโอผนังปูนเปลือย"
+            sizes="(max-width:720px) 92vw, (max-width:1180px) 46vw, 28vw"
           />
         </div>
-        <div className="story__body reveal reveal--pu">
-          <span className="eyebrow">Made for size</span>
-          <PullUpHeading lines={[[{ text: "ตัดมาเพื่อ" }], [{ text: "หุ่นหมี", em: true }, { text: "โดยเฉพาะ" }]]} />
-          <p>
-            เราเบื่อกับเสื้อ &quot;ไซซ์ใหญ่&quot; ที่จริงๆ แค่ยืดไซซ์ปกติออก แล้วทรงเพี้ยน OVERBEAR
-            ตัดแพตเทิร์นใหม่บนหุ่นคนตัวใหญ่จริง บ่าตก อกกว้าง ตัวยาวกำลังดี
+        <div className="reveal">
+          <span className="eyebrow">Our story</span>
+          <h2 className="sec-title">เรื่องราวของ Overbear</h2>
+          {/* ย่อหน้าเดียวจากต้นฉบับ แบ่ง 4 บรรทัดตาม <br> ที่ต้นฉบับใส่ไว้
+              เดิมผมเขียนใหม่ทั้งก้อนเป็น 2 ย่อหน้า ซึ่งไม่ตรงต้นฉบับเลย */}
+          <p className="sec-lead">
+            Overbear เชื่อว่าทุกคนมีสไตล์เป็นของตัวเอง
+            <br />
+            เราออกแบบเสื้อผ้าสำหรับผู้ชายพลัสไซซ์โดยเฉพาะ
+            <br />
+            เน้นการตัดเย็บที่พอดี ใส่สบาย และช่วยเสริมความมั่นใจในทุกวัน
+            <br />
+            เพราะเสื้อผ้าที่ดี ไม่ใช่แค่สวย แต่ต้องทำให้คุณรู้สึกเป็นตัวเองได้ดีที่สุด
           </p>
-          <p>
-            ผ้าคอตตอนหนา 240 GSM ทิ้งตัวสวย ไม่บางโปร่ง ซักแล้วไม่หด สีเข้มไม่ตก — ใส่ออกไปแล้วมั่นใจ ดูเท่
-            ไม่ต้องพยายาม
-          </p>
-          <dl className="specs">
-            <div className="spec">
-              <dt>น้ำหนักผ้า</dt>
-              <dd>
-                240<span className="u">GSM</span>
-              </dd>
+        </div>
+        <div className="story__feats reveal">
+          {FEATS.map(({ Icon, t }) => (
+            <div className="story__feat" key={t}>
+              <Icon />
+              <span>{t}</span>
             </div>
-            <div className="spec">
-              <dt>ทรง</dt>
-              <dd>
-                Drop<span className="u">shoulder</span>
-              </dd>
-            </div>
-            <div className="spec">
-              <dt>ช่วงไซซ์</dt>
-              <dd>XL–5XL</dd>
-            </div>
-            <div className="spec">
-              <dt>ผ้า</dt>
-              <dd>
-                Pre<span className="u">shrunk</span>
-              </dd>
-            </div>
-          </dl>
+          ))}
         </div>
       </div>
     </section>

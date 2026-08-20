@@ -1,37 +1,43 @@
+import Topbar from "@/components/Topbar";
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
-import Marquee from "@/components/Marquee";
+import BestSellers from "@/components/BestSellers";
+import TrustBar from "@/components/TrustBar";
 import Story from "@/components/Story";
+import WhyOverbear from "@/components/WhyOverbear";
+import FabricDetail from "@/components/FabricDetail";
+import BuiltForBiggerDays from "@/components/BuiltForBiggerDays";
+import CustomerVoice from "@/components/CustomerVoice";
+import ShopByCategory from "@/components/ShopByCategory";
+import PromoBanner from "@/components/PromoBanner";
+import Newsletter from "@/components/Newsletter";
 import Footer from "@/components/Footer";
-import { Den, MotionRoot } from "@/components/Sections";
-import IndustrialPrecision from "@/components/IndustrialPrecision";
-import FabricTechnology from "@/components/FabricTechnology";
-import HeavyweightArchive from "@/components/HeavyweightArchive";
-import OnTheStreets from "@/components/OnTheStreets";
-import IndustrialSpec from "@/components/IndustrialSpec";
-import SpecificationSheet from "@/components/SpecificationSheet";
+import Reveal from "@/components/Reveal";
 
+/* ลำดับบล็อกตาม Overbear-Homepage.html ทุกบล็อก
+   พื้นสลับ (.sec--warm) เป็นตัวคั่น section แทนเส้น — อ้างอิงทำแบบเดียวกัน
+   ต้องเรียงให้สลับจริง: ขายดี(ปกติ) trust(ปกติ) story(warm) why(ปกติ)
+   fabric(warm) built(ปกติ) review(warm) category(ปกติ) promo(ปกติ) news(warm) */
 export default function Home() {
   return (
     <>
-      <div className="topbar">ดรอปใหม่ทุกเดือน · ไซซ์ XL–5XL ครบทุกตัว</div>
+      <Topbar />
       <Nav />
-      <main id="top">
+      <main>
         <Hero />
-        <Marquee />
+        <BestSellers />
+        <TrustBar />
         <Story />
-        {/* ชุดจาก Stitch mockup — วางต่อกันเป็นบล็อกเดียวเพื่อเทียบกับของเดิมด้านบนได้ในหน้าเดียว
-            แต่ละตัวถอดออกได้ด้วยการลบบรรทัดเดียว หากตัดสินใจแล้วว่าจะเก็บชุดไหน */}
-        <IndustrialPrecision />
-        <FabricTechnology />
-        <HeavyweightArchive />
-        <OnTheStreets />
-        <IndustrialSpec />
-        <SpecificationSheet />
-        <Den />
+        <WhyOverbear />
+        <FabricDetail />
+        <BuiltForBiggerDays />
+        <CustomerVoice />
+        <ShopByCategory />
+        <PromoBanner />
+        <Newsletter />
       </main>
       <Footer />
-      <MotionRoot />
+      <Reveal />
     </>
   );
 }

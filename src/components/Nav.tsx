@@ -1,109 +1,62 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import BrandMark from "./BrandMark";
 
+/* อ้างอิงมี nav หมวดสินค้า + ค้นหา + wishlist + ตะกร้า
+   เว็บนี้เป็นแคตตาล็อกหน้าเดียว ลิงก์จึงเป็น anchor ของ section ไม่ใช่หน้าแยก
+   และไม่มีไอคอนค้นหา/wishlist/ตะกร้า เพราะไม่มีระบบรองรับจริง
+   (ตะกร้าเคยมีแล้วถูกลบไป 2 รอบ — commit 1a8248b, 528bef0) */
 const LINKS = [
-  { href: "#drop", label: "Shop" },
-  { href: "#story", label: "The Fits" },
-  { href: "#size", label: "Size" },
-  { href: "#den", label: "Contact" },
+  { href: "#products", label: "สินค้า" },
+  { href: "#story", label: "เรื่องราว" },
+  { href: "#fabric", label: "เนื้อผ้า" },
+  { href: "#size", label: "ไซซ์" },
+  { href: "#den", label: "ติดต่อ" },
 ];
 
 export default function Nav() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [glass, setGlass] = useState(false);
+  const [open, setOpen] = useState(false);
 
-  /* เมนูมือถือเป็น overlay เต็มจอทับ main/footer จึงต้อง inert พื้นหลังกัน Tab หลุดไปข้างหลัง
-     .nav ไม่ inert เพราะปุ่ม burger ที่ใช้ปิดเมนูอยู่ในนั้น · cleanup กันค้าง inert ตอน unmount */
+  /* ล็อกการเลื่อนพื้นหลังตอนเมนูเปิด ไม่งั้นแตะเลื่อนจะไปโดนหน้าใต้เมนู
+     + ปิดด้วย Escape เพราะเมนูเต็มจอต้องมีทางออกจากคีย์บอร์ด */
   useEffect(() => {
-    const bg = document.querySelectorAll<HTMLElement>("main, footer");
-    bg.forEach((el) => {
-      el.inert = menuOpen;
-    });
-    return () => bg.forEach((el) => {
-      el.inert = false;
-    });
-  }, [menuOpen]);
-
-  /* Escape ปิดเมนู — ผูก listener เฉพาะตอนเปิด */
-  useEffect(() => {
-    if (!menuOpen) return;
-    const h = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setMenuOpen(false);
-    };
-    document.addEventListener("keydown", h);
-    return () => document.removeEventListener("keydown", h);
-  }, [menuOpen]);
-
-  /* nav กลายเป็นกระจกเมื่อ hero พ้นจอ — คำนวณจาก scroll ตรงๆ (IO sentinel เคย flaky) */
-  useEffect(() => {
-    const hero = document.querySelector(".hero");
-    if (!hero) return;
-    let limit = 0;
-    let rz: ReturnType<typeof setTimeout>;
-    const measure = () => {
-      const r = hero.getBoundingClientRect();
-      limit = r.top + scrollY + r.height - 80;
-    };
-    const apply = () => setGlass(scrollY >= limit);
-    measure();
-    apply();
-    document.fonts.ready.then(() => {
-      measure();
-      apply();
-    });
-    const onResize = () => {
-      clearTimeout(rz);
-      rz = setTimeout(() => {
-        measure();
-        apply();
-      }, 150);
-    };
-    addEventListener("resize", onResize, { passive: true });
-    addEventListener("scroll", apply, { passive: true });
+    document.body.style.overflow = open ? "hidden" : "";
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", onKey);
     return () => {
-      removeEventListener("resize", onResize);
-      removeEventListener("scroll", apply);
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
     };
-  }, []);
+  }, [open]);
 
   return (
     <>
-      <header className={"nav" + (glass ? " nav--glass" : "")}>
-        <div className="nav__inner">
-          <a className="brand" href="#top" aria-label="OVERBEAR หน้าแรก">
-            <BrandMark className="ob-mark" />
-            OVERBEAR
-          </a>
-          <nav className="nav__links" aria-label="เมนูหลัก">
+      <header className="nav">
+        <nav className="wrap nav__in" aria-label="เมนูหลัก">
+          <a className="brand" href="#top">Overbear</a>
+          <div className="nav__links">
             {LINKS.map((l) => (
-              <a key={l.href} href={l.href}>
-                {l.label}
-              </a>
+              <a key={l.href} href={l.href}>{l.label}</a>
             ))}
-          </nav>
-          {/* burger เป็นลูกตรงๆ ของ .nav__inner (ไม่มี wrapper) — จอ >900px burger เป็น display:none
-              จึงเหลือ 2 flex items คือแบรนด์ซ้าย เมนูขวา */}
+          </div>
           <button
             className="burger"
-            aria-label={menuOpen ? "ปิดเมนู" : "เปิดเมนู"}
-            aria-expanded={menuOpen}
-            onClick={() => setMenuOpen((o) => !o)}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            aria-label={open ? "ปิดเมนู" : "เปิดเมนู"}
+            onClick={() => setOpen((v) => !v)}
           >
-            <span></span>
-            <span></span>
-            <span></span>
+            <span /><span /><span />
           </button>
-        </div>
+        </nav>
       </header>
-      <nav className={"mobile-menu" + (menuOpen ? " open" : "")} aria-label="เมนูมือถือ">
+      {/* เมนูมือถืออยู่นอก <header> เพราะ position:fixed ใน element ที่ sticky
+          จะถูกจำกัดด้วย containing block ของ header ทำให้คลุมไม่เต็มจอ */}
+      <div id="mobile-menu" className={`mobile-menu${open ? " open" : ""}`}>
         {LINKS.map((l) => (
-          <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)}>
-            {l.label}
-          </a>
+          <a key={l.href} href={l.href} onClick={() => setOpen(false)}>{l.label}</a>
         ))}
-      </nav>
+      </div>
     </>
   );
 }
