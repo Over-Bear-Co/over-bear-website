@@ -15,7 +15,7 @@ const TORCH_NOTES: readonly TorchNote[] = [
 export default function IndustrialPrecision() {
   const mediaRef = useRef<HTMLDivElement>(null);
 
-  /* SIGNATURE — UV-torch spotlight (ดู lib/useTorch.ts) — ใช้ร่วมกับ Hero */
+  /* SIGNATURE — UV-torch spotlight (ดู lib/useTorch.ts) — ที่เดียวในเว็บที่ใช้เอฟเฟกต์นี้ */
   useTorch(mediaRef, TORCH_NOTES);
 
   return (

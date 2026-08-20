@@ -9,7 +9,7 @@ export type TorchNote = readonly [text: string, top: string, left: string];
 /* SIGNATURE — UV-torch spotlight
    โคลนเนื้อหาใน media เป็นเลเยอร์สว่าง แล้วเผยผ่าน radial mask ที่วิ่งตามพอยน์เตอร์
 
-   ทำไมต้องเป็น hook: Hero กับ IndustrialPrecision ใช้เอฟเฟกต์เดียวกัน และเอฟเฟกต์นี้
+   ทำไมยังแยกเป็น hook แม้ตอนนี้ IndustrialPrecision เรียกใช้ที่เดียว: เอฟเฟกต์นี้
    ผูกกับ rAF Engine ตัวเดียวของทั้งหน้า (lib/motion.ts) — เขียนซ้ำสองที่แปลว่ามี
    ทางให้ loop ไม่หลับเพิ่มมาอีกทาง ซึ่งเป็นบั๊กที่มองไม่เห็นจนกว่าจะโปรไฟล์ */
 export function useTorch(mediaRef: RefObject<HTMLElement | null>, notes: readonly TorchNote[]) {

@@ -35,6 +35,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     // boot script เติมคลาส js/fonts-in บน <html> ก่อน hydration — จงใจ จึง suppressHydrationWarning
     <html
       lang="th"
+      data-theme="light"
       className={`${anton.variable} ${archivo.variable} ${kanit.variable} ${spaceMono.variable}`}
       suppressHydrationWarning
     >

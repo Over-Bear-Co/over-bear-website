@@ -36,8 +36,10 @@ src/
     useTorch.ts      The UV-torch spotlight as a hook (Hero + IndustrialPrecision share it)
     products.ts      Product data (`price` is retained as reference data; the catalog does not render it)
 public/brand/        Brand SVGs (overbear-icon-v2 / overbear-logo-v2)
-public/media/        Photography: hero/ (LCP model shot), story/ (brand-narrative model shot),
-                     product/ (6 colourways), street/ (4 fit shots), fabric/ (4 macro details)
+public/media/        Photography: hero/bg.jpg (full-bleed LCP background), story/ (brand-narrative
+                     model shot), product/ (6 colourways), street/ (4 fit shots), fabric/ (4 macro
+                     details). hero/model.jpg is the pre-redesign right-hand panel shot, kept but
+                     no longer referenced.
 legacy/              Pre-React standalone HTML origin of the design (reference only; not built)
 code.html            Google Stitch capture the six ported sections came from (reference only; not built)
 ```
