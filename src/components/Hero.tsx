@@ -1,6 +1,17 @@
 import Image from "next/image";
+import HeroVideo from "./HeroVideo";
 
-/* Hero ตามอ้างอิง: ซ้ายข้อความ ขวานายแบบ + วงกลมบอกช่วงไซซ์
+/* ซ่อนคัตเอาต์นายแบบกับวงกลมไซซ์ไว้ชั่วคราวตามที่ผู้ใช้สั่ง ("ซ่อนสองส่วนนี้ไปก่อน")
+   เหตุผลเชิงดีไซน์ที่ทำให้สมเหตุสมผล: คลิปพื้นหลังมีนายแบบของตัวเองอยู่แล้ว
+   วางคัตเอาต์ทับลงไปจึงเห็นคนสองคนในเฟรมเดียว ซึ่งอ่านเป็นร่างซ้อน
+   เปิดกลับด้วยการเปลี่ยนเป็น true — ไฟล์ model-cutout.webp ยังอยู่ในโปรเจกต์ */
+const SHOW_MODEL = false;
+
+/* Hero ตามอ้างอิง: ซ้ายข้อความ ขวานายแบบ + วงกลมบอกช่วงไซซ์ บนพื้นวิดีโอ
+
+   ⚠️ ไม่มีม่านคลุมวิดีโอตามที่ผู้ใช้สั่ง ("เอาม่านออก")
+   ตัวอักษรในบล็อกนี้เป็นสีมืด และวิดีโอมีทั้งส่วนสว่างและมืดจัด จึงไม่มีอะไร
+   รับประกันอัตราตัดกันอีก — ดูตัวเลขที่วัดได้ในหัวข้อ hero ของ README
 
    รูปเป็น PNG/WebP ตัดพื้นหลังโปร่งใส จึงไม่ใช้ <Frame> เหมือน section อื่น —
    .frame มีพื้น --placeholder กับมุมโค้ง 10px ซึ่งจะกลายเป็นกล่องสีแทนหลังตัวนายแบบ
@@ -11,6 +22,7 @@ import Image from "next/image";
 export default function Hero() {
   return (
     <section className="hero" id="top">
+      <HeroVideo />
       <div className="wrap hero__in">
         <div className="hero__copy">
           <h1>
@@ -30,6 +42,7 @@ export default function Hero() {
           </div>
         </div>
 
+        {SHOW_MODEL && (
         <div className="hero__media">
           <div className="hero__cutout">
             {/* priority: รูปนี้คือ LCP ของหน้า ต้อง preload ไม่ lazy-load */}
@@ -43,6 +56,7 @@ export default function Hero() {
           </div>
           <span className="hero__badge">PLUS SIZE<br />XL – 5XL</span>
         </div>
+        )}
       </div>
     </section>
   );
