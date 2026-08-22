@@ -52,8 +52,9 @@ src/
                   grep for the label — Topbar, Hero badge and product cards all repeat it
 public/brand/     Brand SVGs — kept, but no longer referenced by code: the nav
                   wordmark is now live text (EB Garamond), following the mockup
-public/media/     17 photographs, every one referenced: hero/model (LCP) · promo/rack
-                  (promo banner) · story/model · product/ (6) · fabric/ (4) · street/ (4)
+public/media/     17 images, every one referenced: hero/model-cutout (LCP; a WebP with
+                  a real alpha channel — the hero layout depends on it, see Hero.tsx) ·
+                  promo/rack · story/model · product/ (6) · fabric/ (4) · street/ (4)
 legacy/           Pre-React standalone HTML origin (reference only; not built)
 code.html         Earlier Stitch capture (reference only; not built)
 Overbear-Homepage.html   The mockup this layout was ported from (reference only; not built)

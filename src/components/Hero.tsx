@@ -1,10 +1,13 @@
-import Frame from "./Frame";
+import Image from "next/image";
 
-/* Hero ตามอ้างอิง: ซ้ายข้อความ ขวารูป + วงกลมบอกช่วงไซซ์
-   ต่างจาก hero เดิมที่เป็นรูปเต็มจอ + ตัวอักษรมหึมาซ้อนทับ — โครงนี้อ่านง่ายกว่าและ
-   ไม่มีปัญหา contrast ของตัวอักษรบนรูป (hero เดิมวัดพื้นใต้ปุ่มได้แค่ 1.90:1)
+/* Hero ตามอ้างอิง: ซ้ายข้อความ ขวานายแบบ + วงกลมบอกช่วงไซซ์
 
-   ไม่ใช่ client component: hero นี้ไม่มี parallax/motion แล้ว จึง prerender ได้ทั้งก้อน */
+   รูปเป็น PNG/WebP ตัดพื้นหลังโปร่งใส จึงไม่ใช้ <Frame> เหมือน section อื่น —
+   .frame มีพื้น --placeholder กับมุมโค้ง 10px ซึ่งจะกลายเป็นกล่องสีแทนหลังตัวนายแบบ
+   ที่นี่ใช้ object-fit:contain + object-position:bottom ให้ตัวนายแบบยืนบนขอบล่างของ
+   section พอดี และตัวคนกลืนกับพื้นครีมโดยตรง ซึ่งเป็นทั้งหมดที่ทำให้ layout นี้เป็นไปได้
+
+   ไม่ใช่ client component: hero นี้ไม่มี parallax/motion จึง prerender ได้ทั้งก้อน */
 export default function Hero() {
   return (
     <section className="hero" id="top">
@@ -26,14 +29,18 @@ export default function Hero() {
             <a className="btn" href="#products">ดูคอลเลกชัน</a>
           </div>
         </div>
+
         <div className="hero__media">
-          {/* priority: รูปนี้คือ LCP ของหน้า ต้อง preload ไม่ lazy-load */}
-          <Frame
-            src="/media/hero/model.jpg"
-            alt="นายแบบพลัสไซซ์ใส่เสื้อยืด oversize ทรง drop-shoulder ยืนเต็มตัว"
-            sizes="(max-width:960px) 92vw, 46vw"
-            priority
-          />
+          <div className="hero__cutout">
+            {/* priority: รูปนี้คือ LCP ของหน้า ต้อง preload ไม่ lazy-load */}
+            <Image
+              src="/media/hero/model-cutout.webp"
+              alt="นายแบบพลัสไซซ์ใส่เสื้อยืด oversize สีน้ำตาลอ่อน ทรง drop-shoulder หันหน้าไปทางข้าง"
+              fill
+              priority
+              sizes="(max-width:960px) 88vw, 48vw"
+            />
+          </div>
           <span className="hero__badge">PLUS SIZE<br />XL – 5XL</span>
         </div>
       </div>
