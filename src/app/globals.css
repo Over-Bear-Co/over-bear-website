@@ -31,6 +31,13 @@
   --red-rgb:139 23 25;
   --tan:#966c4c;        /* น้ำตาลอุ่น — ต้นฉบับใช้กับไอคอน (ของตกแต่ง 1.4.11 ยกเว้น) */
 
+  /* --- คำตัดสิน SIZE GUIDE: โทเคนแยกจาก --tan เพราะ --tan เองสอบตก AA เมื่อใช้เป็นตัวอักษร
+     (#966c4c บน --surface ได้แค่ 4.36:1) จึงต้องมีชุดสีของ "คำตัดสิน" ต่างหาก ไม่ผูกกับ
+     --tan ตรง ๆ อีกต่อไป ใช้ร่วมกันทั้ง FitFigure.tsx (เส้น svg) และ globals.css (ป้าย/ตัวอักษร) --- */
+  --verdict-fit:var(--text);      /* พอดี — 16.8:1 บน --surface */
+  --verdict-loose:#7d5a3e;        /* หลวม/หลวมเล็กน้อย — น้ำตาลเข้มกว่า --tan · 5.82:1 บน --surface */
+  --verdict-tight:var(--red-ink); /* คับ/คับเล็กน้อย — 6.55:1 บน --surface */
+
   --line:#e4e0d7;       /* เส้นคั่น */
   --line-2:#d6d0c4;     /* ขอบตกแต่ง (วงอวตาร, กรอบ placeholder) — 1.4.11 ยกเว้นของตกแต่ง */
   --line-input:#8c877f; /* ขอบช่องกรอก 3.28:1 — ต้องผ่าน 1.4.11 เพราะเป็นสิ่งเดียวที่บอกว่านี่คือ input */
@@ -320,6 +327,10 @@ ul{list-style:none}
   background:#fff;width:100%;
 }
 .sguide__field input::placeholder{color:var(--text-3)}
+/* คำใบ้ช่วงค่า — อยู่ถาวรใต้ช่องกรอก ไม่ใช่ placeholder ที่หายไปทันทีที่พิมพ์
+   สลับเป็น .is-error (สีแดง) เมื่อค่าออกนอกช่วง ผูกกับช่องด้วย aria-describedby (WCAG 3.3.1) */
+.sguide__hint{font-size:12px;color:var(--text-3);line-height:1.4}
+.sguide__hint.is-error{color:var(--red-ink)}
 
 .sguide__fit{border:none}
 .sguide__fit legend{font-size:13px;font-weight:600;margin-bottom:.6rem}
@@ -367,12 +378,13 @@ ul{list-style:none}
 .sguide__dimname{font-size:14px;font-weight:600}
 .sguide__dimverdict{font-size:14px;font-weight:600;text-align:right}
 .sguide__dimnum{grid-column:1/-1;font-size:12px;color:var(--text-3)}
-/* สีบอกซ้ำสิ่งที่คำไทยบอกอยู่แล้ว ไม่ได้เป็นตัวสื่อความหมายเดี่ยว ๆ (1.4.1) */
-.sguide__dim.is-fit .sguide__dimverdict{color:var(--text)}
+/* สีบอกซ้ำสิ่งที่คำไทยบอกอยู่แล้ว ไม่ได้เป็นตัวสื่อความหมายเดี่ยว ๆ (1.4.1)
+   ใช้ --verdict-* ไม่ใช่ --tan ตรง ๆ: นี่คือตัวอักษร ไม่ใช่ของตกแต่ง ต้องผ่าน 4.5:1 */
+.sguide__dim.is-fit .sguide__dimverdict{color:var(--verdict-fit)}
 .sguide__dim.is-slightlyLoose .sguide__dimverdict,
-.sguide__dim.is-loose .sguide__dimverdict{color:var(--tan)}
+.sguide__dim.is-loose .sguide__dimverdict{color:var(--verdict-loose)}
 .sguide__dim.is-slightlyTight .sguide__dimverdict,
-.sguide__dim.is-tight .sguide__dimverdict{color:var(--red-ink)}
+.sguide__dim.is-tight .sguide__dimverdict{color:var(--verdict-tight)}
 
 .sguide__chart summary{font-size:13px;color:var(--text-2);cursor:pointer;padding:.4rem 0}
 .sguide__chart summary:hover{color:var(--text)}
@@ -384,9 +396,10 @@ ul{list-style:none}
 .fitfig__keys{display:flex;flex-wrap:wrap;justify-content:center;gap:.35rem .6rem}
 .fitfig__key{font-size:11.5px;font-weight:600;padding:.25em .7em;
   border:1px solid var(--line-2);border-radius:var(--r-pill)}
-.fitfig__key.is-fit{color:var(--text)}
-.fitfig__key.is-slightlyLoose,.fitfig__key.is-loose{color:var(--tan);border-color:var(--tan)}
-.fitfig__key.is-slightlyTight,.fitfig__key.is-tight{color:var(--red-ink);border-color:var(--red-ink)}
+/* --verdict-* ไม่ใช่ --tan ตรง ๆ — ป้ายนี้เป็นตัวอักษร ต้องผ่าน 4.5:1 (ดูหมายเหตุที่ :root) */
+.fitfig__key.is-fit{color:var(--verdict-fit)}
+.fitfig__key.is-slightlyLoose,.fitfig__key.is-loose{color:var(--verdict-loose);border-color:var(--verdict-loose)}
+.fitfig__key.is-slightlyTight,.fitfig__key.is-tight{color:var(--verdict-tight);border-color:var(--verdict-tight)}
 
 /* ============================================================
    CUSTOMER VOICE — 3 การ์ดรีวิว

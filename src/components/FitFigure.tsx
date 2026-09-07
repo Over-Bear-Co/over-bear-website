@@ -7,13 +7,17 @@ import type { DimensionResult, Verdict } from "@/lib/fit";
    หน้าที่จริงของภาพคือชี้ว่า "คำตัดสินนี้พูดถึงตรงไหนของเสื้อ" ไม่ใช่จำลองร่างผู้ใช้
 
    สีย้ำสิ่งที่คำไทยข้าง ๆ บอกอยู่แล้ว ไม่ได้เป็นตัวสื่อความหมายเดี่ยว ๆ (WCAG 1.4.1)
-   พาเลตต์เว็บไม่มีสีฟ้าแบบต้นแบบ จึงใช้ tan แทนหลวม และ red-ink แทนคับ */
+   พาเลตต์เว็บไม่มีสีฟ้าแบบต้นแบบ จึงใช้ --verdict-loose แทนหลวม และ --verdict-tight แทนคับ
+
+   ใช้ --verdict-* ไม่ใช่ --tan/--red-ink ตรง ๆ เพื่อให้สีตรงกับป้าย .fitfig__key และ
+   .sguide__dim ทุกจุด (เคยซ้ำสามที่แยกกัน แก้ที่เดียวไม่ครบ) เส้น svg เป็นวัตถุกราฟิก
+   ต้องผ่านแค่ 3:1 อยู่แล้ว ค่า --verdict-loose ที่เข้มกว่า --tan ยิ่งผ่านสบาย (5.15:1 บน --surface-2) */
 const STROKE: Record<Verdict, string> = {
-  fit: "var(--text)",
-  slightlyLoose: "var(--tan)",
-  loose: "var(--tan)",
-  slightlyTight: "var(--red-ink)",
-  tight: "var(--red-ink)",
+  fit: "var(--verdict-fit)",
+  slightlyLoose: "var(--verdict-loose)",
+  loose: "var(--verdict-loose)",
+  slightlyTight: "var(--verdict-tight)",
+  tight: "var(--verdict-tight)",
 };
 
 export default function FitFigure({ dimensions }: { dimensions: DimensionResult[] }) {
