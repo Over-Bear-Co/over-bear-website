@@ -555,6 +555,13 @@ ul{list-style:none}
   .news form{grid-template-columns:1fr}
   .topbar__in{font-size:11.5px;gap:.5rem}
   .topbar__sep{display:none}
+
+  /* เต็มจอบนมือถือให้ตรงกับรูปอ้างอิงซึ่งเป็นความกว้างมือถือทั้งหมด
+     ปุ่มในแถวเดียวกันแคบเกินอ่านที่ 320px จึงเรียงลงมาแทน */
+  .sguide{width:100%;max-width:none;height:100%;max-height:none;border:none;border-radius:0}
+  .sguide__row{grid-template-columns:1fr}
+  .sguide__actions{flex-direction:column}
+  .sguide__tab{font-size:12.5px;padding:1.5rem .1rem .6rem}
 }
 
 /* ============================================================
@@ -565,4 +572,5 @@ ul{list-style:none}
   html{scroll-behavior:auto}
   .reveal{opacity:1 !important;transform:none !important}
   .ctile:hover,.btn:hover{transform:none !important}
+  .sguide__tab{transition:none}
 }

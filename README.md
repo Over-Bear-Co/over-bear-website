@@ -5,7 +5,7 @@ Homepage for **OVERBEAR** — a plus-size menswear brand cut for larger builds (
 **It is a catalog, not a shop.** There is no cart, no checkout, no prices, no wishlist and no search — the product grid is a showcase, and the only interactive conversion point is the newsletter form at `#den`. The cart was built and deliberately removed twice (`528bef0`, `1a8248b`); do not reintroduce commerce UI without a backend behind it.
 
 - **Stack:** Next.js 16 (App Router) · React 19 · TypeScript (strict) · plain CSS (no UI framework)
-- **Rendering:** fully static HTML (`○ Static`). Only two client components: `Nav` (mobile menu) and `Newsletter` (form). Everything else is a server component.
+- **Rendering:** fully static HTML (`○ Static`). Three client components: `Nav` (mobile menu), `Newsletter` (form) and `SizeGuide` (the size recommender dialog). Everything else is a server component.
 
 ## Getting started
 
@@ -46,10 +46,14 @@ src/
                     FabricDetail · BuiltForBiggerDays · CustomerVoice · ShopByCategory
                     PromoBanner · Newsletter* · Footer          (* = client component)
                   Shared: Frame (photo slot) · Placeholder (empty slot) · Reveal · icons
+                  Size guide: SizeGuide* (dialog + form) · FitFigure (SVG) · lib/fit.ts (engine)
   lib/
     products.ts   6 colourways. `price` and `unit` are reference data; no card renders them
     sizes.ts      Single source of truth for the size range. Change the range here, then
                   grep for the label — Topbar, Hero badge and product cards all repeat it
+    fit.ts        Size recommendation engine. Pure, no React — `scripts/verify-fit.ts` runs it
+                  directly under Node. Model constants and their limits: see the design spec in
+                  docs/superpowers/specs/
 public/brand/     Brand SVGs — kept, but no longer referenced by code: the nav
                   wordmark is now live text (EB Garamond), following the mockup
 public/media/     18 images, every one referenced: hero/room (hero background) ·
