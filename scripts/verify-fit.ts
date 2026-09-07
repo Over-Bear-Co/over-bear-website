@@ -3,7 +3,7 @@
    ที่มาของทุกตัวเลขในไฟล์นี้อยู่ใน
    docs/superpowers/specs/2026-09-07-size-guide-recommender-design.md */
 import {
-  recommend, OVERBEAR_TEE, MODEL,
+  recommend, OVERBEAR_TEE, MODEL, classify, estimateBody,
   type StyleSpec, type UserInput, type FitPreference,
 } from "../src/lib/fit.ts";
 
@@ -99,6 +99,55 @@ const asNum = (n: number) => n;
 check("MODEL ไม่ถูกแก้",
   asNum(MODEL.body.chestCirc.a) === 19.644 && asNum(MODEL.body.shoulderWidth.a) === 2.3811 &&
   asNum(MODEL.verdictBands.fit) === 3 && asNum(MODEL.verdictBands.slight) === 8);
+
+/* ── ข้อ 5: เคสมาตรฐานของแบรนด์ หมุดไหล่กับความยาวด้วย ไม่ใช่แค่รอบอก ──────────
+   เช็คข้อ 1/2/4 ข้างบนอ่านแค่ recommendedSize (ขับด้วยรอบอกอย่างเดียว) หรือ verdict
+   ของฟิกซ์เจอร์เพศหญิง (UNIQLO) เท่านั้น ไหล่กับความยาวของ OVERBEAR_TEE เอง — รวมถึง
+   genderOffset.male, intendedEase.shoulder/length และ LENGTH_MODEL ทั้งก้อน — ไม่เคย
+   ถูกหมุดไว้เลย ทั้งที่ §7.3 ของ spec บอกว่าความยาวเป็นมิติเดียวที่ให้ข้อมูลจริง
+   ค่าที่คาดหวังรันจากเอนจินจริงแล้วยืนยันก่อนใส่ ไม่ได้เดา (ดู probe ใน session ที่เพิ่มเทสต์นี้) */
+const STANDARD_CASE = recommend(
+  { gender: "male", age: 33, heightCm: 172, weightKg: 110, fitPreference: "standard" });
+{
+  const rec = STANDARD_CASE.perSize.find((p) => p.size === STANDARD_CASE.recommendedSize)!;
+  const at = (k: string) => rec.dimensions.find((d) => d.key === k)!;
+  const shoulder = at("shoulder");
+  const chest = at("chest");
+  const length = at("length");
+  const ok =
+    STANDARD_CASE.recommendedSize === "3XL" &&
+    shoulder.verdictTh === "พอดี" && shoulder.deltaCm === 0 &&
+    chest.verdictTh === "พอดี" && chest.deltaCm === -0.7 &&
+    length.verdictTh === "หลวมเล็กน้อย" && length.deltaCm === 4.5;
+  check("male/33/172/110/standard -> 3XL · ไหล่พอดี(0) อกพอดี(-0.7) ยาวหลวมเล็กน้อย(+4.5)", ok,
+    `-> ${STANDARD_CASE.recommendedSize} ไหล่ ${shoulder.verdictTh}/${shoulder.deltaCm} ` +
+    `อก ${chest.verdictTh}/${chest.deltaCm} ยาว ${length.verdictTh}/${length.deltaCm}`);
+}
+
+/* ── ข้อ 6: ขอบแบนด์ของ classify ทั้งสองฝั่ง — กัน <= ถูกเผลอแก้เป็น < (หรือกลับกัน) ─── */
+check("classify แบนด์ฝั่งบวก: 3 = พอดี, 3.01 = หลวมเล็กน้อย",
+  classify(3) === "fit" && classify(3.01) === "slightlyLoose",
+  `-> ${classify(3)} / ${classify(3.01)}`);
+check("classify แบนด์ฝั่งลบ: -3 = พอดี, -3.01 = คับเล็กน้อย",
+  classify(-3) === "fit" && classify(-3.01) === "slightlyTight",
+  `-> ${classify(-3)} / ${classify(-3.01)}`);
+
+/* ── ข้อ 7: ทิศทางการเสมอกัน — ไซซ์เล็กกว่าต้องชนะเมื่อคะแนนเท่ากันเป๊ะ ──────────
+   สร้าง StyleSpec สังเคราะห์ 2 ไซซ์ที่ target อยู่กึ่งกลางพอดี (ห่างเท่ากันทั้งสองฝั่ง)
+   ใช้ intendedEase ทั้งหมด = 0 และ fitPreference standard (shift = 0) เพื่อให้
+   targetChestCirc == body.chestCirc เป๊ะ แล้ววาง SMALLER/BIGGER ห่างจากจุดนั้นเท่ากัน */
+const tieInput: UserInput = { gender: "male", age: 30, heightCm: 170, weightKg: 80, fitPreference: "standard" };
+const tieBody = estimateBody(tieInput);
+const TIE_STYLE: StyleSpec = {
+  intendedEase: { chest: 0, shoulder: 0, length: 0 },
+  sizes: [
+    { name: "SMALLER", chestCm: tieBody.chestCirc - 2, shoulderCm: 50, lengthCm: 70 },
+    { name: "BIGGER", chestCm: tieBody.chestCirc + 2, shoulderCm: 52, lengthCm: 72 },
+  ],
+};
+const tieResult = recommend(tieInput, TIE_STYLE);
+check("เสมอกันพอดี (คะแนนเท่ากันเป๊ะ) -> ไซซ์เล็กกว่าชนะ", tieResult.recommendedSize === "SMALLER",
+  `-> ${tieResult.recommendedSize}`);
 
 console.log(failed ? `\n${failed} ข้อไม่ผ่าน` : "\nผ่านทั้งหมด");
 process.exit(failed ? 1 : 0);
