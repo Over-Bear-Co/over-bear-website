@@ -288,6 +288,60 @@ ul{list-style:none}
 .sizecard__note{font-size:12px;color:var(--red-ink);text-align:center;margin-top:.7rem}
 
 /* ============================================================
+   SIZE GUIDE — modal แนะนำไซซ์ (client component)
+   ใช้ <dialog> จึงได้ ::backdrop มาฟรี ไม่ต้องทำ overlay เอง
+   ============================================================ */
+.sguide{
+  width:min(560px,100% - 2rem);max-width:none;max-height:min(88vh,900px);
+  padding:0;border:1px solid var(--line);border-radius:var(--r);
+  background:var(--surface);color:var(--text);
+  box-shadow:var(--shadow);overflow:hidden;
+}
+.sguide::backdrop{background:rgba(22,24,26,.42)}
+/* dialog เป็น flex column เพื่อให้ .sguide__body เลื่อนในตัวเอง หัวเรื่องไม่เลื่อนตาม */
+.sguide[open]{display:flex;flex-direction:column}
+
+.sguide__head{display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  padding:1rem clamp(1rem,3vw,1.5rem);border-bottom:1px solid var(--line);flex:none}
+.sguide__title{font-size:1.05rem;font-weight:600;letter-spacing:-.01em}
+.sguide__x{font-size:18px;line-height:1;padding:.35rem;border-radius:var(--r-sm);color:var(--text-2)}
+.sguide__x:hover{color:var(--text)}
+
+.sguide__body{padding:clamp(1rem,3vw,1.5rem);overflow-y:auto;flex:1 1 auto}
+.sguide__lead{color:var(--text-2);margin-bottom:1.1rem}
+
+.sguide__form{display:flex;flex-direction:column;gap:1rem}
+.sguide__row{display:grid;grid-template-columns:1fr 1fr;gap:.85rem}
+.sguide__field{display:flex;flex-direction:column;gap:.35rem;min-width:0}
+.sguide__field>span{font-size:13px;font-weight:600}
+.sguide__field select,.sguide__field input{
+  font-family:inherit;font-size:15px;color:var(--text);
+  padding:.7em .8em;border:1px solid var(--line-input);border-radius:var(--r-sm);
+  background:#fff;width:100%;
+}
+.sguide__field input::placeholder{color:var(--text-3)}
+
+.sguide__fit{border:none}
+.sguide__fit legend{font-size:13px;font-weight:600;margin-bottom:.6rem}
+/* เส้นเชื่อมระหว่างจุด วาดด้วย background ของแถว ไม่ใช่ border ของแต่ละจุด
+   เพราะจุดกระจายด้วย space-between เส้นจึงต้องพาดทับทั้งแถว */
+.sguide__fitrow{display:flex;justify-content:space-between;align-items:flex-start;gap:.25rem;
+  position:relative;padding-top:.15rem}
+.sguide__fitrow::before{content:"";position:absolute;left:9px;right:9px;top:12px;
+  height:1px;background:var(--line-2)}
+.sguide__fitstep{display:flex;flex-direction:column;align-items:center;gap:.4rem;
+  position:relative;z-index:1;cursor:pointer}
+.sguide__fitstep input{width:18px;height:18px;accent-color:var(--red);cursor:pointer}
+.sguide__fitlabel{font-size:11.5px;color:var(--text-3);white-space:nowrap}
+
+.sguide__actions{display:flex;gap:.7rem;margin-top:.3rem}
+.sguide__actions .btn{flex:1}
+.btn--ghost{background:transparent;color:var(--text);border-color:var(--line-input)}
+.btn--ghost:hover{background:var(--surface-2);color:var(--text);border-color:var(--line-input)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn:disabled:hover{background:var(--red);border-color:var(--red);transform:none}
+
+/* ============================================================
    CUSTOMER VOICE — 3 การ์ดรีวิว
    ============================================================ */
 .rgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}

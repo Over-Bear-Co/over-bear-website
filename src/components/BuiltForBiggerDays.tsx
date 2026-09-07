@@ -1,6 +1,7 @@
 import Frame from "./Frame";
 import { Check } from "./icons";
 import { SIZES } from "@/lib/sizes";
+import SizeGuide from "./SizeGuide";
 
 /* 3 คอลัมน์: รูป / ข้อความ+เช็คลิสต์ / การ์ดตารางไซซ์
    การ์ดตารางไซซ์รับ anchor #size แทน SpecificationSheet เดิม (Topbar/Nav/Footer ลิงก์มาที่นี่)
@@ -78,7 +79,7 @@ export default function BuiltForBiggerDays() {
             </tbody>
           </table>
           </div>
-          <a className="btn btn--wide" href="#den">ดู SIZE GUIDE</a>
+          <SizeGuide />
           <p className="sizecard__note">ไม่แน่ใจไซซ์? แชทกับเราช่วยเลือกไซซ์ได้เลย</p>
         </div>
       </div>
