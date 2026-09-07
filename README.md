@@ -47,7 +47,7 @@ src/
                     FabricDetail · BuiltForBiggerDays · CustomerVoice · ShopByCategory
                     PromoBanner · Newsletter* · Footer          (* = client component)
                   Shared: Frame (photo slot) · Placeholder (empty slot) · Reveal* · icons
-                  Size guide: SizeGuide* (dialog + form) · FitFigure (SVG) · lib/fit.ts (engine)
+                  Size guide: SizeGuide* (dialog + form) · FitFigure (SVG)
   lib/
     products.ts   6 colourways. `price` and `unit` are reference data; no card renders them
     sizes.ts      Single source of truth for the size range. Change the range here, then
