@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, type KeyboardEvent, type ReactNode } from "react";
+import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import {
   HEADLINE_TH, recommend,
   type FitPreference, type Gender, type Recommendation, type UserInput,
@@ -35,18 +35,34 @@ type FormState = {
 
 const EMPTY_FORM: FormState = { gender: "", age: "", heightCm: "", weightKg: "", fitPreference: "standard" };
 
-/* คืน null เมื่อยังกรอกไม่ครบหรือค่าออกนอกช่วง — ปุ่ม "ดำเนินการต่อ" ใช้ค่านี้ตัดสิน disabled
+/* ช่วงที่ยอมรับของแต่ละช่อง — ค่าเดียวกันนี้ใช้ทั้งใน parseForm (ตัดสิน disabled) และ
+   ในคำใบ้/ข้อความ error ใต้ช่องกรอก ประกาศไว้ที่เดียวเพื่อไม่ให้สองจุดเพี้ยนไปจากกัน
    ช่วง 50–260 / 10–200 ตรงกับที่ recommend() โยน RangeError พอดี ฟอร์มจึงกันไว้ก่อนถึงเอนจิน
    อายุ 1–120 เป็นการกันค่าพิมพ์ผิดของเราเอง UNIQLO ไม่ได้ระบุช่วงไว้บน UI */
+const AGE_RANGE = { min: 1, max: 120 };
+const HEIGHT_RANGE = { min: 50, max: 260 };
+const WEIGHT_RANGE = { min: 10, max: 200 };
+
+/* คืน null เมื่อยังกรอกไม่ครบหรือค่าออกนอกช่วง — ปุ่ม "ดำเนินการต่อ" ใช้ค่านี้ตัดสิน disabled */
 function parseForm(f: FormState): UserInput | null {
   if (f.gender === "") return null;
   const age = Number(f.age);
   const heightCm = Number(f.heightCm);
   const weightKg = Number(f.weightKg);
-  if (!f.age.trim() || !Number.isFinite(age) || age < 1 || age > 120) return null;
-  if (!f.heightCm.trim() || !Number.isFinite(heightCm) || heightCm < 50 || heightCm > 260) return null;
-  if (!f.weightKg.trim() || !Number.isFinite(weightKg) || weightKg < 10 || weightKg > 200) return null;
+  if (!f.age.trim() || !Number.isFinite(age) || age < AGE_RANGE.min || age > AGE_RANGE.max) return null;
+  if (!f.heightCm.trim() || !Number.isFinite(heightCm) || heightCm < HEIGHT_RANGE.min || heightCm > HEIGHT_RANGE.max)
+    return null;
+  if (!f.weightKg.trim() || !Number.isFinite(weightKg) || weightKg < WEIGHT_RANGE.min || weightKg > WEIGHT_RANGE.max)
+    return null;
   return { gender: f.gender, age, heightCm, weightKg, fitPreference: f.fitPreference };
+}
+
+/* true เฉพาะตอน "กรอกแล้วแต่ออกนอกช่วง" — ช่องว่างยังไม่ใช่ error (แค่ยังกรอกไม่ครบ)
+   ใช้ตัดสิน aria-invalid และสลับคำใบ้ปกติเป็นข้อความ error (WCAG 3.3.1) */
+function isOutOfRange(raw: string, range: { min: number; max: number }): boolean {
+  if (!raw.trim()) return false;
+  const n = Number(raw);
+  return !Number.isFinite(n) || n < range.min || n > range.max;
 }
 
 export default function SizeGuide() {
@@ -63,13 +79,30 @@ export default function SizeGuide() {
   const [activeSize, setActiveSize] = useState<string | null>(null);
   const tabsRef = useRef<HTMLDivElement>(null);
 
+  /* จุดโฟกัสของทั้งสองหน้าจอ — ปุ่ม submit หายไปตอนสลับไปหน้าผลลัพธ์ (unmount) และปุ่ม
+     "เปลี่ยน" ก็หายไปตอนสลับกลับมาหน้าฟอร์มเหมือนกัน โฟกัสจึงตกไปที่ <body> เงียบสนิท
+     สำหรับ screen reader ทั้งสองทิศทาง — ต้องย้ายโฟกัสเองหลัง DOM อัปเดตแล้ว */
+  const headlineRef = useRef<HTMLHeadingElement>(null);
+  const firstFieldRef = useRef<HTMLSelectElement>(null);
+
   const valid = parseForm(form);
+  const ageInvalid = isOutOfRange(form.age, AGE_RANGE);
+  const heightInvalid = isOutOfRange(form.heightCm, HEIGHT_RANGE);
+  const weightInvalid = isOutOfRange(form.weightKg, WEIGHT_RANGE);
 
   const submit = () => {
     if (!valid) return;
     setResult({ input: valid, rec: recommend(valid) });
     setActiveSize(null);
   };
+
+  /* ผูกกับ result เท่านั้น ไม่ใช่ทุกครั้งที่ re-render: เปลี่ยนจาก null -> ผลลัพธ์ (submit)
+     หรือผลลัพธ์ -> null ("เปลี่ยน") จึงย้ายโฟกัส เปิด/ปิด dialog ไม่ทำให้ result เปลี่ยน
+     จึงไม่ยุ่งกับพฤติกรรมโฟกัสที่ <dialog> ให้มาฟรีตอน showModal() อยู่แล้ว */
+  useEffect(() => {
+    if (result) headlineRef.current?.focus();
+    else firstFieldRef.current?.focus();
+  }, [result]);
 
   /* WAI tabs pattern — แท็บของ UNIQLO ไม่รับลูกศร ซึ่งรีวิวจับเป็นบั๊ก a11y ข้อ 5
      roving tabindex: มีแค่แท็บที่ active ที่ tabbable ที่เหลือเลื่อนด้วยลูกศรเท่านั้น */
@@ -100,6 +133,7 @@ export default function SizeGuide() {
         <label className="sguide__field">
           <span>เพศ</span>
           <select
+            ref={firstFieldRef}
             value={form.gender}
             onChange={(e) => setForm({ ...form, gender: e.target.value as Gender | "" })}
           >
@@ -112,31 +146,52 @@ export default function SizeGuide() {
         <label className="sguide__field">
           <span>อายุ</span>
           <input
-            type="number" inputMode="numeric" min={1} max={120}
+            type="number" inputMode="numeric" min={AGE_RANGE.min} max={AGE_RANGE.max}
             placeholder="โปรดกรอกอายุของคุณ"
             value={form.age}
             onChange={(e) => setForm({ ...form, age: e.target.value })}
+            aria-describedby="sguide-age-hint"
+            aria-invalid={ageInvalid}
           />
+          <span id="sguide-age-hint" className={`sguide__hint${ageInvalid ? " is-error" : ""}`}>
+            {ageInvalid
+              ? `อายุต้องอยู่ระหว่าง ${AGE_RANGE.min}–${AGE_RANGE.max} ปี`
+              : `ระหว่าง ${AGE_RANGE.min}–${AGE_RANGE.max}`}
+          </span>
         </label>
 
         <div className="sguide__row">
           <label className="sguide__field">
             <span>ส่วนสูง (ซม.)</span>
             <input
-              type="number" inputMode="numeric" min={50} max={260}
+              type="number" inputMode="numeric" min={HEIGHT_RANGE.min} max={HEIGHT_RANGE.max}
               placeholder="50 - 260"
               value={form.heightCm}
               onChange={(e) => setForm({ ...form, heightCm: e.target.value })}
+              aria-describedby="sguide-height-hint"
+              aria-invalid={heightInvalid}
             />
+            <span id="sguide-height-hint" className={`sguide__hint${heightInvalid ? " is-error" : ""}`}>
+              {heightInvalid
+                ? `ส่วนสูงต้องอยู่ระหว่าง ${HEIGHT_RANGE.min}–${HEIGHT_RANGE.max} ซม.`
+                : `ระหว่าง ${HEIGHT_RANGE.min}–${HEIGHT_RANGE.max}`}
+            </span>
           </label>
           <label className="sguide__field">
             <span>น้ำหนัก (กก.)</span>
             <input
-              type="number" inputMode="numeric" min={10} max={200}
+              type="number" inputMode="numeric" min={WEIGHT_RANGE.min} max={WEIGHT_RANGE.max}
               placeholder="10 - 200"
               value={form.weightKg}
               onChange={(e) => setForm({ ...form, weightKg: e.target.value })}
+              aria-describedby="sguide-weight-hint"
+              aria-invalid={weightInvalid}
             />
+            <span id="sguide-weight-hint" className={`sguide__hint${weightInvalid ? " is-error" : ""}`}>
+              {weightInvalid
+                ? `น้ำหนักต้องอยู่ระหว่าง ${WEIGHT_RANGE.min}–${WEIGHT_RANGE.max} กก.`
+                : `ระหว่าง ${WEIGHT_RANGE.min}–${WEIGHT_RANGE.max}`}
+            </span>
           </label>
         </div>
 
@@ -184,7 +239,7 @@ export default function SizeGuide() {
           </button>
         </div>
 
-        <h3 className="sguide__headline">{HEADLINE_TH[chest.verdict]}</h3>
+        <h3 className="sguide__headline" ref={headlineRef} tabIndex={-1}>{HEADLINE_TH[chest.verdict]}</h3>
 
         <div className="sguide__tabs" role="tablist" aria-label="เลือกไซซ์" ref={tabsRef}>
           {result.rec.perSize.map((p, i) => (
