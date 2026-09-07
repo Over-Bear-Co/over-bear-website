@@ -1,0 +1,107 @@
+{
+  "$schema": "informal",
+  "meta": {
+    "product": {
+      "productId": "E465185-000",
+      "l1Id": "465185",
+      "styleCode": "493232",
+      "name": "เสื้อยืด U AIRism คอตตอน คอกลม ทรงหลวม",
+      "nameEn": "U AIRism Cotton Crew Neck Oversized T-Shirt",
+      "gender": "Unisex",
+      "priceTHB": 490,
+      "silhouette": "oversized / drop-shoulder"
+    },
+    "capturedAt": "2026-09-07",
+    "locale": "th-TH",
+    "sources": {
+      "garmentMeasurements": "https://www.uniqlo.com/th/th/size/465185_size.html",
+      "productApi": "https://www.uniqlo.com/th/api/commerce/v5/th/products/E465185-000?httpFailure=true  (requires header x-fr-clientid, any value accepted e.g. 'uq.web-spa')",
+      "recommenderWidget": "https://uqwidget.body2fit.bodygram.com/th-TH/v2  (Bodygram body2fit, cross-origin iframe, initialised by postMessage)"
+    },
+    "notes": [
+      "cm เป็นค่าตั้งต้น (source of truth) — ค่านิ้วบนหน้าเว็บมีการปัดเศษไม่ตรงกันระหว่าง 2 surface เช่น XS backLength = 25 1/5 นิ้ว บนหน้า size.html แต่ 25 1/4 นิ้ว บน component ในหน้าสินค้า (ทั้งคู่ = 64 ซม.)",
+      "component ตารางขนาดในหน้าสินค้า render แค่ XS/S/M แต่ข้อมูลจริงมีครบ 8 ไซส์ที่ sizeChartUrl",
+      "หน้าเว็บระบุ tolerance การผลิต 1–2 ซม.",
+      "bodyWidth และ shoulder เป็นค่าวัดแบน (flat) → รอบอกเสื้อ = bodyWidth x 2"
+    ]
+  },
+
+  "sizes": [
+    { "name": "XS",  "code": "SMA002", "displayCode": "002", "backLength": 64,   "shoulder": 49.5, "bodyWidth": 49.5, "sleeve": 50,   "garmentChestCirc": 99 },
+    { "name": "S",   "code": "SMA003", "displayCode": "003", "backLength": 66,   "shoulder": 51,   "bodyWidth": 52.5, "sleeve": 51,   "garmentChestCirc": 105 },
+    { "name": "M",   "code": "SMA004", "displayCode": "004", "backLength": 69,   "shoulder": 52.5, "bodyWidth": 55.5, "sleeve": 53,   "garmentChestCirc": 111 },
+    { "name": "L",   "code": "SMA005", "displayCode": "005", "backLength": 72,   "shoulder": 54,   "bodyWidth": 58.5, "sleeve": 55,   "garmentChestCirc": 117 },
+    { "name": "XL",  "code": "SMA006", "displayCode": "006", "backLength": 75,   "shoulder": 56,   "bodyWidth": 62.5, "sleeve": 57,   "garmentChestCirc": 125 },
+    { "name": "XXL", "code": "SMA007", "displayCode": "007", "backLength": 77.5, "shoulder": 58,   "bodyWidth": 66.5, "sleeve": 58,   "garmentChestCirc": 133 },
+    { "name": "3XL", "code": "SMA008", "displayCode": "008", "backLength": 77.5, "shoulder": 60,   "bodyWidth": 70.5, "sleeve": 59,   "garmentChestCirc": 141 },
+    { "name": "4XL", "code": "SMA009", "displayCode": "009", "backLength": 77.5, "shoulder": 62,   "bodyWidth": 74.5, "sleeve": 60.5, "garmentChestCirc": 149 }
+  ],
+
+  "gradingPerStep": {
+    "unit": "cm",
+    "backLength": [2, 3, 3, 3, 2.5, 0, 0],
+    "shoulder": [1.5, 1.5, 1.5, 2, 2, 2, 2],
+    "bodyWidth": [3, 3, 3, 4, 4, 4, 4],
+    "sleeve": [1, 2, 2, 2, 1, 1, 1.5],
+    "observation": "ความยาวลำตัวหยุดที่ 77.5 ซม. ตั้งแต่ XXL ถึง 4XL — ไซส์ใหญ่โตเฉพาะด้านกว้าง ไม่โตด้านยาว"
+  },
+
+  "widgetInputSchema": {
+    "gender": { "type": "enum", "values": ["female", "male"], "required": true, "labelTh": "เพศ" },
+    "age": { "type": "int", "required": true, "labelTh": "อายุ", "observedRange": "ไม่ระบุช่วงบน UI" },
+    "heightCm": { "type": "number", "required": true, "min": 50, "max": 260, "labelTh": "ส่วนสูง (ซม.)" },
+    "weightKg": { "type": "number", "required": true, "min": 10, "max": 200, "labelTh": "น้ำหนัก (กก.)" },
+    "fitPreference": {
+      "type": "enum5",
+      "labelTh": "ความพึงพอใจในขนาดเสื้อผ้าที่สวมใส่",
+      "values": ["tight", "slightlyTight", "standard", "slightlyLoose", "loose"],
+      "labelsTh": ["รัดรูป", "", "มาตรฐาน", "", "หลวม"],
+      "default": "standard"
+    }
+  },
+
+  "widgetOutputSchema": {
+    "recommendedSize": "1 ไซส์ ติดป้าย 'ที่แนะนำ' และเปิดดูได้ทั้ง 8 ไซส์",
+    "headline": "นี่คือไซส์มาตรฐาน",
+    "dimensions": ["ไหล่", "ความกว้างของลำตัว"],
+    "verdictsObserved": ["พอดี", "หลวมเล็กน้อย"],
+    "verdictLadderAssumed": ["คับ", "คับเล็กน้อย", "พอดี", "หลวมเล็กน้อย", "หลวม"],
+    "verdictLadderVerified": false,
+    "colorCoding": { "พอดี": "ดำ", "หลวมเล็กน้อย": "ฟ้า" }
+  },
+
+  "observedSamples": [
+    {
+      "input": { "gender": "female", "age": 30, "heightCm": 170, "weightKg": 55, "fitPreference": "standard" },
+      "bmi": 19.03,
+      "output": { "size": "XS", "ไหล่": "พอดี", "ความกว้างของลำตัว": "พอดี" }
+    },
+    {
+      "input": { "gender": "female", "age": 30, "heightCm": 175, "weightKg": 95, "fitPreference": "standard" },
+      "bmi": 31.02,
+      "output": { "size": "XXL", "ไหล่": "หลวมเล็กน้อย", "ความกว้างของลำตัว": "พอดี" }
+    }
+  ],
+
+  "referenceModel": {
+    "status": "MY MODEL — ไม่ใช่สูตรของ Bodygram. คาลิเบรตให้ reproduce observedSamples ทั้ง 2 เคสได้ตรง 100%",
+    "bodyEstimation": {
+      "female": {
+        "chestCirc": { "wCoef": 0.8, "hCoef": 0.2, "const": 6 },
+        "shoulderWidth": { "wCoef": 0.10, "hCoef": 0.09, "const": 19 }
+      },
+      "male": {
+        "chestCirc": { "wCoef": 0.8, "hCoef": 0.2, "const": 11 },
+        "shoulderWidth": { "wCoef": 0.10, "hCoef": 0.09, "const": 22 },
+        "verified": false,
+        "note": "offset ชาย (+5 ซม. อก, +3 ซม. ไหล่) เป็นค่าประมาณจาก anthropometry ทั่วไป ยังไม่ได้ทดสอบกับวิดเจ็ตจริง"
+      },
+      "ageCoef": 0,
+      "ageNote": "วิดเจ็ตเก็บอายุแต่ผลกระทบวัดไม่ได้จาก 2 ตัวอย่าง — เดาว่าใช้เป็น prior ของ body composition/posture"
+    },
+    "intendedEaseCm": { "chest": 15, "shoulder": 10, "note": "ease ที่ดีไซน์ตั้งใจของทรง oversized ตัวนี้ (ได้จาก back-solve เคส XS)" },
+    "fitPreferenceEaseShiftCm": { "tight": -6, "slightlyTight": -3, "standard": 0, "slightlyLoose": 3, "loose": 6, "verified": false },
+    "verdictBandsCm": { "fit": 3, "slight": 8, "note": "|delta| <= 3 => พอดี; 3 < |delta| <= 8 => หลวม/คับเล็กน้อย; > 8 => หลวม/คับ" },
+    "sizeSelection": "เลือกไซส์ที่ |garmentChestCirc - (chestBody + intendedEase + prefShift)| น้อยที่สุด (tie-break: ไซส์เล็กกว่า)"
+  }
+}
