@@ -52,8 +52,9 @@ src/
                   grep for the label — Topbar, Hero badge and product cards all repeat it
 public/brand/     Brand SVGs — kept, but no longer referenced by code: the nav
                   wordmark is now live text (EB Garamond), following the mockup
-public/media/     17 images, every one referenced: hero/model-cutout (LCP; a WebP with
-                  a real alpha channel — the hero layout depends on it, see Hero.tsx) ·
+public/media/     18 images, every one referenced: hero/room (hero background) ·
+                  hero/model-cutout (LCP; a WebP with a real alpha channel — the hero
+                  layout depends on it, see Hero.tsx) ·
                   promo/rack · story/model · product/ (6) · fabric/ (4) · street/ (4)
 legacy/           Pre-React standalone HTML origin (reference only; not built)
 code.html         Earlier Stitch capture (reference only; not built)
@@ -63,6 +64,23 @@ Overbear-Homepage.html   The mockup this layout was ported from (reference only;
 ## Architecture notes
 
 - **No motion engine.** The previous design ran a shared `requestAnimationFrame` loop (`lib/motion.ts`) for hero parallax and a pointer-tracked spotlight; both are gone, and so are those files. All that remains is one `IntersectionObserver` in `Reveal.tsx` that adds `.in` once per element and unobserves it. Under `prefers-reduced-motion` it adds `.in` to everything up front and never observes.
+- **The hero background** (`.hero__bg` in `Hero.tsx`): a soft interior still, `hero/room.jpg`,
+  1920x640 and only 60KB — the source is smooth gradients, so it compresses to almost nothing.
+  `object-position: right center` keeps the arch and the vase, since a 3:1 source in a ~2:1 box
+  crops the sides.
+
+  Two contrast values here were measured off this image, not chosen. The hero lead uses `--text-2`
+  where every other section uses `--text-3`: the darkest pixel under the copy is `#c4ad99`, where
+  `--text-3` scores 2.47:1 and `--text-2` reaches 6.24:1. And `.hero__badge` borders in `--red`
+  rather than `--red-ink`, because the badge is delimited either by its ring (over bright wall) or
+  by its opaque cream fill (over shadow), and at the mid-tone `#ae9681` both were under 3:1 with
+  `--red-ink` (2.47 and 2.50); `--red` lifts the ring to 3.35:1. Rendered-page results against
+  actual glyphs: h1 11.54:1, sub 7.44:1, lead 6.92:1.
+
+  **Sample glyph rectangles, not element boxes.** `h1`'s box spans the grid column out to 48% of the
+  viewport while its glyphs stop at 26%, so box-sampling reports failures from bare background the
+  type never touches — it produced a phantom "sub 2.98:1" while auditing this change.
+
 - **`Frame` vs `Placeholder`.** Both render `.frame`/`.ph`, which share their radius, background and clipping rules. Swapping one for the other never moves the layout — that is the point. Every slot currently has a real photograph; `Placeholder` survives as the fallback for a `Product` with no `image`.
 - **`next/image` with `fill` needs a sized parent.** `.frame` provides `position:relative`; the caller provides height via `aspect-ratio` or the grid. Watch out for `align-items`: `.fcard--media` must set `align-items:stretch` because `.fcard` sets `flex-start`, and in a column flex container that collapses the frame to zero width — `aspect-ratio` then multiplies zero and the photo vanishes.
 - **Accessibility:** WCAG AA is the standard. Every text/background pair in the palette clears 4.5:1 and the input border clears 3:1 (1.4.11); decorative card borders are intentionally below 3:1, which that criterion exempts. There is no fourth text tier — `--text-3` clears AA by only 0.36, so any lighter tier that still passed would be visually indistinguishable from it.

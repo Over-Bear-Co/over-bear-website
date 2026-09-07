@@ -154,25 +154,39 @@ ul{list-style:none}
 /* ============================================================
    HERO — ซ้ายข้อความ ขวารูป + วงกลม PLUS SIZE
    ============================================================ */
-/* overflow:clip กันตัวนายแบบล้นออกนอก section ตอนจอแคบ */
-.hero{background:var(--bg-hero);overflow:clip}
+/* overflow:clip กันตัวนายแบบล้นออกนอก section ตอนจอแคบ
+   isolation:isolate ให้ z-index ของลูกอยู่ในบริบทของ section นี้เท่านั้น */
+.hero{position:relative;isolation:isolate;background:var(--bg-hero);overflow:clip}
+/* พื้นหลังห้อง: รูป 3:1 บนกล่องที่สัดส่วนราว 2:1 จึงถูกครอปด้านข้าง
+   ยึดขวาไว้เพื่อเก็บซุ้มโค้งกับแจกันซึ่งเป็นจุดสนใจของภาพ */
+.hero__bg{position:absolute;inset:0;z-index:0}
+.hero__bg img{width:100%;height:100%;object-fit:cover;object-position:right center}
 /* align-items:end + ไม่มี padding ล่างของคอลัมน์รูป = ตัวนายแบบยืนบนขอบล่างพอดี */
-.hero__in{display:grid;grid-template-columns:1fr 1.02fr;align-items:end;
+.hero__in{position:relative;z-index:1;
+  display:grid;grid-template-columns:1fr 1.02fr;align-items:end;
   gap:clamp(1rem,3vw,2.5rem);padding-top:clamp(1.5rem,4vw,3rem)}
 .hero__copy{padding-bottom:clamp(2.5rem,7vw,5rem)}
 .hero h1{font-size:clamp(1.9rem,4.4vw,2.688rem);font-weight:700;line-height:1.22;letter-spacing:-.02em}
 .hero__sub{display:block;font-size:clamp(1.15rem,2.4vw,1.5rem);font-weight:600;
   color:var(--text-2);margin-top:.15em}
-.hero__lead{color:var(--text-3);margin:1.1rem 0 1.8rem;max-width:38ch}
+/* --text-2 ไม่ใช่ --text-3 เหมือน section อื่น: พื้นหลังเป็นรูปห้อง ไม่ใช่ครีมล้วน
+   จุดมืดสุดในโซนข้อความคือ #c4ad99 ซึ่ง --text-3 ได้แค่ 2.47:1 (ตก)
+   --text-2 ได้ 5.27:1 — เป็นเฉดที่จางสุดที่ยังผ่าน AA บนพื้นนี้ */
+.hero__lead{color:var(--text-2);margin:1.1rem 0 1.8rem;max-width:38ch}
 .hero__cta{display:flex;gap:.7rem;flex-wrap:wrap}
 .hero__media{position:relative;width:100%;align-self:end}
 /* กล่องของคัตเอาต์: ไม่มีพื้น ไม่มีมุมโค้ง ไม่มี overflow:hidden ต่างจาก .frame ทั้งหมด
    contain รักษาสัดส่วนไม่ให้ตัวคนถูกครอป และ bottom ดันให้ยืนติดขอบล่าง */
 .hero__cutout{position:relative;height:clamp(300px,44vw,540px)}
 .hero__cutout img{object-fit:contain;object-position:bottom center}
-/* วงกลมบอกช่วงไซซ์ — ขอบแดงบาง ตัวอักษรกลาง */
+/* วงกลมบอกช่วงไซซ์ — พื้นครีมทึบ ขอบแดงเข้ม ตัวอักษรกลาง
+
+   ขอบใช้ --red (#8b1719) ไม่ใช่ --red-ink เหมือนที่อื่น เพราะพื้นหลังเป็นรูปห้อง
+   ไม่ใช่ครีมล้วน: บนผนังสว่างขอบเป็นตัวบอกขอบเขต บนเงามืดพื้นครีมเป็นตัวบอก
+   แต่ที่โทนกลาง (#ae9681) ทั้งคู่อ่อนพร้อมกัน — --red-ink ให้แค่ 2.47:1
+   และพื้นครีมให้ 2.50:1 คือตกทั้งสองทาง แดงเข้มกว่าดันขอบขึ้นเหนือ 3:1 ได้ */
 .hero__badge{position:absolute;right:0;top:6%;width:clamp(104px,13vw,152px);aspect-ratio:1;
-  border:1px solid var(--red-ink);border-radius:50%;display:grid;place-items:center;
+  border:1px solid var(--red);border-radius:50%;display:grid;place-items:center;
   text-align:center;background:var(--bg-hero);color:var(--red-ink);
   font-size:clamp(11px,1.1vw,13px);font-weight:600;letter-spacing:.06em;line-height:1.5}
 
@@ -392,6 +406,16 @@ ul{list-style:none}
      หัวกับไหล่ขวาจะขยับเข้าไปใต้ badge แล้วถูกวงกลมพื้นทึบเฉือน
      (วัดพิกเซลใต้ badge ที่ 320px ได้ #dcd3cb เทียบครีม #f6f1ea)
      ฝั่งซ้ายบนเป็นครีมโล่งเพราะนายแบบหันหน้าไปทางนั้นและแขนอยู่ต่ำกว่า */
+  /* พื้นหลังจบตรงขอบล่างของคัตเอาต์ ไม่ไหลต่อลงไปใต้ตัวนายแบบ
+
+     บนเดสก์ท็อปนายแบบยืนบนขอบล่างของ section พอดี ฉากจึงรองรับเขาอยู่
+     แต่พอเรียงซ้อน กล่องคัตเอาต์ไปอยู่ช่วงบน (161..421) ขณะที่พื้นหลังยัง
+     กินเต็ม section (145..676) เหลือฉากห้องใต้ตัวเขาอีก 255px
+     ขอบล่างที่ตัดของคัตเอาต์จึงลอยอยู่กลางฉาก เห็นชัดว่าไม่ได้ยืนบนอะไร
+
+     ความสูงคำนวณจากสองค่าเดียวกับที่กำหนด layout: padding-top ของ .hero__in
+     บวกความสูงกล่องคัตเอาต์ ถ้าแก้ค่าใดค่าหนึ่ง ต้องแก้ที่นี่ด้วย */
+  .hero__bg{bottom:auto;height:calc(clamp(1rem,3vw,2rem) + clamp(260px,62vw,400px))}
   .hero__badge{left:0;right:auto;top:1%}
   .hero__lead{max-width:none}
   .rgrid{grid-template-columns:1fr;gap:14px}

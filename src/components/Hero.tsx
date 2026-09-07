@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-/* Hero ตามอ้างอิง: ซ้ายข้อความ ขวานายแบบ + วงกลมบอกช่วงไซซ์
+/* Hero ตามอ้างอิง: ซ้ายข้อความ ขวานายแบบ + วงกลมบอกช่วงไซซ์ บนพื้นหลังรูปห้อง
 
    รูปเป็น PNG/WebP ตัดพื้นหลังโปร่งใส จึงไม่ใช้ <Frame> เหมือน section อื่น —
    .frame มีพื้น --placeholder กับมุมโค้ง 10px ซึ่งจะกลายเป็นกล่องสีแทนหลังตัวนายแบบ
@@ -11,6 +11,11 @@ import Image from "next/image";
 export default function Hero() {
   return (
     <section className="hero" id="top">
+      {/* พื้นหลังห้อง — decorative ล้วน (alt="") ไม่ได้สื่อข้อมูลที่ข้อความไม่มี
+          priority: กินพื้นที่ทั้ง section ในจอแรก จึงเป็นตัวชิง LCP */}
+      <div className="hero__bg">
+        <Image src="/media/hero/room.jpg" alt="" fill priority sizes="100vw" />
+      </div>
       <div className="wrap hero__in">
         <div className="hero__copy">
           <h1>
