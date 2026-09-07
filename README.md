@@ -5,7 +5,7 @@ Homepage for **OVERBEAR** — a plus-size menswear brand cut for larger builds (
 **It is a catalog, not a shop.** There is no cart, no checkout, no prices, no wishlist and no search — the product grid is a showcase, and the only interactive conversion point is the newsletter form at `#den`. The cart was built and deliberately removed twice (`528bef0`, `1a8248b`); do not reintroduce commerce UI without a backend behind it.
 
 - **Stack:** Next.js 16 (App Router) · React 19 · TypeScript (strict) · plain CSS (no UI framework)
-- **Rendering:** fully static HTML (`○ Static`). Three client components: `Nav` (mobile menu), `Newsletter` (form) and `SizeGuide` (the size recommender dialog). Everything else is a server component.
+- **Rendering:** fully static HTML (`○ Static`). Four client components: `Nav` (mobile menu), `Newsletter` (form), `SizeGuide` (the size recommender dialog) and `Reveal` (the scroll-reveal observer). Everything else is a server component.
 
 ## Getting started
 
@@ -45,7 +45,7 @@ src/
                     Topbar · Nav* · Hero · BestSellers · TrustBar · Story · WhyOverbear
                     FabricDetail · BuiltForBiggerDays · CustomerVoice · ShopByCategory
                     PromoBanner · Newsletter* · Footer          (* = client component)
-                  Shared: Frame (photo slot) · Placeholder (empty slot) · Reveal · icons
+                  Shared: Frame (photo slot) · Placeholder (empty slot) · Reveal* · icons
                   Size guide: SizeGuide* (dialog + form) · FitFigure (SVG) · lib/fit.ts (engine)
   lib/
     products.ts   6 colourways. `price` and `unit` are reference data; no card renders them
