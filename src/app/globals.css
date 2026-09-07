@@ -379,6 +379,15 @@ ul{list-style:none}
 .sguide__chart .sizetable{margin-top:.5rem}
 .sguide__disclaimer{font-size:11.5px;color:var(--text-3);line-height:1.5}
 
+.fitfig{display:flex;flex-direction:column;align-items:center;gap:.6rem}
+.fitfig svg{width:min(200px,58%);height:auto}
+.fitfig__keys{display:flex;flex-wrap:wrap;justify-content:center;gap:.35rem .6rem}
+.fitfig__key{font-size:11.5px;font-weight:600;padding:.25em .7em;
+  border:1px solid var(--line-2);border-radius:var(--r-pill)}
+.fitfig__key.is-fit{color:var(--text)}
+.fitfig__key.is-slightlyLoose,.fitfig__key.is-loose{color:var(--tan);border-color:var(--tan)}
+.fitfig__key.is-slightlyTight,.fitfig__key.is-tight{color:var(--red-ink);border-color:var(--red-ink)}
+
 /* ============================================================
    CUSTOMER VOICE — 3 การ์ดรีวิว
    ============================================================ */

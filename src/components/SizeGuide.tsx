@@ -6,6 +6,7 @@ import {
   type FitPreference, type Gender, type Recommendation, type UserInput,
 } from "@/lib/fit";
 import { SIZES } from "@/lib/sizes";
+import FitFigure from "./FitFigure";
 
 /* Client component ตัวที่ 3 ของเว็บ (ต่อจาก Nav กับ Newsletter)
    เรนเดอร์ทั้งปุ่มและ dialog ในตัวเอง เพื่อให้ BuiltForBiggerDays ยังเป็น server component
@@ -214,7 +215,7 @@ export default function SizeGuide() {
           aria-labelledby={`sguide-tab-${shown}`}
           tabIndex={0}
         >
-          <div className="sguide__figure" />
+          <FitFigure dimensions={current.dimensions} />
 
           {/* ตัวเลขที่โชว์คือ deltaCm ไม่ใช่ easeCm — คำตัดสินคิดจาก delta
               ถ้าเอา ease มาวางคู่กัน ตัวเลขกับคำพูดจะสวนทาง เช่นไหล่ ease +17.5
