@@ -40,3 +40,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .playwright-mcp
+
+# subagent-driven development scratch (ledger, briefs, review packages)
+.superpowers/
