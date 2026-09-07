@@ -8,7 +8,7 @@ import {
 import { SIZES } from "@/lib/sizes";
 import FitFigure from "./FitFigure";
 
-/* Client component ตัวที่ 3 ของเว็บ (ต่อจาก Nav กับ Newsletter)
+/* Client component ตัวที่ 4 ของเว็บ (ต่อจาก Nav, Newsletter กับ Reveal)
    เรนเดอร์ทั้งปุ่มและ dialog ในตัวเอง เพื่อให้ BuiltForBiggerDays ยังเป็น server component
 
    ใช้ <dialog> ของ browser ไม่ใช่ overlay div: focus trap · ปิดด้วย Esc · ::backdrop
