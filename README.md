@@ -15,6 +15,7 @@ npm run dev            # http://localhost:3000
 npm run build          # production build
 npm run start          # serve the production build
 npx eslint src         # `next lint` was removed in Next 16
+npm run verify         # checks the size-recommendation engine — the repo's only automated test
 ```
 
 ## Where the design comes from
@@ -54,6 +55,10 @@ src/
     fit.ts        Size recommendation engine. Pure, no React — `scripts/verify-fit.ts` runs it
                   directly under Node. Model constants and their limits: see the design spec in
                   docs/superpowers/specs/
+scripts/
+  verify-fit.ts   The repo's only automated check — runs the engine in lib/fit.ts directly
+                  under Node (no test runner) and pins its characterization cases, `classify`
+                  band edges and tie-break direction. Run with `npm run verify`.
 public/brand/     Brand SVGs — kept, but no longer referenced by code: the nav
                   wordmark is now live text (EB Garamond), following the mockup
 public/media/     18 images, every one referenced: hero/room (hero background) ·
