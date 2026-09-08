@@ -300,6 +300,11 @@ ul{list-style:none}
    ============================================================ */
 .sguide{
   width:min(560px,100% - 2rem);max-width:none;max-height:min(88vh,900px);
+  /* ต้องเขียน margin:auto เอง ทั้งที่เบราว์เซอร์มีกฎ dialog{margin:auto} ให้อยู่แล้ว
+     เพราะ reset ที่หัวไฟล์ (*{margin:0}) ทับกฎนั้นทิ้ง กล่องเลยถูกดันไปชิดมุมซ้ายบน
+     แทนที่จะอยู่กลางจอ — auto คือสิ่งที่แบ่งพื้นที่ว่างรอบกล่องให้เท่ากันทั้งสี่ด้าน
+     คู่กับ position:fixed + inset:0 ที่เบราว์เซอร์ตั้งให้ dialog:modal */
+  margin:auto;
   padding:0;border:1px solid var(--line);border-radius:var(--r);
   background:var(--surface);color:var(--text);
   box-shadow:var(--shadow);overflow:hidden;
